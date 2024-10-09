@@ -1,5 +1,6 @@
-#include "iostream"
+#include <iostream>
 
-int main(int argc, int** argv) {
+int main(int argc, int** argv) 
+{
 	std::cout << "Siema\n";
 }

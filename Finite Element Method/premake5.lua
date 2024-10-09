@@ -7,6 +7,12 @@ project "Finite Element Method"
 
    files { "src/**.h", "src/**.cpp" }
 
+   includedirs {
+       "src/model",
+       "src/reader",
+       "src/enum"
+   }
+
    targetdir ("../Binaries/" .. OutputDir .. "/%{prj.name}")
    objdir ("../Binaries/Intermediates/" .. OutputDir .. "/%{prj.name}")
 
@@ -24,4 +30,3 @@ project "Finite Element Method"
        runtime "Release"
        optimize "On"
        symbols "On"
-       
