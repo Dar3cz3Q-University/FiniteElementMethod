@@ -5,12 +5,33 @@ project "Finite Element Method"
    targetdir "Binaries/%{cfg.buildcfg}"
    staticruntime "off"
 
-   files { "src/**.h", "src/**.cpp" }
+   flags { "MultiProcessorCompile" }
 
-   includedirs {
+   files 
+   { 
+    "src/**.h", 
+    "src/**.cpp" 
+   }
+
+--    pchheader "pch.h"
+--    pchsource "pch.cpp"
+
+   includedirs 
+   {
+       ".",
        "src/model",
        "src/reader",
-       "src/enum"
+       "src/enum",
+       "src/simulation",
+       "src/utils",
+
+       -- Numerical Methods
+       "Dependencies/NumericalMethods/Numerical methods - Core/Source"
+   }
+
+   links
+   {
+      "Numerical methods - Core"
    }
 
    targetdir ("../Binaries/" .. OutputDir .. "/%{prj.name}")

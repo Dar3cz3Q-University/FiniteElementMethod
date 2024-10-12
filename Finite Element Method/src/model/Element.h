@@ -13,7 +13,7 @@ public:
 	Element();
 
 public:
-	inline void AddNode(int nodeID);
+	inline void AddNode(int nodeID) { m_Nodes.push_back(nodeID); }
 
 private:
 	std::vector<int> m_Nodes;

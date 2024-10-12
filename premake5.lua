@@ -12,4 +12,5 @@ workspace "Finite Element Method"
 
     OutputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
     
+    include "Finite Element Method/Dependencies/NumericalMethods/Numerical methods - Core/Build-Core.lua"
     include "Finite Element Method/premake5.lua"

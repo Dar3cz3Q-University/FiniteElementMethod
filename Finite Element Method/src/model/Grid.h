@@ -15,8 +15,12 @@ public:
 public:
 	size_t GetNumberOfNodes() const;
 	size_t GetNumberOfElements() const;
-	inline void AddElement(Element element);
-	inline void AddNode(Node node);
+
+	void ReserveElements(int numberOfElements) { m_Elements.reserve(numberOfElements); }
+	void ReserveNodes(int numberOfNodes) { m_Nodes.reserve(numberOfNodes); }
+
+	inline void AddElement(Element element) { m_Elements.push_back(element); }
+	inline void AddNode(Node node) { m_Nodes.push_back(node); }
 
 private:
 	std::vector<Element> m_Elements;

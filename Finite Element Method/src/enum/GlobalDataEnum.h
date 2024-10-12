@@ -1,11 +1,13 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
+#include <stdexcept>
 
 enum GlobalDataEnum
 {
 	SIMULATION_TIME = 0,
-	SIMULATION_TIME_STEP,
+	SIMULATION_STEP_TIME,
 	CONDUCTIVITY,
 	ALPHA,
 	TOT,
@@ -16,20 +18,18 @@ enum GlobalDataEnum
 	ELEMENTS_NUMBER
 };
 
-inline const std::string GLOBAL_DATA_ENUM_DEFINITIONS[10] = {
-	"SimulationTime",
-	"SimulationStepTime",
-	"Conductivity",
-	"Alfa",
-	"Tot",
-	"InitialTemp",
-	"Density",
-	"SpecificHeat",
-	"Nodes number",
-	"Elements number"
+inline std::unordered_map<GlobalDataEnum, std::string> GLOBAL_DATA_ENUM_DEFINITIONS = {
+	{GlobalDataEnum::SIMULATION_TIME, "SimulationTime"},
+	{GlobalDataEnum::SIMULATION_STEP_TIME, "SimulationStepTime"},
+	{GlobalDataEnum::CONDUCTIVITY, "Conductivity"},
+	{GlobalDataEnum::ALPHA, "Alfa"},
+	{GlobalDataEnum::TOT, "Tot"},
+	{GlobalDataEnum::INITIAL_TEMP, "InitialTemp"},
+	{GlobalDataEnum::DENSITY, "Density"},
+	{GlobalDataEnum::SPECIFIC_HEAT, "SpecificHeat"},
+	{GlobalDataEnum::NODES_NUMBER, "Nodes number"},
+	{GlobalDataEnum::ELEMENTS_NUMBER, "Elements number"},
 };
 
-inline const std::string& EnumToString(GlobalDataEnum globalDataEnum)
-{
-	return GLOBAL_DATA_ENUM_DEFINITIONS[globalDataEnum];
-}
+GlobalDataEnum StringToGlobalDataEnum(const std::string& str);
+const std::string& EnumToString(GlobalDataEnum globalDataEnum);
