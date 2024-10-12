@@ -2,7 +2,6 @@
 
 #include "FileReaderFactory.h"
 #include "GlobalData.h"
-#include "Integrals/Gauss.h"
 
 class Simulation
 {

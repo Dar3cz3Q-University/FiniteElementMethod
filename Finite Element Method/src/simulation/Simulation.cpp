@@ -25,7 +25,5 @@ void Simulation::Run()
 
 	std::cout << m_SimulationData << "\n";
 
-	std::cout << "Running Gauss Integrals" << "\n";
-
-	//NumericalMethods::Integrals
+	std::cout << "Running Simulation" << "\n";
 }
