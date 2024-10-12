@@ -1,0 +1,3 @@
+[submodule "Finite Element Method/Dependencies/NumericalMethods"]
+	path = Finite Element Method/Dependencies/NumericalMethods
+	url = https://github.com/Dar3cz3Q-Univeristy/NumericalMethods.git
