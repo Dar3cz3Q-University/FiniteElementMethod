@@ -1,5 +1,5 @@
-[submodule "Finite Element Method/Dependencies/NumericalMethods"]
-	path = Finite Element Method/Dependencies/NumericalMethods
+[submodule "Finite Element Method - Runtime/Dependencies/NumericalMethods"]
+	path = Finite Element Method - Runtime/Dependencies/NumericalMethods
 	url = https://github.com/Dar3cz3Q-Univeristy/NumericalMethods.git
 [submodule "Dependencies/googletest"]
 	path = Dependencies/googletest
