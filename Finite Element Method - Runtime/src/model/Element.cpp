@@ -15,7 +15,7 @@ std::ostream& operator<<(std::ostream& os, const Element& element)
 	{
 		os << *it;
 		if (std::next(it) != element.m_Nodes.end())
-			os << ",";
+			os << ", ";
 	}
 
 	os << "}";

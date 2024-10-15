@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Grid.h"
+#include "GlobalDataEnum.h"
 
 class GlobalData 
 {
@@ -17,11 +18,16 @@ public:
 	inline void SetDensity(double density) { m_Density = density; }
 	inline void SetSpecificHeat(double specificHeat) { m_SpecificHeat = specificHeat; }
 
-	inline void AddElementToGrid(Element element) { m_Grid.AddElement(element); }
-	inline void AddNodeToGrid(Node node) { m_Grid.AddNode(node); }
+	inline void AddElementToGrid(int index, Element element) { m_Grid.AddElement(index, element); }
+	inline void AddNodeToGrid(int index, Node node) { m_Grid.AddNode(index, node); }
+
+	inline void SetGrid(Grid grid) { m_Grid = grid; }
 
 	inline void ReserveGridElements(int numberOfElements) { m_Grid.ReserveElements(numberOfElements); }
 	inline void ReserveGridNodes(int numberOfNodes) { m_Grid.ReserveNodes(numberOfNodes); }
+
+	size_t GetNumberOfNodes() const { return m_Grid.GetNumberOfNodes(); }
+	size_t GetNumberOfElements() const { return m_Grid.GetNumberOfElements(); }
 
 private:
 	int m_SimulationTime = 0;

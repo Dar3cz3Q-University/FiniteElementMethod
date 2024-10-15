@@ -16,12 +16,12 @@ public:
 	void ReserveElements(int numberOfElements) { m_Elements.reserve(numberOfElements); }
 	void ReserveNodes(int numberOfNodes) { m_Nodes.reserve(numberOfNodes); }
 
-	inline void AddElement(Element element) { m_Elements.push_back(element); }
-	inline void AddNode(Node node) { m_Nodes.push_back(node); }
+	inline void AddElement(int index, Element element) { m_Elements.insert({ index, element }); }
+	inline void AddNode(int index, Node node) { m_Nodes.insert({ index, node }); }
 
 private:
-	std::vector<Element> m_Elements;
-	std::vector<Node> m_Nodes;
+	std::unordered_map<int, Element> m_Elements;
+	std::unordered_map<int, Node> m_Nodes;
 
 public:
 	friend std::ostream& operator<<(std::ostream& os, const Grid& grid);

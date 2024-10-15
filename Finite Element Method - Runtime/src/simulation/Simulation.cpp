@@ -20,6 +20,23 @@ Simulation::Simulation(FileTypeEnum fileType, const std::filesystem::path& path)
 	m_Initialized = true;
 }
 
+Simulation::Simulation(double x0, double x, double y0, double y, int nodes_x, int nodes_y)
+{
+	GridGenerator gridGenerator;
+
+	try
+	{
+		m_SimulationData.SetGrid(gridGenerator.generate(x0, x, y0, y, nodes_x, nodes_y));
+	}
+	catch (const std::invalid_argument& e)
+	{
+		std::cerr << e.what() << "\n";
+		return;
+	}
+
+	m_Initialized = true;
+}
+
 void Simulation::Run()
 {
 	if (!m_Initialized)

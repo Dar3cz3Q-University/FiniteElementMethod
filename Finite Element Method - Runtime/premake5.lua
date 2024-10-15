@@ -22,6 +22,7 @@ project "Finite Element Method - Runtime"
        "src/model",
        "src/reader",
        "src/enum",
+       "src/generator",
        "src/simulation",
        "src/utils",
 
