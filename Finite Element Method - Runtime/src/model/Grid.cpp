@@ -31,17 +31,13 @@ std::ostream& operator<<(std::ostream& os, const Grid& grid)
 
     os << "*Node" << "\n";
 
-    int counter = 0;
-
     for (auto& node : grid.m_Nodes)
-        os << counter++ << ", " << node << "\n";
+        os << "\t" << node.first << ", " << node.second << "\n";
 
     os << "*Element" << "\n";
 
-    counter = 0;
-
     for (auto& element : grid.m_Elements)
-        os << counter++ << ", " << element << "\n";
+        os << "\t" << element.first << ", " << element.second << "\n";
 
     return os;
 }
