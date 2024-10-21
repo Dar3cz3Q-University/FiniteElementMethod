@@ -17,8 +17,7 @@ std::ostream& operator<<(std::ostream& os, const GlobalData& globalData)
 	os << EnumToString(GlobalDataEnum::INITIAL_TEMP) << " " << globalData.m_InitialTemp << "\n";
 	os << EnumToString(GlobalDataEnum::DENSITY) << " " << globalData.m_Density << "\n";
 	os << EnumToString(GlobalDataEnum::SPECIFIC_HEAT) << " " << globalData.m_SpecificHeat << "\n";
-	os << EnumToString(GlobalDataEnum::NODES_NUMBER) << " " << globalData.GetNumberOfNodes() << "\n";
-	os << EnumToString(GlobalDataEnum::ELEMENTS_NUMBER) << " " << globalData.GetNumberOfElements() << "\n";
+
 	os << globalData.m_Grid;
 
 	return os;

@@ -1,8 +1,11 @@
 #pragma once
 
 #include "Node.h"
+#include "Jacobian.h"
 
-#define ELEMENT_NODES_SIZE 4
+constexpr auto ELEMENT_NODES_SIZE = 4;
+
+class Grid;
 
 class Element 
 {
@@ -10,10 +13,12 @@ public:
 	Element();
 
 public:
-	inline void AddNode(int nodeID) { m_Nodes.push_back(nodeID); }
+	void AddNode(int nodeID, Node node);
+	void CalculateJacobian();
 
 private:
-	std::vector<int> m_Nodes;
+	std::unordered_map<int, Node> m_Nodes;
+	std::vector<Jacobian> m_Jacobians;
 	
 public:
 	friend std::ostream& operator<<(std::ostream& os, const Element& element);

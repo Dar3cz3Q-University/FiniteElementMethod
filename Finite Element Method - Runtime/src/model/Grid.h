@@ -13,6 +13,8 @@ public:
 	size_t GetNumberOfNodes() const;
 	size_t GetNumberOfElements() const;
 
+	Node GetNode(int index) const { return m_Nodes.at(index); }
+
 	void ReserveElements(int numberOfElements) { m_Elements.reserve(numberOfElements); }
 	void ReserveNodes(int numberOfNodes) { m_Nodes.reserve(numberOfNodes); }
 
