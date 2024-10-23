@@ -9,12 +9,26 @@ project "Finite Element Method - Tests"
    flags { "MultiProcessorCompile" }
 
    files { 
-    "tests/**.cpp"
+    "tests/**.cpp",
+
+    "../Finite Element Method - Runtime/src/**.h",
+    "../Finite Element Method - Runtime/src/**.cpp"
+   }
+
+   removefiles {
+       "../Finite Element Method - Runtime/src/Application.cpp"
    }
 
    includedirs {
-    "Finite Element Method - Runtime/src",
-    "../Dependencies/googletest/googletest/include"
+    "../Dependencies/googletest/googletest/include",
+
+    "../Finite Element Method - Runtime/src",
+    "../Finite Element Method - Runtime/src/model",
+    "../Finite Element Method - Runtime/src/reader",
+    "../Finite Element Method - Runtime/src/enum",
+    "../Finite Element Method - Runtime/src/generator",
+    "../Finite Element Method - Runtime/src/simulation",
+    "../Finite Element Method - Runtime/src/utils"
    }
 
    links {

@@ -3,12 +3,19 @@
 struct Node 
 {
 public:
-	double x = 0.0;
-	double y = 0.0;
+	Node(double x, double y);
 
+public:
 	union
 	{
-		double ksi, eta;
+		struct
+		{
+			double x, y;
+		};
+		struct
+		{
+			double ksi, eta;
+		};
 	};
 };
 

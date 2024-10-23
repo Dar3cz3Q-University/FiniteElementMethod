@@ -16,8 +16,8 @@ public:
     Derivatives();
 
 public:
-    const std::vector<double>& GetETADerivatives(int index) { return m_Derivatives_ETA.at(index); }
-    const std::vector<double>& GetKSIDerivatives(int index) { return m_Derivatives_KSI.at(index); }
+    const std::vector<double>& GetETADerivatives(int index) const { return m_Derivatives_ETA.at(index); }
+    const std::vector<double>& GetKSIDerivatives(int index) const { return m_Derivatives_KSI.at(index); }
 
 private:
     std::vector<std::vector<double>> m_Derivatives_ETA;

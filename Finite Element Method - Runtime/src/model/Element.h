@@ -5,8 +5,6 @@
 
 constexpr auto ELEMENT_NODES_SIZE = 4;
 
-class Grid;
-
 class Element 
 {
 public:
@@ -15,6 +13,8 @@ public:
 public:
 	void AddNode(int nodeID, Node node);
 	void CalculateJacobian();
+
+	void DisplayJacobians();
 
 private:
 	std::unordered_map<int, Node> m_Nodes;

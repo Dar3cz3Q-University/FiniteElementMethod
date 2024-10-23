@@ -5,6 +5,7 @@
 Element::Element()
 {
 	m_Nodes.reserve(ELEMENT_NODES_SIZE);
+	m_Jacobians.resize(ELEMENT_NODES_SIZE);
 }
 
 void Element::AddNode(int nodeID, Node node)
@@ -17,9 +18,19 @@ void Element::AddNode(int nodeID, Node node)
 
 void Element::CalculateJacobian()
 {
-	int i = 0;
-	for (auto jacobian : m_Jacobians)
+	int i = 1;
+	for (auto& jacobian : m_Jacobians)
 		jacobian.Calculate(m_Nodes, i++);
+}
+
+void Element::DisplayJacobians()
+{
+	int i = 1;
+	for (auto& jacobian : m_Jacobians)
+	{
+		std::cout << "Jacobian in " << i++ << " integration point:\n";
+		std::cout << jacobian << "\n";
+	}
 }
 
 std::ostream& operator<<(std::ostream& os, const Element& element)
