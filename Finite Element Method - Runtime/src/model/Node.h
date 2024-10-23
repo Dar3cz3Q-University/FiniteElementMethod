@@ -3,8 +3,20 @@
 struct Node 
 {
 public:
-	double x = 0.0;
-	double y = 0.0;
+	Node(double x, double y);
+
+public:
+	union
+	{
+		struct
+		{
+			double x, y;
+		};
+		struct
+		{
+			double ksi, eta;
+		};
+	};
 };
 
 std::ostream& operator<<(std::ostream& os, const Node& node);
