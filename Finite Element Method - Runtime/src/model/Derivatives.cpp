@@ -4,28 +4,29 @@
 
 Derivatives::Derivatives()
 {
-    size_t numberOfIntegrationPoints = INTEGRATION_POINTS.size();
+    m_Derivatives_ETA.reserve(INTEGRATION_POINTS_COUNT);
+    m_Derivatives_KSI.reserve(INTEGRATION_POINTS_COUNT);
 
-    m_Derivatives_ETA.reserve(numberOfIntegrationPoints);
-    m_Derivatives_KSI.reserve(numberOfIntegrationPoints);
-
-    for (size_t i = 0; i < numberOfIntegrationPoints; i++)
+    for (size_t i = 0; i < INTEGRATION_POINTS_COUNT; i++)
     {
-        std::vector<double> tempX = {
-            -0.25 * (1.0 - INTEGRATION_POINTS[i].eta),
-            0.25 * (1.0 - INTEGRATION_POINTS[i].eta),
-            0.25 * (1.0 + INTEGRATION_POINTS[i].eta),
-            -0.25 * (1.0 + INTEGRATION_POINTS[i].eta)
+        double ksi = INTEGRATION_POINTS[i].ksi;
+        double eta = INTEGRATION_POINTS[i].eta;
+
+        std::vector<double> dN_dKsi = {
+            -0.25 * (1.0 - eta),
+            0.25 * (1.0 - eta),
+            0.25 * (1.0 + eta),
+            -0.25 * (1.0 + eta)
         };
 
-        std::vector<double> tempY = {
-            -0.25 * (1.0 - INTEGRATION_POINTS[i].ksi),
-            -0.25 * (1.0 + INTEGRATION_POINTS[i].ksi),
-            0.25 * (1.0 + INTEGRATION_POINTS[i].ksi),
-            0.25 * (1.0 - INTEGRATION_POINTS[i].ksi)
+        std::vector<double> dN_dEta = {
+            -0.25 * (1.0 - ksi),
+            -0.25 * (1.0 + ksi),
+            0.25 * (1.0 + ksi),
+            0.25 * (1.0 - ksi)
         };
 
-        m_Derivatives_KSI.push_back(tempX);
-        m_Derivatives_ETA.push_back(tempY);
+        m_Derivatives_KSI.push_back(dN_dKsi);
+        m_Derivatives_ETA.push_back(dN_dEta);
     }
 }
