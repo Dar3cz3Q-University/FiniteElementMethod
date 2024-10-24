@@ -21,8 +21,8 @@ void Jacobian::Calculate(const std::unordered_map<int, Node>& nodes, int numberO
 
 void Jacobian::CalculateMatrix(const std::unordered_map<int, Node>& nodes, int numberOfIntegrationPoint)
 {
-	auto& derivativesETA = DERIVATIVES.GetETADerivatives(numberOfIntegrationPoint - 1);
-	auto& derivativesKSI = DERIVATIVES.GetKSIDerivatives(numberOfIntegrationPoint - 1);
+	auto& derivativesETA = DERIVATIVES.GetETADerivatives(numberOfIntegrationPoint);
+	auto& derivativesKSI = DERIVATIVES.GetKSIDerivatives(numberOfIntegrationPoint);
 
 	int i = 0;
 
@@ -48,9 +48,6 @@ void Jacobian::CalculateInverseMatrix()
 
 void Jacobian::CalculateDeterminant()
 {
-	// Currently only for JACOBIAN_DIMENSION = 2
-	static_assert(JACOBIAN_DIMENSION == 2);
-
 	m_JacobianMatrixDeterminant = m_JacobianMatrix[0][0] * m_JacobianMatrix[1][1] - (m_JacobianMatrix[0][1] * m_JacobianMatrix[1][0]);
 }
 

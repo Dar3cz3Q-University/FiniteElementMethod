@@ -5,7 +5,7 @@
 Element::Element()
 {
 	m_Nodes.reserve(ELEMENT_NODES_SIZE);
-	m_Jacobians.resize(ELEMENT_NODES_SIZE);
+	m_Jacobians.resize(INTEGRATION_POINTS_COUNT);
 }
 
 void Element::AddNode(int nodeID, Node node)
@@ -18,7 +18,7 @@ void Element::AddNode(int nodeID, Node node)
 
 void Element::CalculateJacobian()
 {
-	int i = 1;
+	int i = 0;
 	for (auto& jacobian : m_Jacobians)
 		jacobian.Calculate(m_Nodes, i++);
 }
