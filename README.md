@@ -9,7 +9,7 @@ Finite element methods implemented for simple shapes e.g. square, rectangle.
 ### Local development
 1. Clone the repository:
    ```shell
-   git clone --recursive https://github.com/Dar3cz3Q-Univeristy/FiniteElementMethod.git
+   git clone --recursive https://github.com/Dar3cz3Q-University/FiniteElementMethod.git
    cd FiniteElementMethod
    ```
 2. Run script in [Scripts](/Scripts) directory
