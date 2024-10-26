@@ -1,32 +1,49 @@
 #include "pch.h"
 
 #include "Derivatives.h"
+#include "IntegrationPointDerivatives.h"
+#include "GlobalData.h"
 
 Derivatives::Derivatives()
+    : m_Derivatives_X(Matrix(ELEMENT_NODES_SIZE, 1)), m_Derivatives_Y(Matrix(ELEMENT_NODES_SIZE, 1))
+{}
+
+void Derivatives::Calculate(const Jacobian& jacobian, int integrationPoint)
 {
-    m_Derivatives_ETA.reserve(INTEGRATION_POINTS_COUNT);
-    m_Derivatives_KSI.reserve(INTEGRATION_POINTS_COUNT);
+	IntegrationPointDerivatives* derivatives = IntegrationPointDerivatives::GetInstance();
 
-    for (size_t i = 0; i < INTEGRATION_POINTS_COUNT; i++)
-    {
-        double ksi = INTEGRATION_POINTS[i].ksi;
-        double eta = INTEGRATION_POINTS[i].eta;
+	auto& derivativesETA = derivatives->GetETADerivatives(integrationPoint);
+	auto& derivativesKSI = derivatives->GetKSIDerivatives(integrationPoint);
 
-        std::vector<double> dN_dKsi = {
-            -0.25 * (1.0 - eta),
-            0.25 * (1.0 - eta),
-            0.25 * (1.0 + eta),
-            -0.25 * (1.0 + eta)
-        };
+	for (int i = 0; i < 4; i++)
+	{
+		double dN_dx = jacobian.GetInversedMatrixAt(0, 0) * derivativesKSI.at(i) + jacobian.GetInversedMatrixAt(0, 1) * derivativesETA.at(i);
+        m_Derivatives_X.SetElement(0, i, dN_dx);
 
-        std::vector<double> dN_dEta = {
-            -0.25 * (1.0 - ksi),
-            -0.25 * (1.0 + ksi),
-            0.25 * (1.0 + ksi),
-            0.25 * (1.0 - ksi)
-        };
+		double dN_dy = jacobian.GetInversedMatrixAt(1, 0) * derivativesKSI.at(i) + jacobian.GetInversedMatrixAt(1, 1) * derivativesETA.at(i);
+        m_Derivatives_Y.SetElement(0, i, dN_dy);
+	}
+}
 
-        m_Derivatives_KSI.push_back(dN_dKsi);
-        m_Derivatives_ETA.push_back(dN_dEta);
-    }
+std::ostream& operator<<(std::ostream& os, const Derivatives& derivatives)
+{
+    const int precision = 3;
+
+    // Print X Derivatives
+
+    for (int i = 0; i < 4; i++) 
+        os  << "dN" << i + 1 << "/dx" << "\t";
+    os << "\n";
+
+    os << std::setprecision(precision) << derivatives.m_Derivatives_X << "\n";
+
+    // Print Y Derivatives
+
+    for (int i = 0; i < 4; i++)
+        os << "dN" << i + 1 << "/dy" << "\t";
+    os << "\n";
+
+    os << std::setprecision(precision) << derivatives.m_Derivatives_Y;
+
+    return os;
 }

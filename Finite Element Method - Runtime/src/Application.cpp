@@ -8,7 +8,8 @@ int main(int argc, int** argv)
 
 	try
 	{
-		Simulation simulation(FileTypeEnum::TEXT, "../Input/Grids/Test1_4_4.txt");
+		Simulation simulation;
+		//Simulation simulation(FileTypeEnum::TEXT, "../Input/Grids/Test1_4_4.txt");
 		//Simulation simulation(0.0, 0.1, 0.0, 0.1, 4, 6);
 		simulation.Run();
 	}
@@ -16,4 +17,6 @@ int main(int argc, int** argv)
 	{
 		std::cerr << e.what() << "\n";
 	}
+
+	std::cin.get();
 }

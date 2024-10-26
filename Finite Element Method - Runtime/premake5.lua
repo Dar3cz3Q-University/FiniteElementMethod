@@ -25,6 +25,7 @@ project "Finite Element Method - Runtime"
        "src/generator",
        "src/simulation",
        "src/utils",
+       "src/math",
 
        -- Numerical Methods
        "Dependencies/NumericalMethods/Numerical methods - Core/Source"

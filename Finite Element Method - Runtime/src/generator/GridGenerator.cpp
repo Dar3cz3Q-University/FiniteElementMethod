@@ -33,7 +33,7 @@ Grid GridGenerator::generate(double x0, double x, double y0, double y, int nodes
 		tempElement.AddNode(i + nodes_y + 1, tempGrid.GetNode(i + nodes_y + 1));
 		tempElement.AddNode(i + 1, tempGrid.GetNode(i + 1));
 
-		tempElement.CalculateJacobian();
+		tempElement.Calculate();
 
 		tempGrid.AddElement(++elementCounter, tempElement);
 	}
