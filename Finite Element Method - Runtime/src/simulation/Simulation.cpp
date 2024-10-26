@@ -2,6 +2,11 @@
 
 #include "Simulation.h"
 
+Simulation::Simulation()
+{
+	m_Initialized = true;
+}
+
 Simulation::Simulation(FileTypeEnum fileType, const std::filesystem::path& path)
 {
 	FileReaderFactory fileFactory;
@@ -47,7 +52,7 @@ void Simulation::Run()
 	std::cout << "Running Simulation" << "\n";
 
 	{
-		Node point1(0, 0), point2(4, 0), point3(4, 4), point4(0, 5);
+		Node point1(0, 0), point2(0.025, 0), point3(0.025, 0.025), point4(0, 0.025);
 
 		Element element;
 		element.AddNode(1, point1);
@@ -55,9 +60,9 @@ void Simulation::Run()
 		element.AddNode(3, point3);
 		element.AddNode(4, point4);
 
-		element.CalculateJacobian();
+		element.Calculate();
 
-		element.DisplayJacobians();
+		element.DisplayCalculations();
 	}
 
 	return;

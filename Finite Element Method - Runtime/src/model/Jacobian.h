@@ -1,10 +1,9 @@
 #pragma once
 
-#include "Derivatives.h"
+#include "IntegrationPointDerivatives.h"
+#include "Matrix.h"
 
 constexpr auto JACOBIAN_DIMENSION = 2;
-
-inline const static Derivatives DERIVATIVES;
 
 class Jacobian
 {
@@ -12,17 +11,19 @@ public:
 	Jacobian();
 
 public:
-	void Calculate(const std::unordered_map<int, Node>& nodes, int numberOfIntegrationPoint);
+	void Calculate(const std::unordered_map<int, Node>& nodes, int integrationPoint);
+
+	double GetMatrixAt(int x, int y) const { return m_JacobianMatrix.GetElement(x, y); };
+	double GetInversedMatrixAt(int x, int y) const { return m_InversedJacobianMatrix.GetElement(x, y); };
+	double GetMatrixDeterminant() const;
 
 private:
-	void CalculateMatrix(const std::unordered_map<int, Node>& nodes, int numberOfIntegrationPoint);
+	void CalculateMatrix(const std::unordered_map<int, Node>& nodes, int integrationPoint);
 	void CalculateInverseMatrix();
-	void CalculateDeterminant();
 
 private:
-	double m_JacobianMatrix[JACOBIAN_DIMENSION][JACOBIAN_DIMENSION];
-	double m_InversedJacobianMatrix[JACOBIAN_DIMENSION][JACOBIAN_DIMENSION];
-	double m_JacobianMatrixDeterminant;
+	Matrix m_JacobianMatrix;
+	Matrix m_InversedJacobianMatrix;
 
 public:
 	friend std::ostream& operator<<(std::ostream& os, const Jacobian& jacobian);
