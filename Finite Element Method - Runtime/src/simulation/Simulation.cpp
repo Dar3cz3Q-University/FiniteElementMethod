@@ -4,6 +4,23 @@
 
 Simulation::Simulation()
 {
+	Node point1(0, 0), point2(0.025, 0), point3(0.025, 0.025), point4(0, 0.025);
+
+	m_SimulationData.AddNodeToGrid(1, point1);
+	m_SimulationData.AddNodeToGrid(2, point2);
+	m_SimulationData.AddNodeToGrid(3, point3);
+	m_SimulationData.AddNodeToGrid(4, point4);
+
+	Element element;
+	element.AddNode(1, point1);
+	element.AddNode(2, point2);
+	element.AddNode(3, point3);
+	element.AddNode(4, point4);
+
+	element.Calculate();
+
+	m_SimulationData.AddElementToGrid(1, element);
+
 	m_Initialized = true;
 }
 
@@ -47,23 +64,9 @@ void Simulation::Run()
 	if (!m_Initialized)
 		throw std::logic_error("Object not initialized");
 
-	std::cout << m_SimulationData << "\n";
-
 	std::cout << "Running Simulation" << "\n";
 
-	{
-		Node point1(0, 0), point2(0.025, 0), point3(0.025, 0.025), point4(0, 0.025);
-
-		Element element;
-		element.AddNode(1, point1);
-		element.AddNode(2, point2);
-		element.AddNode(3, point3);
-		element.AddNode(4, point4);
-
-		element.Calculate();
-
-		element.DisplayCalculations();
-	}
+	std::cout << m_SimulationData << "\n";
 
 	return;
 }

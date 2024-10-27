@@ -1,8 +1,7 @@
 #pragma once
 
 #include "Node.h"
-
-#define THREE_INTEGRATION_POINTS
+#include "Configuration.h"
 
 #ifdef THREE_INTEGRATION_POINTS
 

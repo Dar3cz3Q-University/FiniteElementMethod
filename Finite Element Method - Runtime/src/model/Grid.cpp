@@ -39,5 +39,14 @@ std::ostream& operator<<(std::ostream& os, const Grid& grid)
     for (auto& element : grid.m_Elements)
         os << "\t" << element.first << ", " << element.second << "\n";
 
+    os << "\n";
+
+    for (auto element : grid.m_Elements)
+    {
+        os << "Calculated values for " << element.first << " element:\n";
+        element.second.DisplayCalculations();
+        os << "\n";
+    }
+
     return os;
 }

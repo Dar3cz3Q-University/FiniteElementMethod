@@ -67,16 +67,16 @@ Matrix Matrix::operator*(const Matrix& matrix) const
     return result;
 }
 
-Matrix Matrix::operator+(const Matrix& other) const
+Matrix Matrix::operator+(const Matrix& matrix) const
 {
-    if (m_Data.size() != other.m_Data.size() || m_Data[0].size() != other.m_Data[0].size())
+    if (m_Data.size() != matrix.m_Data.size() || m_Data[0].size() != matrix.m_Data[0].size())
         throw std::invalid_argument("Matrices must have the same dimensions for addition.");
 
     Matrix result(m_Data.size(), m_Data[0].size());
 
     for (size_t row = 0; row < m_Data.size(); row++)
         for (size_t col = 0; col < m_Data[0].size(); col++)
-            result.SetElement(row, col, GetElement(row, col) + other.GetElement(row, col));
+            result.SetElement(row, col, GetElement(row, col) + matrix.GetElement(row, col));
 
     return result;
 }
