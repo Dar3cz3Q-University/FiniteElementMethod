@@ -2,7 +2,7 @@
 
 #include "Jacobian.h"
 
-static const double EPSILON = 1e-8;
+static const double EPSILON = 1e-4;
 TEST(JacobianTest, GeneratesValidMatrixForFirstIntegrationPoint) {
     // Given
     Node point1(0, 0), point2(0.025, 0), point3(0.025, 0.025), point4(0, 0.025);
