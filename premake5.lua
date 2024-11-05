@@ -1,6 +1,6 @@
-workspace "Finite Element Method"
+workspace "FiniteElementMethod"
     architecture "x64"
-    startproject "Finite Element Method - Runtime"
+    startproject "FiniteElementMethod_Runtime"
 
     configurations {
         "Debug",
@@ -14,8 +14,8 @@ workspace "Finite Element Method"
     
     group "Dependencies"
         include "Dependencies/googletest/googletest/premake5.lua"
-        include "Finite Element Method - Runtime/Dependencies/NumericalMethods/Numerical methods - Core/premake5.lua"
+        include "FiniteElementMethod_Runtime/Dependencies/NumericalMethods/NumericalMethods_Core/premake5.lua"
     group ""
 
-    include "Finite Element Method - Runtime/premake5.lua"
-    include "Finite Element Method - Tests/premake5.lua"
+    include "FiniteElementMethod_Runtime/premake5.lua"
+    include "FiniteElementMethod_Tests/premake5.lua"

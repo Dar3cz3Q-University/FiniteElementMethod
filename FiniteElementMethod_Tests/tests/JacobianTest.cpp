@@ -13,7 +13,7 @@ TEST(JacobianTest, GeneratesValidMatrix) {
     element.AddNode(3, point3);
     element.AddNode(4, point4);
 
-    element.CalculateJacobian();
+    element.Calculate();
 
     EXPECT_EQ(1, 1);
 

@@ -3,6 +3,8 @@
 #include "Node.h"
 #include "Configuration.h"
 
+#include <cmath>
+
 #ifdef THREE_INTEGRATION_POINTS
 
 inline constexpr auto INTEGRATION_POINTS_COUNT = 9;

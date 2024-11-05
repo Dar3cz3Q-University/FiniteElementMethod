@@ -1,14 +1,14 @@
 #pragma once
 
 // Data Structures
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
 // Streams
-#include <sstream>
-#include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <iostream>
+#include <sstream>
 
 // String
 #include <string>
@@ -26,4 +26,6 @@
 // Exceptions
 #include <stdexcept>
 
-
+// Math
+#define _USE_MATH_DEFINES
+#include <cmath>
