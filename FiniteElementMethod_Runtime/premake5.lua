@@ -28,7 +28,10 @@ project "FiniteElementMethod_Runtime"
        "src/math",
 
        -- Numerical Methods
-       "Dependencies/NumericalMethods/NumericalMethods_Core/Source"
+       "Dependencies/NumericalMethods/NumericalMethods_Core/Source",
+
+       -- GoogleTest
+       "../Dependencies/googletest/googletest/include"
    }
 
    links {

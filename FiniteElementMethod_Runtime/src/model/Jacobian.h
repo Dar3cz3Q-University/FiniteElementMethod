@@ -3,6 +3,8 @@
 #include "IntegrationPointDerivatives.h"
 #include "Matrix.h"
 
+#include "gtest/gtest.h"
+
 constexpr auto JACOBIAN_DIMENSION = 2;
 
 class Jacobian
@@ -27,6 +29,9 @@ private:
 
 public:
 	friend std::ostream& operator<<(std::ostream& os, const Jacobian& jacobian);
+
+public:
+	FRIEND_TEST(JacobianTest, GeneratesValidMatrixForFirstIntegrationPoint);
 };
 
 std::ostream& operator<<(std::ostream& os, const Jacobian& jacobian);
