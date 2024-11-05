@@ -1,4 +1,4 @@
-project "Finite Element Method - Runtime"
+project "FiniteElementMethod_Runtime"
    kind "ConsoleApp"
    language "C++"
    cppdialect "C++20"
@@ -28,11 +28,11 @@ project "Finite Element Method - Runtime"
        "src/math",
 
        -- Numerical Methods
-       "Dependencies/NumericalMethods/Numerical methods - Core/Source"
+       "Dependencies/NumericalMethods/NumericalMethods_Core/Source"
    }
 
    links {
-      "Numerical methods - Core"
+      "NumericalMethods_Core"
    }
 
    filter "system:windows"

@@ -1,4 +1,4 @@
-project "Finite Element Method - Tests"
+project "FiniteElementMethod_Tests"
    kind "ConsoleApp"
    language "C++"
    cppdialect "C++20"
@@ -11,24 +11,25 @@ project "Finite Element Method - Tests"
    files { 
     "tests/**.cpp",
 
-    "../Finite Element Method - Runtime/src/**.h",
-    "../Finite Element Method - Runtime/src/**.cpp"
+    "../FiniteElementMethod_Runtime/src/**.h",
+    "../FiniteElementMethod_Runtime/src/**.cpp"
    }
 
    removefiles {
-       "../Finite Element Method - Runtime/src/Application.cpp"
+       "../FiniteElementMethod_Runtime/src/Application.cpp"
    }
 
    includedirs {
     "../Dependencies/googletest/googletest/include",
 
-    "../Finite Element Method - Runtime/src",
-    "../Finite Element Method - Runtime/src/model",
-    "../Finite Element Method - Runtime/src/reader",
-    "../Finite Element Method - Runtime/src/enum",
-    "../Finite Element Method - Runtime/src/generator",
-    "../Finite Element Method - Runtime/src/simulation",
-    "../Finite Element Method - Runtime/src/utils"
+    "../FiniteElementMethod_Runtime/src",
+    "../FiniteElementMethod_Runtime/src/model",
+    "../FiniteElementMethod_Runtime/src/reader",
+    "../FiniteElementMethod_Runtime/src/enum",
+    "../FiniteElementMethod_Runtime/src/generator",
+    "../FiniteElementMethod_Runtime/src/simulation",
+    "../FiniteElementMethod_Runtime/src/utils",
+    "../FiniteElementMethod_Runtime/src/math"
    }
 
    links {
