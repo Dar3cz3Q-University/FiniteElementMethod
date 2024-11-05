@@ -1,6 +1,3 @@
-[submodule "FiniteElementMethod_Runtime/Dependencies/NumericalMethods"]
-	path = FiniteElementMethod_Runtime/Dependencies/NumericalMethods
-	url = https://github.com/Dar3cz3Q-University/NumericalMethods.git
 [submodule "Dependencies/googletest"]
 	path = Dependencies/googletest
 	url = https://github.com/Dar3cz3Q/googletest.git
