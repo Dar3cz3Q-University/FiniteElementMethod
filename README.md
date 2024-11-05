@@ -1,6 +1,6 @@
 # Finite element methods
 
-[![Tests Status](https://github.com/Dar3cz3Q-University/FiniteElementMethod/actions/workflows/ci.yml/badge.svg)]https://github.com/Dar3cz3Q-University/FiniteElementMethod/tree/master)
+[![Tests Status](https://github.com/Dar3cz3Q-University/FiniteElementMethod/actions/workflows/ci.yml/badge.svg)](https://github.com/Dar3cz3Q-University/FiniteElementMethod/tree/master)
 
 Finite element methods implemented for simple shapes e.g. square, rectangle.
 
