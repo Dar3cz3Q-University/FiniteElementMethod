@@ -39,6 +39,8 @@ Simulation::Simulation(FileTypeEnum fileType, const std::filesystem::path& path)
 		return;
 	}
 
+	m_SimulationData.ValidateData();
+
 	m_Initialized = true;
 }
 

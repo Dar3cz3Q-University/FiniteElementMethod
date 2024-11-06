@@ -12,7 +12,7 @@ Jacobian::Jacobian()
 	}
 }
 
-void Jacobian::Calculate(const std::unordered_map<int, Node>& nodes, int integrationPoint)
+void Jacobian::Calculate(const std::map<int, Node>& nodes, int integrationPoint)
 {
 	CalculateMatrix(nodes, integrationPoint);
 	CalculateInverseMatrix();
@@ -23,7 +23,7 @@ double Jacobian::GetMatrixDeterminant() const
 	return m_JacobianMatrix.GetDeterminant();
 }
 
-void Jacobian::CalculateMatrix(const std::unordered_map<int, Node>& nodes, int integrationPoint)
+void Jacobian::CalculateMatrix(const std::map<int, Node>& nodes, int integrationPoint)
 {
 	IntegrationPointDerivatives* derivatives = IntegrationPointDerivatives::GetInstance();
 

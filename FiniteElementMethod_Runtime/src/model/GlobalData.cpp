@@ -2,9 +2,15 @@
 
 #include "GlobalData.h"
 
-GlobalData::GlobalData()
-{
+GlobalData::GlobalData() {}
 
+void GlobalData::ValidateData() const
+{
+	if (m_ReadElementsNumber != (int)GetNumberOfElements())
+		throw std::invalid_argument("There is some data inconsistency in grid file");
+
+	if (m_ReadNodesNumber != (int)GetNumberOfNodes())
+		throw std::invalid_argument("There is some data inconsistency in grid file");
 }
 
 std::ostream& operator<<(std::ostream& os, const GlobalData& globalData)

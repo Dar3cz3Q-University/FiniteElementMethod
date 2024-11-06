@@ -78,8 +78,8 @@ public:
     const std::vector<double>& GetETADerivatives(int index) const { return m_Derivatives_ETA.at(index); }
 
 private:
-    std::unordered_map<int, std::vector<double>> m_Derivatives_KSI;
-    std::unordered_map<int, std::vector<double>> m_Derivatives_ETA;
+    std::map<int, std::vector<double>> m_Derivatives_KSI;
+    std::map<int, std::vector<double>> m_Derivatives_ETA;
 
 public:
     friend std::ostream& operator<<(std::ostream& os, const IntegrationPointDerivatives& derivatives);

@@ -15,15 +15,12 @@ public:
 
 	Node GetNode(int index) const { return m_Nodes.at(index); }
 
-	void ReserveElements(int numberOfElements) { m_Elements.reserve(numberOfElements); }
-	void ReserveNodes(int numberOfNodes) { m_Nodes.reserve(numberOfNodes); }
-
 	inline void AddElement(int index, Element element) { m_Elements.insert({ index, element }); }
 	inline void AddNode(int index, Node node) { m_Nodes.insert({ index, node }); }
 
 private:
-	std::unordered_map<int, Element> m_Elements;
-	std::unordered_map<int, Node> m_Nodes;
+	std::map<int, Element> m_Elements;
+	std::map<int, Node> m_Nodes;
 
 public:
 	friend std::ostream& operator<<(std::ostream& os, const Grid& grid);

@@ -9,9 +9,6 @@ Grid::Grid(int numberOfElements, int numberOfNodes)
     
     if (numberOfNodes <= 0)
         throw std::invalid_argument("Number of nodes cannot be less than or equal to 0");
-
-    m_Elements.reserve(numberOfElements);
-    m_Nodes.reserve(numberOfNodes);
 }
 
 size_t Grid::GetNumberOfNodes() const

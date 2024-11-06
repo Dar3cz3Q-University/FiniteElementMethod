@@ -4,12 +4,6 @@
 
 Element::Element()
 {
-	m_Nodes.reserve(ELEMENT_NODES_SIZE);
-
-	m_Jacobians.reserve(INTEGRATION_POINTS_COUNT);
-	m_Derivatives.reserve(INTEGRATION_POINTS_COUNT);
-	m_H_Matricies.reserve(INTEGRATION_POINTS_COUNT);
-
 	for (int i = 0; i < INTEGRATION_POINTS_COUNT; i++)
 	{
 		m_Jacobians.insert({ i + 1, Jacobian() });

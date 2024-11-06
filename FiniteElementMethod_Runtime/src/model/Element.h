@@ -28,10 +28,10 @@ private:
 	void CalculateHMatricies();
 
 private:
-	std::unordered_map<int, Node> m_Nodes;
-	std::unordered_map<int, Jacobian> m_Jacobians;
-	std::unordered_map<int, Derivatives> m_Derivatives;
-	std::unordered_map<int, H_Matrix> m_H_Matricies;
+	std::map<int, Node> m_Nodes;
+	std::map<int, Jacobian> m_Jacobians;
+	std::map<int, Derivatives> m_Derivatives;
+	std::map<int, H_Matrix> m_H_Matricies;
 	
 public:
 	friend std::ostream& operator<<(std::ostream& os, const Element& element);

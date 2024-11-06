@@ -6,9 +6,6 @@ IntegrationPointDerivatives* IntegrationPointDerivatives::m_Instance = nullptr;
 
 IntegrationPointDerivatives::IntegrationPointDerivatives()
 {
-    m_Derivatives_KSI.reserve(INTEGRATION_POINTS_COUNT);
-    m_Derivatives_ETA.reserve(INTEGRATION_POINTS_COUNT);
-
     for (size_t i = 0; i < INTEGRATION_POINTS_COUNT; i++)
     {
         double ksi = INTEGRATION_POINTS[i].ksi;

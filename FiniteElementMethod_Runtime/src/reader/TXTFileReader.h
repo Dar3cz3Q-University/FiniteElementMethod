@@ -27,8 +27,8 @@ private:
         { GlobalDataEnum::INITIAL_TEMP, [&](const std::string& value) { m_GlobalData.SetInitialTemp(std::stod(value)); }},
         { GlobalDataEnum::DENSITY, [&](const std::string& value) { m_GlobalData.SetDensity(std::stod(value)); }},
         { GlobalDataEnum::SPECIFIC_HEAT, [&](const std::string& value) { m_GlobalData.SetSpecificHeat(std::stod(value)); }},
-        { GlobalDataEnum::ELEMENTS_NUMBER, [&](const std::string& value) { m_GlobalData.ReserveGridElements(std::stoi(value)); }},
-        { GlobalDataEnum::NODES_NUMBER, [&](const std::string& value) { m_GlobalData.ReserveGridNodes(std::stoi(value)); }}
+        { GlobalDataEnum::ELEMENTS_NUMBER, [&](const std::string& value) { m_GlobalData.SetReadElementsNumber(std::stoi(value)); }},
+        { GlobalDataEnum::NODES_NUMBER, [&](const std::string& value) { m_GlobalData.SetReadNodesNumber(std::stoi(value)); }}
     };
 };
 

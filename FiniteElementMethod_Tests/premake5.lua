@@ -50,3 +50,4 @@ project "FiniteElementMethod_Tests"
        runtime "Release"
        optimize "On"
        symbols "On"
+       

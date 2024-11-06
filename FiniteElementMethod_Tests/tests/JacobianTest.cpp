@@ -7,7 +7,7 @@ TEST(JacobianTest, GeneratesValidMatrixForFirstIntegrationPoint) {
     // Given
     Node point1(0, 0), point2(0.025, 0), point3(0.025, 0.025), point4(0, 0.025);
 
-    std::unordered_map<int, Node> points = {
+    std::map<int, Node> points = {
         { 1, point1 },
         { 2, point2 },
         { 3, point3 },
