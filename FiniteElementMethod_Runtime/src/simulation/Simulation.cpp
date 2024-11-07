@@ -22,8 +22,6 @@ Simulation::Simulation()
 
 	m_SimulationData.AddElementToGrid(1, element);
 
-	std::cout << *IntegrationPointDerivatives::GetInstance() << "\n";
-
 	m_Initialized = true;
 }
 
