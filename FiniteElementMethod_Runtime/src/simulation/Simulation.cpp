@@ -4,27 +4,27 @@
 
 Simulation::Simulation()
 {
-	Node point1(0, 0), point2(0.025, 0), point3(0.025, 0.025), point4(0, 0.025);
-	//Node point1(0.01, -0.01), point2(0.025, 0), point3(0.025, 0.025), point4(0, 0.025);
+	//Node point1(0, 0), point2(0.025, 0), point3(0.025, 0.025), point4(0, 0.025);
+	////Node point1(0.01, -0.01), point2(0.025, 0), point3(0.025, 0.025), point4(0, 0.025);
 
-	m_SimulationData.AddNodeToGrid(1, point1);
-	m_SimulationData.AddNodeToGrid(2, point2);
-	m_SimulationData.AddNodeToGrid(3, point3);
-	m_SimulationData.AddNodeToGrid(4, point4);
+	//m_SimulationData.AddNodeToGrid(1, point1);
+	//m_SimulationData.AddNodeToGrid(2, point2);
+	//m_SimulationData.AddNodeToGrid(3, point3);
+	//m_SimulationData.AddNodeToGrid(4, point4);
 
-	Element element;
-	element.AddNode(1, point1);
-	element.AddNode(2, point2);
-	element.AddNode(3, point3);
-	element.AddNode(4, point4);
+	//Element element;
+	//element.AddNode(1, point1);
+	//element.AddNode(2, point2);
+	//element.AddNode(3, point3);
+	//element.AddNode(4, point4);
 
-	element.Calculate();
+	//element.Calculate();
 
-	m_SimulationData.AddElementToGrid(1, element);
+	//m_SimulationData.AddElementToGrid(1, element);
 
-	std::cout << *IntegrationPointDerivatives::GetInstance() << "\n";
+	//std::cout << *IntegrationPointDerivatives::GetInstance() << "\n";
 
-	m_Initialized = true;
+	//m_Initialized = true;
 }
 
 Simulation::Simulation(FileTypeEnum fileType, const std::filesystem::path& path)
@@ -42,8 +42,6 @@ Simulation::Simulation(FileTypeEnum fileType, const std::filesystem::path& path)
 		return;
 	}
 
-	m_SimulationData.ValidateData();
-
 	m_Initialized = true;
 }
 
@@ -51,7 +49,7 @@ Simulation::Simulation(double x0, double x, double y0, double y, int nodes_x, in
 {
 	GridGenerator gridGenerator;
 
-	try
+	/*try
 	{
 		m_SimulationData.SetGrid(gridGenerator.generate(x0, x, y0, y, nodes_x, nodes_y));
 	}
@@ -59,7 +57,7 @@ Simulation::Simulation(double x0, double x, double y0, double y, int nodes_x, in
 	{
 		std::cerr << e.what() << "\n";
 		return;
-	}
+	}*/
 
 	m_Initialized = true;
 }

@@ -17,6 +17,7 @@ public:
 private:
 	bool m_Initialized = false;
 	GlobalData m_SimulationData;
+	Grid m_grid;
 	std::unique_ptr<FileReader> m_FileReader;
 };
 

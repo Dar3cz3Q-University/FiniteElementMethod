@@ -17,6 +17,7 @@ public:
 private:
 	std::string m_ReaderName;
 	GlobalData m_GlobalData;
+    Grid m_Grid;
 
 	std::unordered_map<GlobalDataEnum, std::function<void(const std::string&)>> m_GlobalDataVariableSetters = {
         { GlobalDataEnum::SIMULATION_TIME, [&](const std::string& value) { m_GlobalData.SetSimulationTime(std::stoi(value)); }},

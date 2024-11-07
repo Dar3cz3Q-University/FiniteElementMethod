@@ -48,17 +48,17 @@ GlobalData TXTFileReader::Read(const std::filesystem::path& path)
             std::vector<std::string> values = Split(line, ',');
 
             Node tempNode(std::stod(values[1]), std::stod(values[2]));
-            m_GlobalData.AddNodeToGrid(std::stoi(values[0]), tempNode);
+            //m_Grid.AddNodeToGrid(std::stoi(values[0]), tempNode);
         }
         else if (dataType == DataTypeEnum::ELEMENTS)
         {
 			std::vector<std::string> values = Split(line, ',');
 
 			Element tempElement;
-            for (auto it = values.begin() + 1; it != values.end(); it++)
-                tempElement.AddNode(std::stoi(*it), m_GlobalData.GetNode(std::stoi(*it)));
+            //for (auto it = values.begin() + 1; it != values.end(); it++)
+                //tempElement.AddNode(std::stoi(*it), m_GlobalData.GetNode(std::stoi(*it)));
 
-            m_GlobalData.AddElementToGrid(std::stoi(values[0]), tempElement);
+            //m_GlobalData.AddElementToGrid(std::stoi(values[0]), tempElement);
         }
     }
 

@@ -19,17 +19,6 @@ public:
 	inline void SetSpecificHeat(double specificHeat) { m_SpecificHeat = specificHeat; }
 	inline void SetReadElementsNumber(int readElementsNumber) { m_ReadElementsNumber = readElementsNumber; }
 	inline void SetReadNodesNumber(int readNodesNumber) { m_ReadNodesNumber = readNodesNumber; }
-	inline void SetGrid(Grid grid) { m_Grid = grid; }
-
-	size_t GetNumberOfNodes() const { return m_Grid.GetNumberOfNodes(); }
-	size_t GetNumberOfElements() const { return m_Grid.GetNumberOfElements(); }
-
-	Node GetNode(int index) const { return m_Grid.GetNode(index); }
-
-	inline void AddElementToGrid(int index, Element element) { m_Grid.AddElement(index, element); }
-	inline void AddNodeToGrid(int index, Node node) { m_Grid.AddNode(index, node); }
-
-	void ValidateData() const;
 
 private:
 	int m_SimulationTime = 0;
@@ -42,7 +31,6 @@ private:
 	double m_SpecificHeat = 0.0;
 	int m_ReadElementsNumber = 0;
 	int m_ReadNodesNumber = 0;
-	Grid m_Grid;
 
 public:
 	friend class TXTFileReader;
