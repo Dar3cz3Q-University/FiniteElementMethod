@@ -5,6 +5,7 @@
 Simulation::Simulation()
 {
 	Node point1(0, 0), point2(0.025, 0), point3(0.025, 0.025), point4(0, 0.025);
+	//Node point1(0.01, -0.01), point2(0.025, 0), point3(0.025, 0.025), point4(0, 0.025);
 
 	m_SimulationData.AddNodeToGrid(1, point1);
 	m_SimulationData.AddNodeToGrid(2, point2);
@@ -20,6 +21,8 @@ Simulation::Simulation()
 	element.Calculate();
 
 	m_SimulationData.AddElementToGrid(1, element);
+
+	std::cout << *IntegrationPointDerivatives::GetInstance() << "\n";
 
 	m_Initialized = true;
 }

@@ -56,7 +56,7 @@ void Jacobian::CalculateInverseMatrix()
 	m_InversedJacobianMatrix.SetElement(0, 0, m_JacobianMatrix.GetElement(1, 1) * coefficent);
 	m_InversedJacobianMatrix.SetElement(0, 1, -m_JacobianMatrix.GetElement(0, 1) * coefficent);
 	m_InversedJacobianMatrix.SetElement(1, 0, -m_JacobianMatrix.GetElement(1, 0) * coefficent);
-	m_InversedJacobianMatrix.SetElement(1, 1, m_JacobianMatrix.GetElement(1, 1) * coefficent);
+	m_InversedJacobianMatrix.SetElement(1, 1, m_JacobianMatrix.GetElement(0, 0) * coefficent);
 }
 
 std::ostream& operator<<(std::ostream& os, const Jacobian& jacobian)

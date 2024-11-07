@@ -58,8 +58,6 @@ GlobalData TXTFileReader::Read(const std::filesystem::path& path)
             for (auto it = values.begin() + 1; it != values.end(); it++)
                 tempElement.AddNode(std::stoi(*it), m_GlobalData.GetNode(std::stoi(*it)));
 
-            tempElement.Calculate();
-
             m_GlobalData.AddElementToGrid(std::stoi(values[0]), tempElement);
         }
     }
