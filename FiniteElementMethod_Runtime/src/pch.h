@@ -30,3 +30,6 @@
 // Math
 #define _USE_MATH_DEFINES
 #include <cmath>
+
+// Multithreading
+#include <thread>

@@ -19,13 +19,12 @@ project "FiniteElementMethod_Runtime"
    includedirs {
        "src",
 
+       "src/global_data",
+       "src/grid",
+       "src/file_reader",
        "src/model",
-       "src/reader",
-       "src/enum",
-       "src/generator",
        "src/simulation",
        "src/utils",
-       "src/math",
 
        -- Numerical Methods
        "Dependencies/NumericalMethods/NumericalMethods_Core/Source",
