@@ -23,6 +23,7 @@ project "FiniteElementMethod_Tests"
    includedirs {
     "../Dependencies/googletest/googletest/include",
 
+    "../FiniteElementMethod_Runtime/src",
     "../FiniteElementMethod_Runtime/src/global_data",
     "../FiniteElementMethod_Runtime/src/grid",
     "../FiniteElementMethod_Runtime/src/file_reader",
