@@ -14,7 +14,7 @@ public:
 	Element();
 
 public:
-	void AddNode(int nodeID, Node node);
+	void AddNode(int nodeID, const Node& node);
 
 	Matrix GetGlobalHMatrix();
 
@@ -28,7 +28,7 @@ private:
 	void CalculateHMatricies();
 
 private:
-	std::map<int, Node> m_Nodes;
+	std::map<int, const Node&> m_Nodes;
 	std::map<int, Jacobian> m_Jacobians;
 	std::map<int, Derivatives> m_Derivatives;
 	std::map<int, H_Matrix> m_H_Matricies;

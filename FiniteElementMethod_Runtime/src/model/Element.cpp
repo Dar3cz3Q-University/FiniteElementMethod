@@ -12,7 +12,7 @@ Element::Element()
 	}
 }
 
-void Element::AddNode(int nodeID, Node node)
+void Element::AddNode(int nodeID, const Node& node)
 {
 	// TODO: Nodes should not be stored twice
 	// For now, nodes are stored twice. Once in Grid and second time in Element. It is because of calculating the Jacobian.

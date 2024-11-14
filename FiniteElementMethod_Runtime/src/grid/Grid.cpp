@@ -11,14 +11,8 @@ Grid::Grid(int numberOfElements, int numberOfNodes)
         throw std::invalid_argument("Number of nodes cannot be less than or equal to 0");
 }
 
-size_t Grid::GetNumberOfNodes() const
+void Grid::GenerateNecessaryData()
 {
-    return m_Nodes.size();
-}
-
-size_t Grid::GetNumberOfElements() const
-{
-    return m_Elements.size();
 }
 
 std::ostream& operator<<(std::ostream& os, const Grid& grid)

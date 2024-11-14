@@ -10,8 +10,11 @@ public:
 	Grid(int numberOfElements, int numberOfNodes);
 
 public:
-	size_t GetNumberOfNodes() const;
-	size_t GetNumberOfElements() const;
+	void GenerateNecessaryData();
+
+public:
+	size_t GetNumberOfNodes() const { return m_Nodes.size(); };
+	size_t GetNumberOfElements() const { return m_Elements.size(); };
 
 	Node GetNode(int index) const { return m_Nodes.at(index); }
 

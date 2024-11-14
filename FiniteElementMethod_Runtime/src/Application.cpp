@@ -8,8 +8,8 @@ int main(int argc, char** argv)
 
 	try
 	{
-		Simulation simulation;
-		//Simulation simulation(FileTypeEnum::TEXT, "../Input/Grids/Test1_4_4.txt");
+		//Simulation simulation;
+		Simulation simulation(FileTypeEnum::TEXT, "../Input/Grids/Test1_4_4.txt");
 		//Simulation simulation(0.0, 0.1, 0.0, 0.1, 4, 6);
 		simulation.Run();
 	}
