@@ -26,6 +26,7 @@ ThreadPool* ThreadPool::GetInstance()
 void ThreadPool::Start(uint32_t numberOfThreads)
 {
     LOG_TRACE("Initializing thread pool");
+
     for (uint32_t i = 0; i < numberOfThreads; i++)
     {
         m_Threads.emplace_back(std::thread(&ThreadPool::ThreadLoop, this));
@@ -46,6 +47,7 @@ void ThreadPool::QueueJob(const std::function<void()>& job)
                 promise->set_value();
             });
     }
+
     m_MutexCondition.notify_one();
     m_Futures.push_back(std::make_shared<std::future<void>>(std::move(future)));
 }
@@ -53,9 +55,8 @@ void ThreadPool::QueueJob(const std::function<void()>& job)
 void ThreadPool::WaitAllJobs()
 {
     for (auto& future : m_Futures)
-    {
         future->wait();
-    }
+
     m_Futures.clear();
 }
 
@@ -76,10 +77,13 @@ void ThreadPool::Stop()
         m_ShouldTerminate = true;
     }
     m_MutexCondition.notify_all();
-    for (std::thread& active_thread : m_Threads)
+
+    for (std::thread& activeThread : m_Threads)
     {
-        active_thread.join();
+        LOG_TRACE("Stopping {} thread", thread_id_to_string(activeThread.get_id()));
+        activeThread.join();
     }
+
     m_Threads.clear();
 }
 
@@ -94,10 +98,10 @@ void ThreadPool::ThreadLoop()
                 {
                     return !m_Jobs.empty() || m_ShouldTerminate;
                 });
+
             if (m_ShouldTerminate && m_Jobs.empty())
-            {
                 return;
-            }
+
             job = m_Jobs.front();
             m_Jobs.pop();
         }

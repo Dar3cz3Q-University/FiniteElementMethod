@@ -4,7 +4,7 @@
 
 Simulation::Simulation(FileTypeEnum fileType, const std::filesystem::path& path)
 {
-	LOG_TRACE("Reading data from file");
+	LOG_TRACE("Creating file factory");
 
 	FileReaderFactory fileFactory;
 	m_FileReader = fileFactory.CreateFileReader(fileType);
@@ -26,8 +26,6 @@ Simulation::Simulation(FileTypeEnum fileType, const std::filesystem::path& path)
 
 Simulation::Simulation(double x0, double x, double y0, double y, int nodes_x, int nodes_y)
 {
-	LOG_TRACE("Generating simple grid");
-
 	GridGenerator gridGenerator;
 
 	try

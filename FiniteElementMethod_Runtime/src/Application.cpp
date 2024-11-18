@@ -16,5 +16,7 @@ int main(int argc, char** argv)
 		LOG_CRITICAL(e.what());
 	}
 
+	ShutDown();
+
 	std::cin.get();
 }

@@ -19,6 +19,8 @@ DataSet TXTFileReader::Read(const std::filesystem::path& path)
     if (!file.is_open())
         throw std::runtime_error("Cannot open: '" + path.string() + "'");
 
+    LOG_TRACE("Reading data from {}", path.string());
+
     DataTypeEnum dataType = DataTypeEnum::VARIABLES;
     std::string line;
 

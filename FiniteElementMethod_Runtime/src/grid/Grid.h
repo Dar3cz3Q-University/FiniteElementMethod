@@ -26,6 +26,9 @@ private:
 	std::map<int, Element> m_Elements;
 	std::map<int, Node> m_Nodes;
 
+private:
+	void DisplayDebugData();
+
 public:
 	friend std::ostream& operator<<(std::ostream& os, const Grid& grid);
 };

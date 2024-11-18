@@ -60,17 +60,17 @@ inline const std::vector<Node> INTEGRATION_WEIGHTS =
 class IntegrationPointDerivatives
 {
     // Singleton Pattern
-private:
-    IntegrationPointDerivatives();
-    ~IntegrationPointDerivatives();
-
-private:
-    static IntegrationPointDerivatives* m_Instance;
-
 public:
+    ~IntegrationPointDerivatives();
     IntegrationPointDerivatives(IntegrationPointDerivatives&) = delete;
     void operator=(const IntegrationPointDerivatives&) = delete;
     static IntegrationPointDerivatives* GetInstance();
+
+private:
+    IntegrationPointDerivatives();
+
+private:
+    static IntegrationPointDerivatives* m_Instance;
 
     // Logic of the class
 public:

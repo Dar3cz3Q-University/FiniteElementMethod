@@ -5,17 +5,17 @@
 class ThreadPool
 {
     // Singleton Pattern
-private:
-    ThreadPool();
-    ~ThreadPool();
-
-private:
-    static ThreadPool* m_Instance;
-
 public:
+    ~ThreadPool();
     ThreadPool(ThreadPool&) = delete;
     void operator=(const ThreadPool&) = delete;
     static ThreadPool* GetInstance();
+
+private:
+    ThreadPool();
+
+private:
+    static ThreadPool* m_Instance;
 
     // Logic of the class
 public:

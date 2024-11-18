@@ -10,6 +10,8 @@ Grid GridGenerator::generate(double x0, double x, double y0, double y, int nodes
 	if (nodes_x <= 0 || nodes_y <= 0)
 		throw std::invalid_argument("Number of nodes cannot be less than or equal to zero");
 
+	LOG_TRACE("Generating simple grid");
+
 	Grid tempGrid;
 
 	double xStep = (x - x0) / (nodes_x - 1);
