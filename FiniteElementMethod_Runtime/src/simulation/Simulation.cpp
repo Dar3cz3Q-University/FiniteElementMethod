@@ -2,39 +2,18 @@
 
 #include "Simulation.h"
 
-Simulation::Simulation()
-{
-	//Node point1(0, 0), point2(0.025, 0), point3(0.025, 0.025), point4(0, 0.025);
-	////Node point1(0.01, -0.01), point2(0.025, 0), point3(0.025, 0.025), point4(0, 0.025);
-
-	//m_SimulationData.AddNodeToGrid(1, point1);
-	//m_SimulationData.AddNodeToGrid(2, point2);
-	//m_SimulationData.AddNodeToGrid(3, point3);
-	//m_SimulationData.AddNodeToGrid(4, point4);
-
-	//Element element;
-	//element.AddNode(1, point1);
-	//element.AddNode(2, point2);
-	//element.AddNode(3, point3);
-	//element.AddNode(4, point4);
-
-	//element.Calculate();
-
-	//m_SimulationData.AddElementToGrid(1, element);
-
-	//std::cout << *IntegrationPointDerivatives::GetInstance() << "\n";
-
-	//m_Initialized = true;
-}
-
 Simulation::Simulation(FileTypeEnum fileType, const std::filesystem::path& path)
 {
+	LOG_TRACE("Reading data from file");
+
 	FileReaderFactory fileFactory;
 	m_FileReader = fileFactory.CreateFileReader(fileType);
 
 	try 
 	{
-		m_SimulationData = m_FileReader->Read(path);
+		DataSet dataset = m_FileReader->Read(path);
+		m_SimulationData = dataset.globalData;
+		m_Grid = dataset.grid;
 	}
 	catch (const std::invalid_argument& e)
 	{
@@ -47,17 +26,19 @@ Simulation::Simulation(FileTypeEnum fileType, const std::filesystem::path& path)
 
 Simulation::Simulation(double x0, double x, double y0, double y, int nodes_x, int nodes_y)
 {
+	LOG_TRACE("Generating simple grid");
+
 	GridGenerator gridGenerator;
 
-	/*try
+	try
 	{
-		m_SimulationData.SetGrid(gridGenerator.generate(x0, x, y0, y, nodes_x, nodes_y));
+		m_Grid = gridGenerator.generate(x0, x, y0, y, nodes_x, nodes_y);
 	}
 	catch (const std::invalid_argument& e)
 	{
 		std::cerr << e.what() << "\n";
 		return;
-	}*/
+	}
 
 	m_Initialized = true;
 }
@@ -67,9 +48,14 @@ void Simulation::Run()
 	if (!m_Initialized)
 		throw std::logic_error("Object not initialized");
 
-	std::cout << "Running Simulation" << "\n";
-
+	LOG_TRACE("Displaying simulation data and grid");
+	
 	std::cout << m_SimulationData << "\n";
+	std::cout << m_Grid << "\n";
+
+	LOG_TRACE("Running Simulation");
+
+	m_Grid.GenerateNecessaryData();
 
 	return;
 }

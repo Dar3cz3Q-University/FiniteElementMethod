@@ -9,6 +9,9 @@ workspace "FiniteElementMethod"
 
     filter "system:windows"
         buildoptions { "/EHsc", "/Zc:preprocessor", "/Zc:__cplusplus" }
+
+    filter "action:vs*"
+      buildoptions { "/utf-8" }
      
     OutputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
     

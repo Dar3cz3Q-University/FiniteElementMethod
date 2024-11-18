@@ -2,10 +2,8 @@
 
 struct Node 
 {
-public:
 	Node(double x, double y);
 
-public:
 	union
 	{
 		struct

@@ -10,14 +10,7 @@ Element::Element()
 		m_Derivatives.insert({ i + 1, Derivatives() });
 		m_H_Matricies.insert({ i + 1, H_Matrix() });
 	}
-}
-
-void Element::AddNode(int nodeID, const Node& node)
-{
-	// TODO: Nodes should not be stored twice
-	// For now, nodes are stored twice. Once in Grid and second time in Element. It is because of calculating the Jacobian.
-	// This should be changed in future
-	m_Nodes.insert({nodeID, node});
+	m_NodesIDs.reserve(4);
 }
 
 Matrix Element::GetGlobalHMatrix()
@@ -32,18 +25,20 @@ Matrix Element::GetGlobalHMatrix()
 	return temp;
 }
 
-void Element::Calculate()
+void Element::Calculate(int elementID, const std::map<int, Node>& nodes)
 {
+	LOG_TRACE("Calculating data for {} element", elementID);
+
 	// Order of running this methods is pretty important :)
-	CalculateJacobians();
+	CalculateJacobians(nodes);
 	CalculateDerivatives();
 	CalculateHMatricies();
 }
 
-void Element::CalculateJacobians()
+void Element::CalculateJacobians(const std::map<int, Node>& nodes)
 {
 	for (auto& jacobian : m_Jacobians)
-		jacobian.second.Calculate(m_Nodes, jacobian.first);
+		jacobian.second.Calculate(nodes, m_NodesIDs, jacobian.first);
 }
 
 void Element::CalculateDerivatives()
@@ -54,7 +49,7 @@ void Element::CalculateDerivatives()
 
 void Element::CalculateHMatricies()
 {
-	// The value '30' should be changed to variable that is read from file
+	// TODO: The value '30' should be changed to variable that is read from file
 	for (auto& matrix : m_H_Matricies)
 		matrix.second.Calculate(
 			30,
@@ -67,8 +62,8 @@ void Element::DisplayCalculations()
 {
 	std::cout << "Element " << *this << "\n";
 
-	for (auto& node : m_Nodes)
-		std::cout << node.second << "\n";
+	for (auto& node : m_NodesIDs)
+		std::cout << node << "\n";
 
 	for (int i = 1; i <= INTEGRATION_POINTS_COUNT; i++)
 	{
@@ -89,10 +84,10 @@ std::ostream& operator<<(std::ostream& os, const Element& element)
 {
 	os << "{";
 
-	for (auto it = element.m_Nodes.begin(); it != element.m_Nodes.end(); it++)
+	for (auto it = element.m_NodesIDs.begin(); it != element.m_NodesIDs.end(); it++)
 	{
-		os << (*it).first;
-		if (std::next(it) != element.m_Nodes.end())
+		os << (*it);
+		if (std::next(it) != element.m_NodesIDs.end())
 			os << ", ";
 	}
 

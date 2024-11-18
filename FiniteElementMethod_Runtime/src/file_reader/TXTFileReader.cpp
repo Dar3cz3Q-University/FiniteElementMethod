@@ -9,7 +9,7 @@ const std::string& TXTFileReader::GetFileType() const
     return m_ReaderName;
 }
 
-GlobalData TXTFileReader::Read(const std::filesystem::path& path)
+DataSet TXTFileReader::Read(const std::filesystem::path& path)
 {
     if (!std::filesystem::exists(path))
         throw std::invalid_argument("File '" + path.string() + "' not found");
@@ -56,15 +56,13 @@ GlobalData TXTFileReader::Read(const std::filesystem::path& path)
 
 			Element tempElement;
             for (auto it = values.begin() + 1; it != values.end(); it++)
-                tempElement.AddNode(std::stoi(*it), m_Grid.GetNode(std::stoi(*it)));
+                tempElement.AddNode(std::stoi(*it));
 
             m_Grid.AddElement(std::stoi(values[0]), tempElement);
         }
     }
 
-    std::cout << m_Grid;
-
     file.close();
 
-    return m_GlobalData;
+    return { m_GlobalData, m_Grid };
 }

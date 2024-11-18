@@ -13,6 +13,18 @@ Grid::Grid(int numberOfElements, int numberOfNodes)
 
 void Grid::GenerateNecessaryData()
 {
+    LOG_TRACE("Generating simulation data");
+
+    ThreadPool* threadPool = ThreadPool::GetInstance();
+
+    for (auto& element : m_Elements)
+    {
+        threadPool->QueueJob([&] {
+            element.second.Calculate(element.first, m_Nodes);
+        });
+    }
+
+    threadPool->WaitAllJobs();
 }
 
 std::ostream& operator<<(std::ostream& os, const Grid& grid)
@@ -30,14 +42,14 @@ std::ostream& operator<<(std::ostream& os, const Grid& grid)
     for (auto& element : grid.m_Elements)
         os << "\t" << element.first << ", " << element.second << "\n";
 
-    os << "\n";
+    /*os << "\n";
 
     for (auto element : grid.m_Elements)
     {
         os << "Calculated values for " << element.first << " element:\n";
         element.second.DisplayCalculations();
         os << "\n";
-    }
+    }*/
 
     return os;
 }

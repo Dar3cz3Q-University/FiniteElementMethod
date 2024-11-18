@@ -4,3 +4,6 @@
 [submodule "FiniteElementMethod_Runtime/Dependencies/NumericalMethods"]
 	path = FiniteElementMethod_Runtime/Dependencies/NumericalMethods
 	url = https://github.com/Dar3cz3Q-University/NumericalMethods
+[submodule "FiniteElementMethod_Runtime/Dependencies/spdlog"]
+	path = FiniteElementMethod_Runtime/Dependencies/spdlog
+	url = https://github.com/gabime/spdlog.git

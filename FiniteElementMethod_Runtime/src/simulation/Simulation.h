@@ -7,7 +7,6 @@
 class Simulation
 {
 public:
-	Simulation(); // Only for test purposes
 	Simulation(FileTypeEnum fileType, const std::filesystem::path& path);
 	Simulation(double x0, double x, double y0, double y, int nodes_x, int nodes_y);
 
@@ -17,7 +16,7 @@ public:
 private:
 	bool m_Initialized = false;
 	GlobalData m_SimulationData;
-	Grid m_grid;
+	Grid m_Grid;
 	std::unique_ptr<FileReader> m_FileReader;
 };
 

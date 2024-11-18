@@ -28,12 +28,10 @@ Grid GridGenerator::generate(double x0, double x, double y0, double y, int nodes
 
 		Element tempElement;
 
-		tempElement.AddNode(i, tempGrid.GetNode(i));
-		tempElement.AddNode(i + nodes_y, tempGrid.GetNode(i + nodes_y));
-		tempElement.AddNode(i + nodes_y + 1, tempGrid.GetNode(i + nodes_y + 1));
-		tempElement.AddNode(i + 1, tempGrid.GetNode(i + 1));
-
-		tempElement.Calculate();
+		tempElement.AddNode(i);
+		tempElement.AddNode(i + nodes_y);
+		tempElement.AddNode(i + nodes_y + 1);
+		tempElement.AddNode(i + 1);
 
 		tempGrid.AddElement(++elementCounter, tempElement);
 	}

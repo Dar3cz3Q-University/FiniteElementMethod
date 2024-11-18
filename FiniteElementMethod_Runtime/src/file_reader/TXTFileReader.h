@@ -12,7 +12,7 @@ public:
 
 public:
 	const std::string& GetFileType() const override;
-	GlobalData Read(const std::filesystem::path& path) override;
+    DataSet Read(const std::filesystem::path& path) override;
 
 private:
 	std::string m_ReaderName;

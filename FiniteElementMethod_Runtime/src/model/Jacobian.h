@@ -13,14 +13,14 @@ public:
 	Jacobian();
 
 public:
-	void Calculate(const std::map<int, Node>& nodes, int integrationPoint);
+	void Calculate(const std::map<int, Node>& nodes, const std::vector<int>& nodesIDs, int integrationPoint);
 
 	double GetMatrixAt(int x, int y) const { return m_JacobianMatrix.GetElement(x, y); };
 	double GetInversedMatrixAt(int x, int y) const { return m_InversedJacobianMatrix.GetElement(x, y); };
 	double GetMatrixDeterminant() const;
 
 private:
-	void CalculateMatrix(const std::map<int, Node>& nodes, int integrationPoint);
+	void CalculateMatrix(const std::map<int, Node>& nodes, const std::vector<int>& nodesIDs, int integrationPoint);
 	void CalculateInverseMatrix();
 
 private:

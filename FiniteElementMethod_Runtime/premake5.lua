@@ -29,6 +29,9 @@ project "FiniteElementMethod_Runtime"
        -- Numerical Methods
        "Dependencies/NumericalMethods/NumericalMethods_Core/Source",
 
+       -- spdlog
+       "Dependencies/spdlog/include",
+
        -- GoogleTest
        "../Dependencies/googletest/googletest/include"
    }
