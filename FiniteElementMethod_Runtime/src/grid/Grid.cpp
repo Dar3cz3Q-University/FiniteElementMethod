@@ -11,14 +11,45 @@ Grid::Grid(int numberOfElements, int numberOfNodes)
         throw std::invalid_argument("Number of nodes cannot be less than or equal to 0");
 }
 
-size_t Grid::GetNumberOfNodes() const
+void Grid::GenerateNecessaryData()
 {
-    return m_Nodes.size();
+    LOG_TRACE("Generating simulation data (Jacobian, HMatrix)");
+
+#if 1
+
+    ThreadPool* threadPool = ThreadPool::GetInstance();
+
+    for (auto& element : m_Elements)
+    {
+        threadPool->QueueJob([&] {
+            element.second.Calculate(element.first, m_Nodes);
+        });
+    }
+
+    threadPool->WaitAllJobs();
+
+#else
+
+    for (auto& element : m_Elements)
+        element.second.Calculate(element.first, m_Nodes);
+
+#endif
+
+    LOG_TRACE("Generating global HMatrix");
+
+    // TODO: Calculate global HMatrix
 }
 
-size_t Grid::GetNumberOfElements() const
+void Grid::DisplayDebugData()
 {
-    return m_Elements.size();
+    LOG_TRACE("Displaying debug data");
+
+    for (auto& element : m_Elements)
+    {
+        std::cout << "Calculated values for " << element.first << " element:\n";
+        element.second.DisplayCalculations();
+        std::cout << "\n";
+    }
 }
 
 std::ostream& operator<<(std::ostream& os, const Grid& grid)
@@ -35,15 +66,6 @@ std::ostream& operator<<(std::ostream& os, const Grid& grid)
 
     for (auto& element : grid.m_Elements)
         os << "\t" << element.first << ", " << element.second << "\n";
-
-    os << "\n";
-
-    for (auto element : grid.m_Elements)
-    {
-        os << "Calculated values for " << element.first << " element:\n";
-        element.second.DisplayCalculations();
-        os << "\n";
-    }
 
     return os;
 }

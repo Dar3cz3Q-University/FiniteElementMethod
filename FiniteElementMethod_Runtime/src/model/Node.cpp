@@ -3,9 +3,7 @@
 #include "Node.h"
 
 Node::Node(double x, double y)
-	: x(x), y(y)
-{
-}
+	: x(x), y(y) {}
 
 std::ostream& operator<<(std::ostream& os, const Node& node)
 {

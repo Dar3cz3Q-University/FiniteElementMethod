@@ -14,21 +14,21 @@ public:
 	Element();
 
 public:
-	void AddNode(int nodeID, Node node);
+	void AddNode(int nodeID) { m_NodesIDs.emplace_back(nodeID); };
 
-	Matrix GetGlobalHMatrix();
-
-	void Calculate();
+	void Calculate(int elementID, const std::map<int, Node>& nodes);
 
 	void DisplayCalculations();
 
+	Matrix GetGlobalHMatrix();
+
 private:
-	void CalculateJacobians();
+	void CalculateJacobians(const std::map<int, Node>& nodes);
 	void CalculateDerivatives();
 	void CalculateHMatricies();
 
 private:
-	std::map<int, Node> m_Nodes;
+	std::vector<int> m_NodesIDs;
 	std::map<int, Jacobian> m_Jacobians;
 	std::map<int, Derivatives> m_Derivatives;
 	std::map<int, H_Matrix> m_H_Matricies;

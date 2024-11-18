@@ -46,7 +46,7 @@ Matrix Matrix::Transpose() const
 Matrix Matrix::operator*(const Matrix& matrix) const
 {
     if (m_Data[0].size() != matrix.m_Data.size())
-        throw std::invalid_argument("Cannot multiply matricies");
+        throw std::invalid_argument("Cannot multiply matricies with given dimensions");
 
     size_t newWidth = matrix.m_Data[0].size();
     size_t newHeight = m_Data.size();
@@ -70,7 +70,7 @@ Matrix Matrix::operator*(const Matrix& matrix) const
 Matrix Matrix::operator+(const Matrix& matrix) const
 {
     if (m_Data.size() != matrix.m_Data.size() || m_Data[0].size() != matrix.m_Data[0].size())
-        throw std::invalid_argument("Matrices must have the same dimensions for addition.");
+        throw std::invalid_argument("Matrices must have the same dimensions for addition");
 
     Matrix result(m_Data.size(), m_Data[0].size());
 
@@ -95,7 +95,7 @@ Matrix Matrix::operator*(double scalar) const
 void Matrix::CheckBounds(size_t row, size_t col) const
 {
 	if (row >= m_Data.size() || col >= m_Data[0].size())
-		throw std::out_of_range("Index out of bound\n");
+		throw std::out_of_range("Index out of bound");
 }
 
 std::ostream& operator<<(std::ostream& os, const Matrix& matrix)

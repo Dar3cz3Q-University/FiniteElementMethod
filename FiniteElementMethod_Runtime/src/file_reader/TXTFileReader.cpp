@@ -9,7 +9,7 @@ const std::string& TXTFileReader::GetFileType() const
     return m_ReaderName;
 }
 
-GlobalData TXTFileReader::Read(const std::filesystem::path& path)
+DataSet TXTFileReader::Read(const std::filesystem::path& path)
 {
     if (!std::filesystem::exists(path))
         throw std::invalid_argument("File '" + path.string() + "' not found");
@@ -18,6 +18,8 @@ GlobalData TXTFileReader::Read(const std::filesystem::path& path)
     
     if (!file.is_open())
         throw std::runtime_error("Cannot open: '" + path.string() + "'");
+
+    LOG_TRACE("Reading data from {}", path.string());
 
     DataTypeEnum dataType = DataTypeEnum::VARIABLES;
     std::string line;
@@ -48,7 +50,7 @@ GlobalData TXTFileReader::Read(const std::filesystem::path& path)
             std::vector<std::string> values = Split(line, ',');
 
             Node tempNode(std::stod(values[1]), std::stod(values[2]));
-            m_GlobalData.AddNodeToGrid(std::stoi(values[0]), tempNode);
+            m_Grid.AddNode(std::stoi(values[0]), tempNode);
         }
         else if (dataType == DataTypeEnum::ELEMENTS)
         {
@@ -56,13 +58,13 @@ GlobalData TXTFileReader::Read(const std::filesystem::path& path)
 
 			Element tempElement;
             for (auto it = values.begin() + 1; it != values.end(); it++)
-                tempElement.AddNode(std::stoi(*it), m_GlobalData.GetNode(std::stoi(*it)));
+                tempElement.AddNode(std::stoi(*it));
 
-            m_GlobalData.AddElementToGrid(std::stoi(values[0]), tempElement);
+            m_Grid.AddElement(std::stoi(values[0]), tempElement);
         }
     }
 
     file.close();
 
-    return m_GlobalData;
+    return { m_GlobalData, m_Grid };
 }

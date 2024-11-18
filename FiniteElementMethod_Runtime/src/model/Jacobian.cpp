@@ -12,9 +12,9 @@ Jacobian::Jacobian()
 	}
 }
 
-void Jacobian::Calculate(const std::map<int, Node>& nodes, int integrationPoint)
+void Jacobian::Calculate(const std::map<int, Node>& nodes, const std::vector<int>& nodesIDs, int integrationPoint)
 {
-	CalculateMatrix(nodes, integrationPoint);
+	CalculateMatrix(nodes, nodesIDs, integrationPoint);
 	CalculateInverseMatrix();
 }
 
@@ -23,7 +23,7 @@ double Jacobian::GetMatrixDeterminant() const
 	return m_JacobianMatrix.GetDeterminant();
 }
 
-void Jacobian::CalculateMatrix(const std::map<int, Node>& nodes, int integrationPoint)
+void Jacobian::CalculateMatrix(const std::map<int, Node>& nodes, const std::vector<int>& nodesIDs, int integrationPoint)
 {
 	IntegrationPointDerivatives* derivatives = IntegrationPointDerivatives::GetInstance();
 
@@ -34,12 +34,12 @@ void Jacobian::CalculateMatrix(const std::map<int, Node>& nodes, int integration
 
 	double dX_dKsi = 0.0, dY_dKsi = 0.0, dX_dEta = 0.0, dY_dEta = 0.0;
 
-	for (auto& node : nodes)
+	for (auto& node : nodesIDs)
 	{
-		dX_dKsi += derivativesKSI.at(i) * node.second.x;
-		dY_dKsi += derivativesKSI.at(i) * node.second.y;
-		dX_dEta += derivativesETA.at(i) * node.second.x;
-		dY_dEta += derivativesETA.at(i) * node.second.y;
+		dX_dKsi += derivativesKSI.at(i) * nodes.at(node).x;
+		dY_dKsi += derivativesKSI.at(i) * nodes.at(node).y;
+		dX_dEta += derivativesETA.at(i) * nodes.at(node).x;
+		dY_dEta += derivativesETA.at(i) * nodes.at(node).y;
 		i++;
 	}
 
