@@ -9,6 +9,9 @@ project "FiniteElementMethod_Tests"
 
    flags { "MultiProcessorCompile" }
 
+   pchheader "pch.h"
+   pchsource "../FiniteElementMethod_Runtime/src/pch.cpp"
+
    files { 
     "tests/**.cpp",
 
@@ -45,7 +48,7 @@ project "FiniteElementMethod_Tests"
        defines { "WINDOWS" }
 
    filter "configurations:Debug"
-       defines { "DEBUG" }
+       defines { "DEBUG", "RUNNING_TEST" }
        runtime "Debug"
        symbols "On"
 

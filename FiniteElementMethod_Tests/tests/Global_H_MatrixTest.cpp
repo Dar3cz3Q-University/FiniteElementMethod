@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "gtest/gtest.h"
 
 #include "Simulation.h"
@@ -26,7 +28,7 @@ double globalHMatrixFixture[16][16] = {
 TEST(Global_H_MatrixTest, GeneratesValidMatrixFor_Test1_4_4)
 {
     // Given
-    Simulation simulation(FileTypeEnum::TEXT, "../../Input/Grids/Test1_4_4.txt");
+    Simulation simulation(FileTypeEnum::TEXT, "../../../Input/Grids/Test1_4_4.txt");
 
     // When
     simulation.Run();
