@@ -4,6 +4,8 @@
 #include "GlobalData.h"
 #include "GridGenerator.h"
 
+#include "gtest/gtest.h"
+
 class Simulation
 {
 public:
@@ -18,5 +20,8 @@ private:
 	GlobalData m_SimulationData;
 	Grid m_Grid;
 	std::unique_ptr<FileReader> m_FileReader;
+
+public:
+	FRIEND_TEST(Global_H_MatrixTest, GeneratesValidMatrixFor_Test1_4_4);
 };
 

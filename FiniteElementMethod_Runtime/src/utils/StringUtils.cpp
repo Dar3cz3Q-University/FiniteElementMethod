@@ -13,7 +13,7 @@ std::vector<std::string> Split(const std::string& str, const char delimiter)
 	return tokens;
 }
 
-std::string thread_id_to_string(const std::thread::id& id)
+std::string ThreadIdToString(const std::thread::id& id)
 {
 	std::ostringstream oss;
 	oss << id;

@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "Matrix.h"
 
+Matrix::Matrix(size_t size)
+    : Matrix(size, size) {}
+
 Matrix::Matrix(size_t width, size_t height)
 {
 	m_Data.resize(height);
@@ -20,6 +23,13 @@ double Matrix::GetElement(size_t row, size_t col) const
 	CheckBounds(row, col);
 
 	return m_Data[row][col];
+}
+
+void Matrix::AddToElement(size_t row, size_t col, double value)
+{
+    CheckBounds(row, col);
+
+    m_Data[row][col] += value;
 }
 
 double Matrix::GetDeterminant() const

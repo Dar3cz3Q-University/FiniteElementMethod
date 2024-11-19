@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "gtest/gtest.h"
 
 #include "Derivatives.h"
@@ -16,8 +18,10 @@ TEST(DerivativesTest, GeneratesValidDerivativesForFirstIntegrationPoint)
         { 4, point4 }
     };
 
+    std::vector<int> nodes = { 1, 2, 3, 4 };
+
     Jacobian jacobian;
-    jacobian.Calculate(points, 1);
+    jacobian.Calculate(points, nodes, 1);
 
     // When
     Derivatives derivatives;

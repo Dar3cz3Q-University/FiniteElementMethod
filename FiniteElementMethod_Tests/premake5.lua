@@ -9,6 +9,9 @@ project "FiniteElementMethod_Tests"
 
    flags { "MultiProcessorCompile" }
 
+   pchheader "pch.h"
+   pchsource "../FiniteElementMethod_Runtime/src/pch.cpp"
+
    files { 
     "tests/**.cpp",
 
@@ -21,15 +24,19 @@ project "FiniteElementMethod_Tests"
    }
 
    includedirs {
-    "../Dependencies/googletest/googletest/include",
-
     "../FiniteElementMethod_Runtime/src",
     "../FiniteElementMethod_Runtime/src/global_data",
     "../FiniteElementMethod_Runtime/src/grid",
     "../FiniteElementMethod_Runtime/src/file_reader",
     "../FiniteElementMethod_Runtime/src/model",
     "../FiniteElementMethod_Runtime/src/simulation",
-    "../FiniteElementMethod_Runtime/src/utils"
+    "../FiniteElementMethod_Runtime/src/utils",
+
+    -- spdlog
+    "../FiniteElementMethod_Runtime/Dependencies/spdlog/include",
+
+    -- GoogleTest
+    "../Dependencies/googletest/googletest/include"
    }
 
    links {
@@ -41,7 +48,7 @@ project "FiniteElementMethod_Tests"
        defines { "WINDOWS" }
 
    filter "configurations:Debug"
-       defines { "DEBUG" }
+       defines { "DEBUG", "RUNNING_TEST" }
        runtime "Debug"
        symbols "On"
 

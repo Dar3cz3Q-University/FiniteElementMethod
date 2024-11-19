@@ -20,6 +20,15 @@ public:
 	inline void SetReadElementsNumber(int readElementsNumber) { m_ReadElementsNumber = readElementsNumber; }
 	inline void SetReadNodesNumber(int readNodesNumber) { m_ReadNodesNumber = readNodesNumber; }
 
+	inline int GetSimulationTime() const { return m_SimulationTime; }
+	inline int GetSimulationStepTime() const { return m_SimulationStepTime; }
+	inline double GetConductivity() const { return m_Conductivity; }
+	inline double GetAlpha() const { return m_Alpha; }
+	inline double GetTot() const { return m_Tot; }
+	inline double GetInitialTemp() const { return m_InitialTemp; }
+	inline double GetDensity() const { return m_Density; }
+	inline double GetSpecificHeat() const { return m_SpecificHeat; }
+
 private:
 	int m_SimulationTime = 0;
 	int m_SimulationStepTime = 0;
