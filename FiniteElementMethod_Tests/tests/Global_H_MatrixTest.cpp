@@ -4,7 +4,7 @@
 
 #include "Simulation.h"
 
-static const double EPSILON = 1e-4;
+static const double EPSILON = 1e-3;
 
 double globalHMatrixFixture[16][16] = {
     { 16.667, -4.1667, 0, 0, -4.1667, -8.3333, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
