@@ -4,11 +4,14 @@ class Matrix
 {
 public:
 	Matrix() = default;
+	Matrix(size_t size);
 	Matrix(size_t width, size_t height);
 
 public:
 	void SetElement(size_t row, size_t col, double value);
 	double GetElement(size_t row, size_t col) const;
+	void AddToElement(size_t row, size_t col, double value);
+
 	double GetDeterminant() const;
 
 	Matrix Transpose() const;

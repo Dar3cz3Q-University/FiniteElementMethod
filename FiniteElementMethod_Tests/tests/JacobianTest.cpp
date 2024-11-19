@@ -14,9 +14,11 @@ TEST(JacobianTest, GeneratesValidMatrixForFirstIntegrationPoint) {
         { 4, point4 }
     };
 
+    std::vector<int> nodes = { 1, 2, 3, 4 };
+
     // When
     Jacobian jacobian;
-    jacobian.Calculate(points, 1);
+    jacobian.Calculate(points, nodes, 1);
 
     // Then
     EXPECT_NEAR(jacobian.m_JacobianMatrix.GetElement(0, 0), 0.0125, EPSILON);

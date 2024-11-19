@@ -4,14 +4,16 @@
 #include "GlobalDataEnum.h"
 #include "multithreading/ThreadPool.h"
 
+#include "gtest/gtest.h"
+
 class Grid 
 {
 public:
 	Grid() = default;
-	Grid(int numberOfElements, int numberOfNodes);
 
 public:
-	void GenerateNecessaryData();
+	void GenerateNecessaryData(double conductivity);
+	void DisplayAllCalculatedData();
 
 public:
 	size_t GetNumberOfNodes() const { return m_Nodes.size(); };
@@ -25,12 +27,16 @@ public:
 private:
 	std::map<int, Element> m_Elements;
 	std::map<int, Node> m_Nodes;
+	Matrix m_GlobalHMatrix;
 
 private:
-	void DisplayDebugData();
+	void GenerateGlobalHMatrix();
 
 public:
 	friend std::ostream& operator<<(std::ostream& os, const Grid& grid);
+
+public:
+	FRIEND_TEST(Global_H_MatrixTest, GeneratesValidMatrixFor_Test1_4_4);
 };
 
 std::ostream& operator<<(std::ostream& os, const Grid& grid);

@@ -30,7 +30,7 @@ void ThreadPool::Start(uint32_t numberOfThreads)
     for (uint32_t i = 0; i < numberOfThreads; i++)
     {
         m_Threads.emplace_back(std::thread(&ThreadPool::ThreadLoop, this));
-        LOG_TRACE("Thread {} started", thread_id_to_string(m_Threads.at(i).get_id()));
+        LOG_TRACE("Thread {} started", ThreadIdToString(m_Threads.at(i).get_id()));
     }
 }
 
@@ -80,7 +80,7 @@ void ThreadPool::Stop()
 
     for (std::thread& activeThread : m_Threads)
     {
-        LOG_TRACE("Stopping {} thread", thread_id_to_string(activeThread.get_id()));
+        LOG_TRACE("Stopping {} thread", ThreadIdToString(activeThread.get_id()));
         activeThread.join();
     }
 

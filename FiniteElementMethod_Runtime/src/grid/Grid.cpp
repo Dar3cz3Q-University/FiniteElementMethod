@@ -2,16 +2,7 @@
 
 #include "Grid.h"
 
-Grid::Grid(int numberOfElements, int numberOfNodes)
-{
-    if (numberOfElements <= 0)
-        throw std::invalid_argument("Number of elements cannot be less than or equal to 0");
-    
-    if (numberOfNodes <= 0)
-        throw std::invalid_argument("Number of nodes cannot be less than or equal to 0");
-}
-
-void Grid::GenerateNecessaryData()
+void Grid::GenerateNecessaryData(double conductivity)
 {
     LOG_TRACE("Generating simulation data (Jacobian, HMatrix)");
 
@@ -22,7 +13,7 @@ void Grid::GenerateNecessaryData()
     for (auto& element : m_Elements)
     {
         threadPool->QueueJob([&] {
-            element.second.Calculate(element.first, m_Nodes);
+            element.second.Calculate(element.first, m_Nodes, conductivity);
         });
     }
 
@@ -31,16 +22,14 @@ void Grid::GenerateNecessaryData()
 #else
 
     for (auto& element : m_Elements)
-        element.second.Calculate(element.first, m_Nodes);
+        element.second.Calculate(element.first, m_Nodes, alpha);
 
 #endif
 
-    LOG_TRACE("Generating global HMatrix");
-
-    // TODO: Calculate global HMatrix
+    GenerateGlobalHMatrix();
 }
 
-void Grid::DisplayDebugData()
+void Grid::DisplayAllCalculatedData()
 {
     LOG_TRACE("Displaying debug data");
 
@@ -50,6 +39,23 @@ void Grid::DisplayDebugData()
         element.second.DisplayCalculations();
         std::cout << "\n";
     }
+}
+
+void Grid::GenerateGlobalHMatrix()
+{
+    LOG_TRACE("Generating global HMatrix");
+
+    size_t numberOfNodes = m_Nodes.size();
+
+    m_GlobalHMatrix = Matrix(numberOfNodes);
+
+    for (size_t i = 0; i < numberOfNodes; i++) for (size_t j = 0; j < numberOfNodes; j++)
+        m_GlobalHMatrix.SetElement(i, j, 0.0);
+
+    for (auto& element : m_Elements)
+        element.second.AddHMatrixToGlobalMatrix(m_Nodes, m_GlobalHMatrix);
+    
+    std::cout << std::setprecision(4) << m_GlobalHMatrix << "\n";
 }
 
 std::ostream& operator<<(std::ostream& os, const Grid& grid)

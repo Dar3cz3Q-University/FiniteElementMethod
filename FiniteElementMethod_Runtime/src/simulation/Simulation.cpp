@@ -17,7 +17,7 @@ Simulation::Simulation(FileTypeEnum fileType, const std::filesystem::path& path)
 	}
 	catch (const std::invalid_argument& e)
 	{
-		std::cerr << e.what() << "\n";
+		LOG_CRITICAL(e.what());
 		return;
 	}
 
@@ -34,7 +34,7 @@ Simulation::Simulation(double x0, double x, double y0, double y, int nodes_x, in
 	}
 	catch (const std::invalid_argument& e)
 	{
-		std::cerr << e.what() << "\n";
+		LOG_CRITICAL(e.what());
 		return;
 	}
 
@@ -46,14 +46,14 @@ void Simulation::Run()
 	if (!m_Initialized)
 		throw std::logic_error("Object not initialized");
 
-	LOG_TRACE("Displaying simulation data and grid");
+	LOG_INFO("Displaying simulation data and grid");
 	
-	std::cout << m_SimulationData << "\n";
-	std::cout << m_Grid << "\n";
+	std::cout << m_SimulationData;
+	std::cout << m_Grid;
 
-	LOG_TRACE("Running Simulation");
+	LOG_INFO("Running Simulation...");
 
-	m_Grid.GenerateNecessaryData();
+	m_Grid.GenerateNecessaryData(m_SimulationData.GetConductivity());
 
 	return;
 }

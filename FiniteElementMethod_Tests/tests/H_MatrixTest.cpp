@@ -16,8 +16,10 @@ TEST(H_MatrixTest, GeneratesValidHMatrixForFirstIntegrationPoint)
         { 4, point4 }
     };
 
+    std::vector<int> nodes = { 1, 2, 3, 4 };
+
     Jacobian jacobian;
-    jacobian.Calculate(points, 1);
+    jacobian.Calculate(points, nodes, 1);
 
     Derivatives derivatives;
     derivatives.Calculate(jacobian, 1);

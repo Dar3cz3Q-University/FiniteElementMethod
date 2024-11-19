@@ -13,26 +13,21 @@ Element::Element()
 	m_NodesIDs.reserve(4);
 }
 
-Matrix Element::GetGlobalHMatrix()
-{
-	IntegrationPointDerivatives* derivatives = IntegrationPointDerivatives::GetInstance();
-
-	Matrix temp(4, 4);
-
-	for (int i = 1; i <= INTEGRATION_POINTS_COUNT; i++)
-		temp = temp + m_H_Matricies.at(i).GetMatrix() * INTEGRATION_WEIGHTS[i - 1].x * INTEGRATION_WEIGHTS[i - 1].y;
-	
-	return temp;
-}
-
-void Element::Calculate(int elementID, const std::map<int, Node>& nodes)
+void Element::Calculate(int elementID, const std::map<int, Node>& nodes, double alpha)
 {
 	LOG_TRACE("Calculating data for {} element", elementID);
 
 	// Order of running this methods is pretty important :)
 	CalculateJacobians(nodes);
 	CalculateDerivatives();
-	CalculateHMatricies();
+	CalculateHMatricies(alpha);
+	CalculateGlobalHMatrix();
+}
+
+void Element::AddHMatrixToGlobalMatrix(const std::map<int, Node>& nodes, Matrix& matrix)
+{
+	for (int i = 0; i < 4; i++) for (int j = 0; j < 4; j++)
+		matrix.AddToElement(m_NodesIDs.at(i) - 1, m_NodesIDs.at(j) - 1, m_GlobalHMatrix.GetElement(i, j));
 }
 
 void Element::CalculateJacobians(const std::map<int, Node>& nodes)
@@ -47,23 +42,31 @@ void Element::CalculateDerivatives()
 		derivative.second.Calculate(m_Jacobians.at(derivative.first), derivative.first);
 }
 
-void Element::CalculateHMatricies()
+void Element::CalculateHMatricies(double conductivity)
 {
-	// TODO: The value '30' should be changed to variable that is read from file
 	for (auto& matrix : m_H_Matricies)
 		matrix.second.Calculate(
-			30,
+			conductivity,
 			m_Jacobians.at(matrix.first).GetMatrixDeterminant(),
 			m_Derivatives.at(matrix.first)
 		);
 }
 
+void Element::CalculateGlobalHMatrix()
+{
+	IntegrationPointDerivatives* derivatives = IntegrationPointDerivatives::GetInstance();
+
+	Matrix temp(4, 4);
+
+	for (int i = 1; i <= INTEGRATION_POINTS_COUNT; i++)
+		temp = temp + m_H_Matricies.at(i).GetMatrix() * INTEGRATION_WEIGHTS[i - 1].x * INTEGRATION_WEIGHTS[i - 1].y;
+
+	m_GlobalHMatrix = temp;
+}
+
 void Element::DisplayCalculations()
 {
 	std::cout << "Element " << *this << "\n";
-
-	for (auto& node : m_NodesIDs)
-		std::cout << node << "\n";
 
 	for (int i = 1; i <= INTEGRATION_POINTS_COUNT; i++)
 	{
