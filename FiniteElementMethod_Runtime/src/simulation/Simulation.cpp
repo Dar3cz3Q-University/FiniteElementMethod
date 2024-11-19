@@ -18,7 +18,7 @@ Simulation::Simulation(FileTypeEnum fileType, const std::filesystem::path& path)
 	catch (const std::invalid_argument& e)
 	{
 		LOG_CRITICAL(e.what());
-		throw e;
+		return;
 	}
 
 	m_Initialized = true;
@@ -35,7 +35,7 @@ Simulation::Simulation(double x0, double x, double y0, double y, int nodes_x, in
 	catch (const std::invalid_argument& e)
 	{
 		LOG_CRITICAL(e.what());
-		throw e;
+		return;
 	}
 
 	m_Initialized = true;
