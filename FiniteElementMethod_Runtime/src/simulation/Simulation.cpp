@@ -55,5 +55,7 @@ void Simulation::Run()
 
 	m_Grid.GenerateNecessaryData(m_SimulationData.GetConductivity());
 
+	m_Grid.DisplayAllCalculatedData();
+
 	return;
 }

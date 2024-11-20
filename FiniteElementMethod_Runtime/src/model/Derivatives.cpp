@@ -5,8 +5,7 @@
 #include "GlobalData.h"
 
 Derivatives::Derivatives()
-    : m_Derivatives_X(Matrix(ELEMENT_NODES_SIZE, 1)), m_Derivatives_Y(Matrix(ELEMENT_NODES_SIZE, 1))
-{}
+    : m_Derivatives_X(Matrix(ELEMENT_NODES_SIZE, 1)), m_Derivatives_Y(Matrix(ELEMENT_NODES_SIZE, 1)) {}
 
 void Derivatives::Calculate(const Jacobian& jacobian, int integrationPoint)
 {

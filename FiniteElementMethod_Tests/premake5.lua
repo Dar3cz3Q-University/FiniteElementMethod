@@ -31,6 +31,7 @@ project "FiniteElementMethod_Tests"
     "../FiniteElementMethod_Runtime/src/model",
     "../FiniteElementMethod_Runtime/src/simulation",
     "../FiniteElementMethod_Runtime/src/utils",
+    "../FiniteElementMethod_Runtime/src/universal",
 
     -- spdlog
     "../FiniteElementMethod_Runtime/Dependencies/spdlog/include",

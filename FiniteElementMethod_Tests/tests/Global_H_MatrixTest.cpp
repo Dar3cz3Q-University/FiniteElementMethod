@@ -35,5 +35,5 @@ TEST(Global_H_MatrixTest, GeneratesValidMatrixFor_Test1_4_4)
 
     // Then
     for (int i = 0; i < 16; i++) for (int j = 0; j < 16; j++)
-        ASSERT_NEAR(globalHMatrixFixture[i][j], simulation.m_Grid.m_GlobalHMatrix.GetElement(i, j), EPSILON);
+        EXPECT_NEAR(globalHMatrixFixture[i][j], simulation.m_Grid.m_GlobalHMatrix.GetElement(i, j), EPSILON);
 }
