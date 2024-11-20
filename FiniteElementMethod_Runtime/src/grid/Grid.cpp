@@ -40,6 +40,8 @@ void Grid::DisplayAllCalculatedData()
         element.second.DisplayCalculations();
         std::cout << "\n";
     }
+
+    std::cout << m_GlobalHMatrix;
 }
 
 void Grid::GenerateGlobalHMatrix()
@@ -55,8 +57,6 @@ void Grid::GenerateGlobalHMatrix()
 
     for (auto& element : m_Elements)
         element.second.AddHMatrixToGlobalMatrix(m_Nodes, m_GlobalHMatrix);
-    
-    std::cout << std::setprecision(4) << m_GlobalHMatrix << "\n";
 }
 
 std::ostream& operator<<(std::ostream& os, const Grid& grid)

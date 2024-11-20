@@ -25,6 +25,7 @@ project "FiniteElementMethod_Runtime"
        "src/model",
        "src/simulation",
        "src/utils",
+       "src/universal",
 
        -- Numerical Methods
        "Dependencies/NumericalMethods/NumericalMethods_Core/Source",

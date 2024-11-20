@@ -6,10 +6,12 @@ IntegrationPointDerivatives* IntegrationPointDerivatives::m_Instance = nullptr;
 
 IntegrationPointDerivatives::IntegrationPointDerivatives()
 {
+    CalculateIntegrationPoints();
+
     for (size_t i = 0; i < INTEGRATION_POINTS_COUNT; i++)
     {
-        double ksi = INTEGRATION_POINTS[i].ksi;
-        double eta = INTEGRATION_POINTS[i].eta;
+        double ksi = m_IntegrationPoints.at(i).ksi;
+        double eta = m_IntegrationPoints.at(i).eta;
 
         std::vector<double> dN_dKsi = {
             -0.25 * (1.0 - eta),
@@ -42,6 +44,21 @@ IntegrationPointDerivatives* IntegrationPointDerivatives::GetInstance()
         m_Instance = new IntegrationPointDerivatives();
 
     return m_Instance;
+}
+
+void IntegrationPointDerivatives::CalculateIntegrationPoints()
+{
+    auto& legendrePoints = LEGENDRE_POINTS.at((int) INTEGRATION_SCHEMA);
+    auto& legendreWeights = LEGENDRE_WEIGHTS.at((int) INTEGRATION_SCHEMA);
+
+    m_IntegrationPoints.reserve((int) INTEGRATION_SCHEMA);
+    m_IntegrationWeights.reserve((int) INTEGRATION_SCHEMA);
+
+    for (auto& x : legendrePoints) for (auto& y : legendrePoints)
+        m_IntegrationPoints.push_back(Node(x, y));
+
+    for (auto& x : legendreWeights) for (auto& y : legendreWeights)
+        m_IntegrationWeights.push_back(Node(x, y));
 }
 
 std::ostream& operator<<(std::ostream& os, const IntegrationPointDerivatives& derivatives)

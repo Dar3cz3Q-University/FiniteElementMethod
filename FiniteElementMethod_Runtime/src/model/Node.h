@@ -2,6 +2,7 @@
 
 struct Node 
 {
+	Node() = default;
 	Node(double x, double y);
 
 	union
