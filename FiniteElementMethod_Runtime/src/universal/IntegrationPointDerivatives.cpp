@@ -48,17 +48,19 @@ IntegrationPointDerivatives* IntegrationPointDerivatives::GetInstance()
 
 void IntegrationPointDerivatives::CalculateIntegrationPoints()
 {
-    auto& legendrePoints = LEGENDRE_POINTS.at((int) INTEGRATION_SCHEMA);
-    auto& legendreWeights = LEGENDRE_WEIGHTS.at((int) INTEGRATION_SCHEMA);
+    int integrationSchema = (int)INTEGRATION_SCHEMA;
 
-    m_IntegrationPoints.reserve((int) INTEGRATION_SCHEMA);
-    m_IntegrationWeights.reserve((int) INTEGRATION_SCHEMA);
+    auto& legendrePoints = LEGENDRE_POINTS.at(integrationSchema);
+    auto& legendreWeights = LEGENDRE_WEIGHTS.at(integrationSchema);
 
-    for (auto& x : legendrePoints) for (auto& y : legendrePoints)
-        m_IntegrationPoints.push_back(Node(x, y));
+    m_IntegrationPoints.reserve(integrationSchema);
+    m_IntegrationWeights.reserve(integrationSchema);
 
-    for (auto& x : legendreWeights) for (auto& y : legendreWeights)
-        m_IntegrationWeights.push_back(Node(x, y));
+    for (int i = 0; i < integrationSchema + 1; i++) for (int j = 0; j < integrationSchema + 1; j++)
+    {
+        m_IntegrationPoints.push_back(Node(legendrePoints.at(i), legendrePoints.at(j)));
+        m_IntegrationWeights.push_back(Node(legendreWeights.at(i), legendreWeights.at(j)));
+    }
 }
 
 std::ostream& operator<<(std::ostream& os, const IntegrationPointDerivatives& derivatives)
