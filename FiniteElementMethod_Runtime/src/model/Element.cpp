@@ -13,7 +13,7 @@ Element::Element()
 	m_NodesIDs.reserve(4);
 }
 
-void Element::Calculate(int elementID, const std::map<int, Node>& nodes, double alpha)
+void Element::Calculate(int elementID, const std::map<int, Node>& nodes, double conductivity, double alpha)
 {
 	LOG_TRACE("Calculating data for {} element", elementID);
 
@@ -21,6 +21,7 @@ void Element::Calculate(int elementID, const std::map<int, Node>& nodes, double 
 	CalculateJacobians(nodes);
 	CalculateDerivatives();
 	CalculateHMatricies(alpha);
+	// Calculate HBC matricies and add them to H matricies
 	CalculateGlobalHMatrix();
 }
 

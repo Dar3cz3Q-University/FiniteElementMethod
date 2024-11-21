@@ -2,7 +2,7 @@
 
 #include "Grid.h"
 
-void Grid::GenerateNecessaryData(double conductivity)
+void Grid::GenerateNecessaryData(double conductivity, double alpha)
 {
     LOG_TRACE("Generating simulation data (Jacobian, HMatrix)");
 
@@ -14,7 +14,7 @@ void Grid::GenerateNecessaryData(double conductivity)
     for (auto& element : m_Elements)
     {
         threadPool->QueueJob([&] {
-            element.second.Calculate(element.first, m_Nodes, conductivity);
+            element.second.Calculate(element.first, m_Nodes, conductivity, double alpha);
         });
     }
 

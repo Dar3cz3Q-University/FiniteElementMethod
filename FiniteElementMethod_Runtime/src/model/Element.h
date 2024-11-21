@@ -16,7 +16,7 @@ public:
 public:
 	void AddNode(int nodeID) { m_NodesIDs.emplace_back(nodeID); };
 
-	void Calculate(int elementID, const std::map<int, Node>& nodes, double alpha);
+	void Calculate(int elementID, const std::map<int, Node>& nodes, double conductivity, double alpha);
 	void AddHMatrixToGlobalMatrix(const std::map<int, Node>& nodes, Matrix& matrix);
 
 	void DisplayCalculations();

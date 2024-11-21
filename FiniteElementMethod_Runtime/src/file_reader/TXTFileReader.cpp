@@ -57,10 +57,17 @@ DataSet TXTFileReader::Read(const std::filesystem::path& path)
 			std::vector<std::string> values = Split(line, ',');
 
 			Element tempElement;
-            for (auto it = values.begin() + 1; it != values.end(); it++)
-                tempElement.AddNode(std::stoi(*it));
+            for (auto& value : values)
+                tempElement.AddNode(std::stoi(value));
 
             m_Grid.AddElement(std::stoi(values[0]), tempElement);
+        }
+        else if (dataType == DataTypeEnum::BC)
+        {
+            std::vector<std::string> values = Split(line, ',');
+
+            for (auto& value : values)
+                m_Grid.SetNodeAsBoundaryCondition(std::stoi(value));
         }
     }
 
