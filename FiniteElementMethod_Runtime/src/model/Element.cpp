@@ -60,7 +60,7 @@ void Element::CalculateGlobalHMatrix()
 	Matrix temp(4, 4);
 
 	for (int i = 1; i <= INTEGRATION_POINTS_COUNT; i++)
-		temp = temp + m_H_Matricies.at(i).GetMatrix() * derivatives->GetIntegrationWeights(i - 1).x * derivatives->GetIntegrationWeights(i - 1).y;
+		temp = temp + m_H_Matricies.at(i).GetMatrix() * derivatives->GetIntegrationWeight(i - 1).x * derivatives->GetIntegrationWeight(i - 1).y;
 
 	m_GlobalHMatrix = temp;
 }

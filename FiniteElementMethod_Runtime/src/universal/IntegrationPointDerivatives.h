@@ -22,8 +22,10 @@ private:
 
     // Logic of the class
 public:
-    const Node& GetIntegrationPoints(int index) const { return m_IntegrationPoints.at(index); }
-    const Node& GetIntegrationWeights(int index) const { return m_IntegrationWeights.at(index); }
+    const Node& GetIntegrationPoint(int index) const { return m_IntegrationPoints.at(index); }
+    const Node& GetIntegrationWeight(int index) const { return m_IntegrationWeights.at(index); }
+    const std::vector<Node>& GetIntegrationPoints() const { return m_IntegrationPoints; }
+    const std::vector<Node>& GetIntegrationWeights() const { return m_IntegrationWeights; }
     const std::vector<double>& GetKSIDerivatives(int index) const { return m_Derivatives_KSI.at(index); }
     const std::vector<double>& GetETADerivatives(int index) const { return m_Derivatives_ETA.at(index); }
 

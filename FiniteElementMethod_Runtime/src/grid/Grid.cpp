@@ -14,7 +14,7 @@ void Grid::GenerateNecessaryData(double conductivity, double alpha)
     for (auto& element : m_Elements)
     {
         threadPool->QueueJob([&] {
-            element.second.Calculate(element.first, m_Nodes, conductivity, double alpha);
+            element.second.Calculate(element.first, m_Nodes, conductivity, alpha);
         });
     }
 
@@ -23,7 +23,7 @@ void Grid::GenerateNecessaryData(double conductivity, double alpha)
 #else
 
     for (auto& element : m_Elements)
-        element.second.Calculate(element.first, m_Nodes, conductivity);
+        element.second.Calculate(element.first, m_Nodes, conductivity, alpha);
 
 #endif
 
