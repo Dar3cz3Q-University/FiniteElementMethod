@@ -21,12 +21,10 @@ private:
 
     // Logic of the class
 public:
-    static void SetAlpha(double alpha) { m_Alpha = alpha; }
     inline Matrix GetSurfaceForDirection(SurfaceEnum direction) const { return m_SurfaceMatricies.at(direction); }
 
 private:
     std::map<SurfaceEnum, Matrix> m_SurfaceMatricies;
-    static double m_Alpha;
 };
 
 inline static const std::map<int, std::function<double(double, double)>> SHAPE_FUNCTIONS = {

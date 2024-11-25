@@ -30,7 +30,7 @@ private:
 	void CalculateJacobians(const std::map<int, Node>& nodes);
 	void CalculateDerivatives();
 	void CalculateHMatricies(double conductivity);
-	void AddBoundaryHMatricies(const std::map<int, Node>& nodes);
+	void AddBoundaryHMatricies(const std::map<int, Node>& nodes, double alpha);
 	void CalculateGlobalHMatrix();
 
 private:

@@ -7,7 +7,7 @@ void Grid::GenerateNecessaryData(double conductivity, double alpha)
     LOG_TRACE("Generating simulation data (Jacobian, HMatrix)");
 
     // TODO: Multithreaded parts of the application are not working well with Google Test :(
-#ifdef RUNNING_TEST
+#ifndef RUNNING_TEST
 
     ThreadPool* threadPool = ThreadPool::GetInstance();
 

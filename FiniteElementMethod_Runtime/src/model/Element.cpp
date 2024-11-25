@@ -23,7 +23,7 @@ void Element::Calculate(const std::map<int, Node>& nodes, double conductivity, d
 	CalculateDerivatives();
 	CalculateHMatricies(conductivity);
 	CalculateGlobalHMatrix();
-	AddBoundaryHMatricies(nodes);
+	AddBoundaryHMatricies(nodes, alpha);
 }
 
 void Element::AddHMatrixToGlobalMatrix(const std::map<int, Node>& nodes, Matrix& matrix)
@@ -54,7 +54,7 @@ void Element::CalculateHMatricies(double conductivity)
 		);
 }
 
-void Element::AddBoundaryHMatricies(const std::map<int, Node>& nodes)
+void Element::AddBoundaryHMatricies(const std::map<int, Node>& nodes, double alpha)
 {
 	Surface* surfaces = Surface::GetInstance();
 
@@ -64,7 +64,13 @@ void Element::AddBoundaryHMatricies(const std::map<int, Node>& nodes)
 		Node p2 = nodes.at(m_NodesIDs.at((i + 1) % 4));
 
 		if (p1.IsBoundaryCondition && p2.IsBoundaryCondition)
-			m_GlobalHMatrix = m_GlobalHMatrix + surfaces->GetSurfaceForDirection((SurfaceEnum) ((i + 2) % 4));
+		{
+			Matrix tempMatrix = surfaces->GetSurfaceForDirection((SurfaceEnum)i);
+			double dx = p1.x == p2.x ? std::fabs(p2.y - p1.y) : std::fabs(p2.x - p1.x);
+			double detJ = dx / 2.0;
+
+			m_GlobalHMatrix = m_GlobalHMatrix + (tempMatrix * detJ * alpha);
+		}
 	}
 }
 

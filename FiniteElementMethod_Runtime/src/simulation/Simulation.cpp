@@ -54,8 +54,6 @@ void Simulation::Run()
 
 	LOG_INFO("Running Simulation...");
 
-	Surface::SetAlpha(m_SimulationData.GetAlpha());
-
 	m_Grid.GenerateNecessaryData(m_SimulationData.GetConductivity(), m_SimulationData.GetAlpha());
 
 	m_Grid.DisplayAllCalculatedData();
