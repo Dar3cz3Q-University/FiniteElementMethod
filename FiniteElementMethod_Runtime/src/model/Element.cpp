@@ -2,7 +2,8 @@
 
 #include "Element.h"
 
-Element::Element()
+Element::Element() :
+	m_ElementID(0.0)
 {
 	for (int i = 0; i < INTEGRATION_POINTS_COUNT; i++)
 	{
@@ -13,16 +14,16 @@ Element::Element()
 	m_NodesIDs.reserve(4);
 }
 
-void Element::Calculate(int elementID, const std::map<int, Node>& nodes, double conductivity, double alpha)
+void Element::Calculate(const std::map<int, Node>& nodes, double conductivity, double alpha)
 {
-	LOG_TRACE("Calculating data for {} element", elementID);
+	LOG_TRACE("Calculating data for {} element", m_ElementID);
 
 	// Order of running this methods is pretty important :)
 	CalculateJacobians(nodes);
 	CalculateDerivatives();
-	CalculateHMatricies(alpha);
-	// Calculate HBC matricies and add them to H matricies
+	CalculateHMatricies(conductivity);
 	CalculateGlobalHMatrix();
+	AddBoundaryHMatricies(nodes);
 }
 
 void Element::AddHMatrixToGlobalMatrix(const std::map<int, Node>& nodes, Matrix& matrix)
@@ -51,6 +52,20 @@ void Element::CalculateHMatricies(double conductivity)
 			m_Jacobians.at(matrix.first).GetMatrixDeterminant(),
 			m_Derivatives.at(matrix.first)
 		);
+}
+
+void Element::AddBoundaryHMatricies(const std::map<int, Node>& nodes)
+{
+	Surface* surfaces = Surface::GetInstance();
+
+	for (int i = 0; i < 4; i++)
+	{
+		Node p1 = nodes.at(m_NodesIDs.at(i));
+		Node p2 = nodes.at(m_NodesIDs.at((i + 1) % 4));
+
+		if (p1.IsBoundaryCondition && p2.IsBoundaryCondition)
+			m_GlobalHMatrix = m_GlobalHMatrix + surfaces->GetSurfaceForDirection((SurfaceEnum) ((i + 2) % 4));
+	}
 }
 
 void Element::CalculateGlobalHMatrix()

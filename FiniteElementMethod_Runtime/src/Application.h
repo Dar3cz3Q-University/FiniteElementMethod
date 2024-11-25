@@ -12,8 +12,6 @@ void Init()
 
 	Log::Init();
 	ThreadPool::GetInstance()->Start(THREADS_COUNT);
-	// TODO: Temporary added
-	Surface::GetInstance();
 }
 
 void ShutDown()

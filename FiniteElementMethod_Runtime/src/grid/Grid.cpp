@@ -7,14 +7,14 @@ void Grid::GenerateNecessaryData(double conductivity, double alpha)
     LOG_TRACE("Generating simulation data (Jacobian, HMatrix)");
 
     // TODO: Multithreaded parts of the application are not working well with Google Test :(
-#ifndef RUNNING_TEST
+#ifdef RUNNING_TEST
 
     ThreadPool* threadPool = ThreadPool::GetInstance();
 
     for (auto& element : m_Elements)
     {
         threadPool->QueueJob([&] {
-            element.second.Calculate(element.first, m_Nodes, conductivity, alpha);
+            element.second.Calculate(m_Nodes, conductivity, alpha);
         });
     }
 
@@ -23,7 +23,7 @@ void Grid::GenerateNecessaryData(double conductivity, double alpha)
 #else
 
     for (auto& element : m_Elements)
-        element.second.Calculate(element.first, m_Nodes, conductivity, alpha);
+        element.second.Calculate(m_Nodes, conductivity, alpha);
 
 #endif
 
