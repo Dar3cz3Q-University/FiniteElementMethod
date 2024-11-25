@@ -5,6 +5,8 @@
 #include "Derivatives.h"
 #include "IntegrationPointDerivatives.h"
 #include "H_Matrix.h"
+#include "Surface.h"
+#include "SurfaceEnum.h"
 
 constexpr auto ELEMENT_NODES_SIZE = 4;
 
@@ -14,9 +16,10 @@ public:
 	Element();
 
 public:
-	void AddNode(int nodeID) { m_NodesIDs.emplace_back(nodeID); };
+	inline void SetElementID(int elementID) { m_ElementID = elementID; }
+	inline void AddNode(int nodeID) { m_NodesIDs.emplace_back(nodeID); }
 
-	void Calculate(int elementID, const std::map<int, Node>& nodes, double alpha);
+	void Calculate(const std::map<int, Node>& nodes, double conductivity, double alpha);
 	void AddHMatrixToGlobalMatrix(const std::map<int, Node>& nodes, Matrix& matrix);
 
 	void DisplayCalculations();
@@ -27,9 +30,11 @@ private:
 	void CalculateJacobians(const std::map<int, Node>& nodes);
 	void CalculateDerivatives();
 	void CalculateHMatricies(double conductivity);
+	void AddBoundaryHMatricies(const std::map<int, Node>& nodes, double alpha);
 	void CalculateGlobalHMatrix();
 
 private:
+	int m_ElementID;
 	std::vector<int> m_NodesIDs;
 	std::map<int, Jacobian> m_Jacobians;
 	std::map<int, Derivatives> m_Derivatives;

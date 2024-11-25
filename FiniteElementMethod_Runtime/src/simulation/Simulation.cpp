@@ -1,6 +1,7 @@
 #include "pch.h"
 
 #include "Simulation.h"
+#include "Surface.h"
 
 Simulation::Simulation(FileTypeEnum fileType, const std::filesystem::path& path)
 {
@@ -53,7 +54,7 @@ void Simulation::Run()
 
 	LOG_INFO("Running Simulation...");
 
-	m_Grid.GenerateNecessaryData(m_SimulationData.GetConductivity());
+	m_Grid.GenerateNecessaryData(m_SimulationData.GetConductivity(), m_SimulationData.GetAlpha());
 
 	m_Grid.DisplayAllCalculatedData();
 

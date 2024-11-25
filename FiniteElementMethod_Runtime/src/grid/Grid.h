@@ -12,7 +12,7 @@ public:
 	Grid() = default;
 
 public:
-	void GenerateNecessaryData(double conductivity);
+	void GenerateNecessaryData(double conductivity, double alpha);
 	void DisplayAllCalculatedData();
 
 public:
@@ -23,6 +23,7 @@ public:
 
 	inline void AddElement(int index, Element element) { m_Elements.insert({ index, element }); }
 	inline void AddNode(int index, Node node) { m_Nodes.insert({ index, node }); }
+	inline void SetNodeAsBoundaryCondition(int index) { m_Nodes.at(index).IsBoundaryCondition = true; }
 
 private:
 	std::map<int, Element> m_Elements;

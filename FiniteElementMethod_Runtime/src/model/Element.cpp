@@ -2,7 +2,8 @@
 
 #include "Element.h"
 
-Element::Element()
+Element::Element() :
+	m_ElementID(0.0)
 {
 	for (int i = 0; i < INTEGRATION_POINTS_COUNT; i++)
 	{
@@ -13,15 +14,16 @@ Element::Element()
 	m_NodesIDs.reserve(4);
 }
 
-void Element::Calculate(int elementID, const std::map<int, Node>& nodes, double alpha)
+void Element::Calculate(const std::map<int, Node>& nodes, double conductivity, double alpha)
 {
-	LOG_TRACE("Calculating data for {} element", elementID);
+	LOG_TRACE("Calculating data for {} element", m_ElementID);
 
 	// Order of running this methods is pretty important :)
 	CalculateJacobians(nodes);
 	CalculateDerivatives();
-	CalculateHMatricies(alpha);
+	CalculateHMatricies(conductivity);
 	CalculateGlobalHMatrix();
+	AddBoundaryHMatricies(nodes, alpha);
 }
 
 void Element::AddHMatrixToGlobalMatrix(const std::map<int, Node>& nodes, Matrix& matrix)
@@ -52,6 +54,26 @@ void Element::CalculateHMatricies(double conductivity)
 		);
 }
 
+void Element::AddBoundaryHMatricies(const std::map<int, Node>& nodes, double alpha)
+{
+	Surface* surfaces = Surface::GetInstance();
+
+	for (int i = 0; i < 4; i++)
+	{
+		Node p1 = nodes.at(m_NodesIDs.at(i));
+		Node p2 = nodes.at(m_NodesIDs.at((i + 1) % 4));
+
+		if (p1.IsBoundaryCondition && p2.IsBoundaryCondition)
+		{
+			Matrix tempMatrix = surfaces->GetSurfaceForDirection((SurfaceEnum)i);
+			double dx = p1.x == p2.x ? std::fabs(p2.y - p1.y) : std::fabs(p2.x - p1.x);
+			double detJ = dx / 2.0;
+
+			m_GlobalHMatrix = m_GlobalHMatrix + (tempMatrix * detJ * alpha);
+		}
+	}
+}
+
 void Element::CalculateGlobalHMatrix()
 {
 	IntegrationPointDerivatives* derivatives = IntegrationPointDerivatives::GetInstance();
@@ -59,7 +81,7 @@ void Element::CalculateGlobalHMatrix()
 	Matrix temp(4, 4);
 
 	for (int i = 1; i <= INTEGRATION_POINTS_COUNT; i++)
-		temp = temp + m_H_Matricies.at(i).GetMatrix() * derivatives->GetIntegrationWeights(i - 1).x * derivatives->GetIntegrationWeights(i - 1).y;
+		temp = temp + m_H_Matricies.at(i).GetMatrix() * derivatives->GetIntegrationWeight(i - 1).x * derivatives->GetIntegrationWeight(i - 1).y;
 
 	m_GlobalHMatrix = temp;
 }

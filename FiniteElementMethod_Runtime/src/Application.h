@@ -2,6 +2,8 @@
 
 #include "Configuration.h"
 #include "Simulation.h"
+#include "Surface.h"
+
 #include "multithreading/ThreadPool.h"
 
 void Init()
@@ -18,4 +20,5 @@ void ShutDown()
 
 	ThreadPool::GetInstance()->~ThreadPool();
 	IntegrationPointDerivatives::GetInstance()->~IntegrationPointDerivatives();
+	Surface::GetInstance()->~Surface();
 }

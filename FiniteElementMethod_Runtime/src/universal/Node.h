@@ -16,6 +16,8 @@ struct Node
 			double ksi, eta;
 		};
 	};
+
+	bool IsBoundaryCondition = false;
 };
 
 std::ostream& operator<<(std::ostream& os, const Node& node);
