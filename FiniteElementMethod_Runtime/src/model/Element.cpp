@@ -66,7 +66,7 @@ void Element::AddBoundaryHMatricies(const std::map<int, Node>& nodes, double alp
 		if (p1.IsBoundaryCondition && p2.IsBoundaryCondition)
 		{
 			Matrix tempMatrix = surfaces->GetSurfaceForDirection((SurfaceEnum)i);
-			double dx = p1.x == p2.x ? std::fabs(p2.y - p1.y) : std::fabs(p2.x - p1.x);
+			double dx = std::sqrt(std::pow(p2.x - p1.x, 2) + std::pow(p2.y - p1.y, 2));
 			double detJ = dx / 2.0;
 
 			m_GlobalHMatrix = m_GlobalHMatrix + (tempMatrix * detJ * alpha);
