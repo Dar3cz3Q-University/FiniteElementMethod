@@ -38,6 +38,7 @@ public:
 
 public:
 	FRIEND_TEST(Global_H_MatrixTest, GeneratesValidMatrixFor_Test1_4_4);
+	FRIEND_TEST(Global_H_MatrixTest, GeneratesValidMatrixFor_Test2_4_4);
 };
 
 std::ostream& operator<<(std::ostream& os, const Grid& grid);
