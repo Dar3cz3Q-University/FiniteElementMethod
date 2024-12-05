@@ -40,6 +40,14 @@ Surface::Surface()
 			surfaceMatrix = surfaceMatrix + (matrix.Transpose() * matrix * integrationWeights.at(k++));
 
 		m_SurfaceMatricies.insert({ (SurfaceEnum) i, surfaceMatrix });
+
+		Matrix pVector(4, 1);
+
+		k = 0;
+		for (auto& matrix : integrationPointsMatricies)
+			pVector = pVector + (matrix * integrationWeights.at(k++));
+
+		m_PVectors.insert({ (SurfaceEnum)i, pVector });
 	}
 }
 

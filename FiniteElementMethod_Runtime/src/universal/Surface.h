@@ -21,10 +21,12 @@ private:
 
     // Logic of the class
 public:
-    inline Matrix GetSurfaceForDirection(SurfaceEnum direction) const { return m_SurfaceMatricies.at(direction); }
+    inline Matrix GetSurfaceMatrixForDirection(SurfaceEnum direction) const { return m_SurfaceMatricies.at(direction); }
+    inline Matrix GetSurfaceVectorForDirection(SurfaceEnum direction) const { return m_PVectors.at(direction); }
 
 private:
     std::map<SurfaceEnum, Matrix> m_SurfaceMatricies;
+    std::map<SurfaceEnum, Matrix> m_PVectors;
 };
 
 inline static const std::map<int, std::function<double(double, double)>> SHAPE_FUNCTIONS = {

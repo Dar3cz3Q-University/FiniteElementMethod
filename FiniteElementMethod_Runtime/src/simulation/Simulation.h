@@ -24,5 +24,8 @@ private:
 public:
 	FRIEND_TEST(Global_H_MatrixTest, GeneratesValidMatrixFor_Test1_4_4);
 	FRIEND_TEST(Global_H_MatrixTest, GeneratesValidMatrixFor_Test2_4_4);
+
+	FRIEND_TEST(Global_P_VectorTest, GeneratesValidVectorFor_Test1_4_4);
+	FRIEND_TEST(Global_P_VectorTest, GeneratesValidVectorFor_Test2_4_4);
 };
 

@@ -2,8 +2,8 @@
 
 #include "Element.h"
 
-Element::Element() :
-	m_ElementID(0.0)
+Element::Element() : 
+	m_ElementID(0.0), m_GlobalPVector(Matrix(4, 1))
 {
 	for (int i = 0; i < INTEGRATION_POINTS_COUNT; i++)
 	{
@@ -14,7 +14,7 @@ Element::Element() :
 	m_NodesIDs.reserve(4);
 }
 
-void Element::Calculate(const std::map<int, Node>& nodes, double conductivity, double alpha)
+void Element::Calculate(const std::map<int, Node>& nodes, double conductivity, double alpha, double ambientTemperature)
 {
 	LOG_TRACE("Calculating data for {} element", m_ElementID);
 
@@ -23,13 +23,21 @@ void Element::Calculate(const std::map<int, Node>& nodes, double conductivity, d
 	CalculateDerivatives();
 	CalculateHMatricies(conductivity);
 	CalculateGlobalHMatrix();
+	CalculatePVector(nodes, alpha, ambientTemperature);
+
 	AddBoundaryHMatricies(nodes, alpha);
 }
 
-void Element::AddHMatrixToGlobalMatrix(const std::map<int, Node>& nodes, Matrix& matrix)
+void Element::AddHMatrixToGlobalMatrix(const std::map<int, Node>& nodes, Matrix& matrix) const
 {
 	for (int i = 0; i < 4; i++) for (int j = 0; j < 4; j++)
 		matrix.AddToElement(m_NodesIDs.at(i) - 1, m_NodesIDs.at(j) - 1, m_GlobalHMatrix.GetElement(i, j));
+}
+
+void Element::AddPVectorToGlobalVector(const std::map<int, Node>& nodes, Matrix& matrix) const
+{
+	for (int i = 0; i < 4; i++)
+		matrix.AddToElement(m_NodesIDs.at(i) - 1, 0, m_GlobalPVector.GetElement(0, i));
 }
 
 void Element::CalculateJacobians(const std::map<int, Node>& nodes)
@@ -65,7 +73,7 @@ void Element::AddBoundaryHMatricies(const std::map<int, Node>& nodes, double alp
 
 		if (p1.IsBoundaryCondition && p2.IsBoundaryCondition)
 		{
-			Matrix tempMatrix = surfaces->GetSurfaceForDirection((SurfaceEnum)i);
+			Matrix tempMatrix = surfaces->GetSurfaceMatrixForDirection((SurfaceEnum)i);
 			double dx = std::sqrt(std::pow(p2.x - p1.x, 2) + std::pow(p2.y - p1.y, 2));
 			double detJ = dx / 2.0;
 
@@ -84,6 +92,26 @@ void Element::CalculateGlobalHMatrix()
 		temp = temp + m_H_Matricies.at(i).GetMatrix() * derivatives->GetIntegrationWeight(i - 1).x * derivatives->GetIntegrationWeight(i - 1).y;
 
 	m_GlobalHMatrix = temp;
+}
+
+void Element::CalculatePVector(const std::map<int, Node>& nodes, double alpha, double ambientTemperature)
+{
+	Surface* surfaces = Surface::GetInstance();
+
+	for (int i = 0; i < 4; i++)
+	{
+		Node p1 = nodes.at(m_NodesIDs.at(i));
+		Node p2 = nodes.at(m_NodesIDs.at((i + 1) % 4));
+
+		if (p1.IsBoundaryCondition && p2.IsBoundaryCondition)
+		{
+			Matrix tempMatrix = surfaces->GetSurfaceVectorForDirection((SurfaceEnum)i);
+			double dx = std::sqrt(std::pow(p2.x - p1.x, 2) + std::pow(p2.y - p1.y, 2));
+			double detJ = dx / 2.0;
+
+			m_GlobalPVector = m_GlobalPVector + (tempMatrix * detJ * alpha * ambientTemperature);
+		}
+	}
 }
 
 void Element::DisplayCalculations()
