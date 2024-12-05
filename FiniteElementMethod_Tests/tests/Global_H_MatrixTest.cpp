@@ -6,7 +6,7 @@
 
 static const double EPSILON = 1e-3;
 
-static double globalHMatrixFixture_1_4_4[16][16] = {
+static double globalHVectorFixture_1_4_4[16][16] = {
     { 23.3333, -2.5, 0, 0, -2.5, -8.33333, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
     { -2.5, 40, -2.5, 0, -8.33333, -8.33333, -8.33333, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
     { 0, -2.5, 40, -2.5, 0, -8.33333, -8.33333, -8.33333, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -54,7 +54,7 @@ TEST(Global_H_MatrixTest, GeneratesValidMatrixFor_Test1_4_4)
 
     // Then
     for (int i = 0; i < 16; i++) for (int j = 0; j < 16; j++)
-        EXPECT_NEAR(globalHMatrixFixture_1_4_4[i][j], simulation.m_Grid.m_GlobalHMatrix.GetElement(i, j), EPSILON);
+        EXPECT_NEAR(globalHVectorFixture_1_4_4[i][j], simulation.m_Grid.m_GlobalHMatrix.GetElement(i, j), EPSILON);
 }
 
 TEST(Global_H_MatrixTest, GeneratesValidMatrixFor_Test2_4_4)

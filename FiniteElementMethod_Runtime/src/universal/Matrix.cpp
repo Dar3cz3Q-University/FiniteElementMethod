@@ -82,7 +82,7 @@ Matrix Matrix::operator+(const Matrix& matrix) const
     if (m_Data.size() != matrix.m_Data.size() || m_Data[0].size() != matrix.m_Data[0].size())
         throw std::invalid_argument("Matrices must have the same dimensions for addition");
 
-    Matrix result(m_Data.size(), m_Data[0].size());
+    Matrix result(m_Data[0].size(), m_Data.size());
 
     for (size_t row = 0; row < m_Data.size(); row++)
         for (size_t col = 0; col < m_Data[0].size(); col++)
@@ -93,7 +93,7 @@ Matrix Matrix::operator+(const Matrix& matrix) const
 
 Matrix Matrix::operator*(double scalar) const
 {
-    Matrix result(m_Data.size(), m_Data[0].size());
+    Matrix result(m_Data[0].size(), m_Data.size());
 
     for (size_t row = 0; row < m_Data.size(); row++)
         for (size_t col = 0; col < m_Data[0].size(); col++)
