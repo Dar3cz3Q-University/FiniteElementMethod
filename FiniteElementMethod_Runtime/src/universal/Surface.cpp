@@ -21,11 +21,11 @@ Surface::Surface()
 			Matrix tempMatrix(4, 1);
 
 			size_t k = 0;
-			for (auto& shape : SHAPE_FUNCTIONS)
+			for (auto& [_, shape] : SHAPE_FUNCTIONS)
 			{
 				int index = i <= 1 ? i : i + 1;
 
-				double result = i % 2 != 0 ? shape.second(localCoordinates[index % 2], legendreCoordinate) : shape.second(legendreCoordinate, localCoordinates[index % 2]);
+				double result = i % 2 != 0 ? shape(localCoordinates[index % 2], legendreCoordinate) : shape(legendreCoordinate, localCoordinates[index % 2]);
 
 				tempMatrix.SetElement(0, k++, result);
 			}

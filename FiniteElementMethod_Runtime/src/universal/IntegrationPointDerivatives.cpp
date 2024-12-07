@@ -78,10 +78,10 @@ std::ostream& operator<<(std::ostream& os, const IntegrationPointDerivatives& de
         os << std::left << std::setw(numberWidth) << std::setfill(separator) << ("dN" + std::to_string(i + 1) + "/dKsi");
     os << "\n";
 
-    for (auto& derivatives : derivatives.m_Derivatives_KSI)
+    for (auto& [key, derivatives] : derivatives.m_Derivatives_KSI)
     {
-        os << std::left << std::setw(headerWidth) << std::setfill(separator) << ("pc" + std::to_string(derivatives.first));
-        for (auto& derivative : derivatives.second)
+        os << std::left << std::setw(headerWidth) << std::setfill(separator) << ("pc" + std::to_string(key));
+        for (auto& derivative : derivatives)
             os << std::left << std::setw(numberWidth) << std::setfill(separator) << std::setprecision(precision) << derivative;
         os << "\n";
     }
@@ -96,10 +96,10 @@ std::ostream& operator<<(std::ostream& os, const IntegrationPointDerivatives& de
         os << std::left << std::setw(numberWidth) << std::setfill(separator) << ("dN" + std::to_string(i + 1) + "/dEta");
     os << "\n";
 
-    for (auto& derivatives : derivatives.m_Derivatives_ETA)
+    for (auto& [key, derivatives] : derivatives.m_Derivatives_ETA)
     {
-        os << std::left << std::setw(headerWidth) << std::setfill(separator) << ("pc" + std::to_string(derivatives.first));
-        for (auto& derivative : derivatives.second)
+        os << std::left << std::setw(headerWidth) << std::setfill(separator) << ("pc" + std::to_string(key));
+        for (auto& derivative : derivatives)
             os << std::left << std::setw(numberWidth) << std::setfill(separator) << std::setprecision(precision) << derivative;
         os << "\n";
     }

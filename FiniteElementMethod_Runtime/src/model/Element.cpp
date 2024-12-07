@@ -42,23 +42,23 @@ void Element::AddPVectorToGlobalVector(const std::map<int, Node>& nodes, Matrix&
 
 void Element::CalculateJacobians(const std::map<int, Node>& nodes)
 {
-	for (auto& jacobian : m_Jacobians)
-		jacobian.second.Calculate(nodes, m_NodesIDs, jacobian.first);
+	for (auto& [key, jacobian] : m_Jacobians)
+		jacobian.Calculate(nodes, m_NodesIDs, key);
 }
 
 void Element::CalculateDerivatives()
 {
-	for (auto& derivative : m_Derivatives)
-		derivative.second.Calculate(m_Jacobians.at(derivative.first), derivative.first);
+	for (auto& [key, derivative] : m_Derivatives)
+		derivative.Calculate(m_Jacobians.at(key), key);
 }
 
 void Element::CalculateHMatricies(double conductivity)
 {
-	for (auto& matrix : m_H_Matricies)
-		matrix.second.Calculate(
+	for (auto& [key, matrix] : m_H_Matricies)
+		matrix.Calculate(
 			conductivity,
-			m_Jacobians.at(matrix.first).GetMatrixDeterminant(),
-			m_Derivatives.at(matrix.first)
+			m_Jacobians.at(key).GetMatrixDeterminant(),
+			m_Derivatives.at(key)
 		);
 }
 

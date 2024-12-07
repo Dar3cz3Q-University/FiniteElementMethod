@@ -11,10 +11,10 @@ void Grid::GenerateNecessaryData(double conductivity, double alpha, double ambie
 
     ThreadPool* threadPool = ThreadPool::GetInstance();
 
-    for (auto& element : m_Elements)
+    for (auto& [_, element] : m_Elements)
     {
         threadPool->QueueJob([&] {
-            element.second.Calculate(m_Nodes, conductivity, alpha, ambientTemperature);
+            element.Calculate(m_Nodes, conductivity, alpha, ambientTemperature);
         });
     }
 
@@ -22,22 +22,22 @@ void Grid::GenerateNecessaryData(double conductivity, double alpha, double ambie
 
 #else
 
-    for (auto& element : m_Elements)
-        element.second.Calculate(m_Nodes, conductivity, alpha, ambientTemperature);
+    for (auto& [_, element] : m_Elements)
+        element.Calculate(m_Nodes, conductivity, alpha, ambientTemperature);
 
 #endif
 
-    GenerateGlobalHMatrix();
+    GenerateGlobalData();
 }
 
 void Grid::DisplayAllCalculatedData()
 {
     LOG_TRACE("Displaying debug data");
 
-    for (auto& element : m_Elements)
+    for (auto& [key, element] : m_Elements)
     {
-        std::cout << "Calculated values for " << element.first << " element:\n";
-        element.second.DisplayCalculations();
+        std::cout << "Calculated values for " << key << " element:\n";
+        element.DisplayCalculations();
         std::cout << "\n";
     }
 
@@ -48,7 +48,7 @@ void Grid::DisplayAllCalculatedData()
     std::cout << m_GlobalPVector;
 }
 
-void Grid::GenerateGlobalHMatrix()
+void Grid::GenerateGlobalData()
 {
     LOG_TRACE("Generating global HMatrix and global PVector");
 
@@ -62,12 +62,10 @@ void Grid::GenerateGlobalHMatrix()
     for (size_t i = 0; i < numberOfNodes; i++)
         m_GlobalPVector.SetElement(i, 0, 0.0);
 
-    std::cout << m_GlobalPVector << "\n";
-
-    for (auto& element : m_Elements)
+    for (auto& [_, element] : m_Elements)
     {
-        element.second.AddHMatrixToGlobalMatrix(m_Nodes, m_GlobalHMatrix);
-        element.second.AddPVectorToGlobalVector(m_Nodes, m_GlobalPVector);
+        element.AddHMatrixToGlobalMatrix(m_Nodes, m_GlobalHMatrix);
+        element.AddPVectorToGlobalVector(m_Nodes, m_GlobalPVector);
     }
 }
 
@@ -78,13 +76,13 @@ std::ostream& operator<<(std::ostream& os, const Grid& grid)
 
     os << "*Node" << "\n";
 
-    for (auto& node : grid.m_Nodes)
-        os << "\t" << node.first << ", " << node.second << "\n";
+    for (auto& [key, node] : grid.m_Nodes)
+        os << "\t" << key << ", " << node << "\n";
 
     os << "*Element" << "\n";
 
-    for (auto& element : grid.m_Elements)
-        os << "\t" << element.first << ", " << element.second << "\n";
+    for (auto& [key, element] : grid.m_Elements)
+        os << "\t" << key << ", " << element << "\n";
 
     return os;
 }

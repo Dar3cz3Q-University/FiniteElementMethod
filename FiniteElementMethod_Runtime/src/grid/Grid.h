@@ -32,7 +32,7 @@ private:
 	Matrix m_GlobalPVector;
 
 private:
-	void GenerateGlobalHMatrix();
+	void GenerateGlobalData();
 
 public:
 	friend std::ostream& operator<<(std::ostream& os, const Grid& grid);
