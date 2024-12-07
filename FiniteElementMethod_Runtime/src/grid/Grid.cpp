@@ -11,7 +11,7 @@ void Grid::GenerateNecessaryData(double conductivity, double alpha, double ambie
 
     ThreadPool* threadPool = ThreadPool::GetInstance();
 
-    for (auto& [_, element] : m_Elements)
+    for (auto& [key, element] : m_Elements)
     {
         threadPool->QueueJob([&] {
             element.Calculate(m_Nodes, conductivity, alpha, ambientTemperature);
@@ -22,7 +22,7 @@ void Grid::GenerateNecessaryData(double conductivity, double alpha, double ambie
 
 #else
 
-    for (auto& [_, element] : m_Elements)
+    for (auto& [key, element] : m_Elements)
         element.Calculate(m_Nodes, conductivity, alpha, ambientTemperature);
 
 #endif
