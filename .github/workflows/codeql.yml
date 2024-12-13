@@ -81,11 +81,8 @@ jobs:
     - if: matrix.build-mode == 'manual'
       shell: bash
       run: |
-       chmod +x ./Scripts/Setup-Linux.sh
         ./Scripts/Setup-Linux.sh
         make config=debug
-        cd Binaries/Debug-linux-x86_64/FiniteElementMethod_Tests
-        ./FiniteElementMethod_Tests
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
