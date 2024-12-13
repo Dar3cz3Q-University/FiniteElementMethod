@@ -17,7 +17,6 @@ workspace "FiniteElementMethod"
     
     group "Dependencies"
         include "Dependencies/googletest/googletest/premake5.lua"
-        include "FiniteElementMethod_Runtime/Dependencies/NumericalMethods/NumericalMethods_Core/premake5.lua"
     group ""
 
     include "FiniteElementMethod_Runtime/premake5.lua"
