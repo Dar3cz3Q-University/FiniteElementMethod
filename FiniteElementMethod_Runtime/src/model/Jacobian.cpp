@@ -61,16 +61,16 @@ void Jacobian::CalculateInverseMatrix()
 
 std::ostream& operator<<(std::ostream& os, const Jacobian& jacobian)
 {
-	const int PRECISION = 7;
-
-	os << std::fixed << std::setprecision(PRECISION);
+	os << std::fixed << std::setprecision(PRINT_PRECISION);
 
 	os << "\nJacobian Matrix\n";
 	os << jacobian.m_JacobianMatrix.GetElement(0, 0) << " | " << jacobian.m_JacobianMatrix.GetElement(0, 1) << "\n";
 	os << jacobian.m_JacobianMatrix.GetElement(1, 0) << " | " << jacobian.m_JacobianMatrix.GetElement(1, 1) << "\n";
+
 	os << "\nInversed Jacobian Matrix\n";
 	os << jacobian.m_InversedJacobianMatrix.GetElement(0, 0) << " | " << jacobian.m_InversedJacobianMatrix.GetElement(0, 1) << "\n";
 	os << jacobian.m_InversedJacobianMatrix.GetElement(1, 0) << " | " << jacobian.m_InversedJacobianMatrix.GetElement(1, 1) << "\n";
+
 	os << "\nJacobian Matrix Determinant\n";
 	os << "det[J] = " << jacobian.m_JacobianMatrix.GetDeterminant() << "\n";
 

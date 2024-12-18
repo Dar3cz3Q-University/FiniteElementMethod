@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Grid.h"
 #include "GlobalDataEnum.h"
 
 class GlobalData 
@@ -28,6 +27,8 @@ public:
 	inline double GetInitialTemp() const { return m_InitialTemp; }
 	inline double GetDensity() const { return m_Density; }
 	inline double GetSpecificHeat() const { return m_SpecificHeat; }
+	inline int GetReadElementsNumber() const { return m_ReadElementsNumber; }
+	inline int GetReadNodesNumber() const { return m_ReadNodesNumber; }
 
 private:
 	int m_SimulationTime = 0;

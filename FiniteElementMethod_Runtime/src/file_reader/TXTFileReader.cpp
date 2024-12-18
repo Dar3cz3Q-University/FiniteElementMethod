@@ -12,17 +12,19 @@ const std::string& TXTFileReader::GetFileType() const
 DataSet TXTFileReader::Read(const std::filesystem::path& path)
 {
     if (!std::filesystem::exists(path))
-        throw std::invalid_argument("File '" + path.string() + "' not found");
+        throw std::ios_base::failure("File '" + path.string() + "' not found");
 
     std::ifstream file(path);
     
     if (!file.is_open())
         throw std::runtime_error("Cannot open: '" + path.string() + "'");
 
-    LOG_TRACE("Reading data from {}", path.string());
+    LOG_TRACE("Reading data from '{}'", path.string());
 
     DataTypeEnum dataType = DataTypeEnum::VARIABLES;
     std::string line;
+
+    LOG_TRACE("Reading '{}' section", EnumToString(dataType));
 
     while (std::getline(file, line))
     {
@@ -35,6 +37,7 @@ DataSet TXTFileReader::Read(const std::filesystem::path& path)
         if (words[0][0] == '*')
         {
             dataType = StringToDataTypeEnum(words[0]);
+            LOG_TRACE("Reading '{}' section", words[0]);
             continue;
         }
         

@@ -1,11 +1,10 @@
 #include "pch.h"
 
 #include "Simulation.h"
-#include "Surface.h"
 
 Simulation::Simulation(FileTypeEnum fileType, const std::filesystem::path& path)
 {
-	LOG_TRACE("Creating file factory");
+	LOG_INFO("Initializing simulation with file");
 
 	FileReaderFactory fileFactory;
 	m_FileReader = fileFactory.CreateFileReader(fileType);
@@ -22,11 +21,15 @@ Simulation::Simulation(FileTypeEnum fileType, const std::filesystem::path& path)
 		return;
 	}
 
+	LOG_INFO("Grid initialized");
+
 	m_Initialized = true;
 }
 
 Simulation::Simulation(double x0, double x, double y0, double y, int nodes_x, int nodes_y)
 {
+	LOG_TRACE("Generating grid");
+
 	GridGenerator gridGenerator;
 
 	try
@@ -39,24 +42,43 @@ Simulation::Simulation(double x0, double x, double y0, double y, int nodes_x, in
 		return;
 	}
 
+	LOG_INFO("Grid initialized");
+
 	m_Initialized = true;
 }
 
 void Simulation::Run()
 {
 	if (!m_Initialized)
-		throw std::logic_error("Object not initialized");
+		throw std::logic_error("Grid is not initialized. Cannot run simulation");
 
-	LOG_INFO("Displaying simulation data and grid");
+	DisplayData();
 	
-	std::cout << m_SimulationData;
-	std::cout << m_Grid;
+	LOG_INFO("Calculating necessary data");
 
-	LOG_INFO("Running Simulation...");
+	m_Grid.Calculate(m_SimulationData);
 
-	m_Grid.GenerateNecessaryData(m_SimulationData.GetConductivity(), m_SimulationData.GetAlpha(), m_SimulationData.GetTot());
+	LOG_INFO("Running simulation...");
 
-	//m_Grid.DisplayAllCalculatedData();
+	EquationSolver solver(
+		m_SimulationData,
+		m_Grid.GetH(),
+		m_Grid.GetC(),
+		m_Grid.GetP()
+	);
+
+	solver.Run();
+
+	LOG_INFO("Simulation ended");
 
 	return;
+}
+
+void Simulation::DisplayData() const
+{
+	std::cout << "\nGlobal Data:\n";
+	std::cout << m_SimulationData;
+
+	std::cout << "\nGrid:\n";
+	std::cout << m_Grid << "\n";
 }
