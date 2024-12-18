@@ -26,7 +26,7 @@ TEST(GaussLegendreTest, HandlesOneDimension)
 	double expected_result = 7.0 + 1.0 / 3.0;
 
 	// When
-	double actual_result = gauss(5, &one_dimension_fixture);
+	double actual_result = NumericalMethods::gauss(5, &one_dimension_fixture);
 
 	// Then
 	EXPECT_NEAR(expected_result, actual_result, EPSILON);
@@ -38,7 +38,7 @@ TEST(GaussLegendreTest, HandlesTwoDimensions)
 	double expected_result = 16.0;
 
 	// When
-	double actual_result = gauss(5, &two_dimension_fixture);
+	double actual_result = NumericalMethods::gauss(5, &two_dimension_fixture);
 
 	// Then
 	EXPECT_NEAR(expected_result, actual_result, EPSILON);
@@ -47,7 +47,7 @@ TEST(GaussLegendreTest, HandlesTwoDimensions)
 	expected_result = 40.0;
 
 	// When
-	actual_result = gauss(5, &second_two_dimension_fixture);
+	actual_result = NumericalMethods::gauss(5, &second_two_dimension_fixture);
 
 	// Then
 	EXPECT_NEAR(expected_result, actual_result, EPSILON);
