@@ -58,7 +58,7 @@ void Grid::GenerateGlobalData()
     for (size_t i = 0; i < numberOfNodes; i++) for (size_t j = 0; j < numberOfNodes; j++)
         m_GlobalHMatrix.SetElement(i, j, 0.0);
 
-    m_GlobalPVector = Matrix(1, numberOfNodes);
+    m_GlobalPVector = Matrix(numberOfNodes, 1);
     for (size_t i = 0; i < numberOfNodes; i++)
         m_GlobalPVector.SetElement(i, 0, 0.0);
 
@@ -66,6 +66,16 @@ void Grid::GenerateGlobalData()
     {
         element.AddHMatrixToGlobalMatrix(m_Nodes, m_GlobalHMatrix);
         element.AddPVectorToGlobalVector(m_Nodes, m_GlobalPVector);
+    }
+
+    {
+        Matrix L(numberOfNodes), U(numberOfNodes);
+
+        NumericalMethods::LUDecomposition(m_GlobalHMatrix, L, U);
+
+        Matrix result = NumericalMethods::GaussElimination(L, U, m_GlobalPVector);
+        std::cout << "Po eliminacji Gaussa:" << "\n";
+        std::cout << result << "\n";
     }
 }
 

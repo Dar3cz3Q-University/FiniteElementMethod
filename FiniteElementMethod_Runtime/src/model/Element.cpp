@@ -3,7 +3,7 @@
 #include "Element.h"
 
 Element::Element() : 
-	m_ElementID(0.0), m_GlobalPVector(Matrix(4, 1))
+	m_ElementID(0.0), m_GlobalPVector(Matrix(1, 4))
 {
 	for (int i = 0; i < INTEGRATION_POINTS_COUNT; i++)
 	{
@@ -109,7 +109,7 @@ void Element::CalculatePVector(const std::map<int, Node>& nodes, double alpha, d
 			double dx = std::sqrt(std::pow(p2.x - p1.x, 2) + std::pow(p2.y - p1.y, 2));
 			double detJ = dx / 2.0;
 
-			m_GlobalPVector = m_GlobalPVector + (tempMatrix * detJ * alpha * ambientTemperature);
+			m_GlobalPVector = m_GlobalPVector + (tempMatrix.Transpose() * detJ * alpha * ambientTemperature);
 		}
 	}
 }

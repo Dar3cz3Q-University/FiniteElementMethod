@@ -32,12 +32,12 @@ TEST(DerivativesTest, GeneratesValidDerivativesForFirstIntegrationPoint)
     Matrix y = derivatives.GetYDerivatives();
 
     EXPECT_NEAR(x.GetElement(0, 0), -31.547, EPSILON);
-    EXPECT_NEAR(x.GetElement(0, 1), 31.54701, EPSILON);
-    EXPECT_NEAR(x.GetElement(0, 2), 8.452995, EPSILON);
-    EXPECT_NEAR(x.GetElement(0, 3), -8.452995, EPSILON);
+    EXPECT_NEAR(x.GetElement(1, 0), 31.54701, EPSILON);
+    EXPECT_NEAR(x.GetElement(2, 0), 8.452995, EPSILON);
+    EXPECT_NEAR(x.GetElement(3, 0), -8.452995, EPSILON);
 
     EXPECT_NEAR(y.GetElement(0, 0), -31.547, EPSILON);
-    EXPECT_NEAR(y.GetElement(0, 1), -8.453, EPSILON);
-    EXPECT_NEAR(y.GetElement(0, 2), 8.45299, EPSILON);
-    EXPECT_NEAR(y.GetElement(0, 3), 31.547, EPSILON);
+    EXPECT_NEAR(y.GetElement(1, 0), -8.453, EPSILON);
+    EXPECT_NEAR(y.GetElement(2, 0), 8.45299, EPSILON);
+    EXPECT_NEAR(y.GetElement(3, 0), 31.547, EPSILON);
 }

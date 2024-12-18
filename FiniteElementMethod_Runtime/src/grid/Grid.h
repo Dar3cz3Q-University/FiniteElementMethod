@@ -2,6 +2,7 @@
 
 #include "Element.h"
 #include "GlobalDataEnum.h"
+#include "numerical_methods/NumericalMethods.h"
 #include "multithreading/ThreadPool.h"
 
 #include "gtest/gtest.h"

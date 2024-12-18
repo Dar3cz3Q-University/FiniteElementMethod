@@ -18,7 +18,7 @@ Surface::Surface()
 
 		for (auto legendreCoordinate : integrationPoints)
 		{
-			Matrix tempMatrix(4, 1);
+			Matrix tempMatrix(1, 4);
 
 			size_t k = 0;
 			for (auto& [_, shape] : SHAPE_FUNCTIONS)
@@ -45,7 +45,7 @@ Surface::Surface()
 
 		k = 0;
 		for (auto& matrix : integrationPointsMatricies)
-			pVector = pVector + (matrix * integrationWeights.at(k++));
+			pVector = (matrix.Transpose() * integrationWeights.at(k++)) + pVector;
 
 		m_PVectors.insert({ (SurfaceEnum)i, pVector });
 	}
