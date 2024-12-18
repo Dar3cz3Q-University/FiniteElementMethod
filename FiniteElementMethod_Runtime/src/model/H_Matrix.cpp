@@ -10,12 +10,12 @@ void H_Matrix::Calculate(double alpha, double dV, const Derivatives& derivatives
 	Matrix normalX = derivatives.GetXDerivatives();
 	Matrix transposedX = normalX.Transpose();
 
-	Matrix x = transposedX * normalX;
+	Matrix x = normalX * transposedX;
 
 	Matrix normalY = derivatives.GetYDerivatives();
 	Matrix transposedY = normalY.Transpose();
 
-	Matrix y = transposedY * normalY;
+	Matrix y = normalY * transposedY;
 
 	Matrix result = x + y;
 

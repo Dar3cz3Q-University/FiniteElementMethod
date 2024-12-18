@@ -8,6 +8,9 @@ public:
 	Matrix(size_t width, size_t height);
 
 public:
+	inline size_t GetWidth() const { return m_Data.at(0).size(); }
+	inline size_t GetHeight() const { return m_Data.size(); }
+
 	void SetElement(size_t row, size_t col, double value);
 	double GetElement(size_t row, size_t col) const;
 	void AddToElement(size_t row, size_t col, double value);

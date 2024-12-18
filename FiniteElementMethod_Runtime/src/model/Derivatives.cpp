@@ -17,10 +17,10 @@ void Derivatives::Calculate(const Jacobian& jacobian, int integrationPoint)
 	for (int i = 0; i < 4; i++)
 	{
 		double dN_dx = jacobian.GetInversedMatrixAt(0, 0) * derivativesKSI.at(i) + jacobian.GetInversedMatrixAt(0, 1) * derivativesETA.at(i);
-        m_Derivatives_X.SetElement(0, i, dN_dx);
+        m_Derivatives_X.SetElement(i, 0, dN_dx);
 
 		double dN_dy = jacobian.GetInversedMatrixAt(1, 0) * derivativesKSI.at(i) + jacobian.GetInversedMatrixAt(1, 1) * derivativesETA.at(i);
-        m_Derivatives_Y.SetElement(0, i, dN_dy);
+        m_Derivatives_Y.SetElement(i, 0, dN_dy);
 	}
 }
 
