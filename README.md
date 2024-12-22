@@ -16,3 +16,17 @@ Finite element methods implemented for simple shapes e.g. square, rectangle.
    ```
 2. Run script in [Scripts](/Scripts) directory
 3. Open Visual Studio solution
+
+---
+
+## Visualization
+
+Program generates `.vtk` file that can be used to create visualizations.
+
+![Visualization](Docs/Media/2_4_4.gif)
+
+---
+
+## How to use
+
+It will be completed soon...

@@ -40,6 +40,7 @@ private:
 
 public:
 	friend std::ostream& operator<<(std::ostream& os, const Grid& grid);
+	friend class VTKFileWriter;
 
 public:
 	FRIEND_TEST(Global_H_MatrixTest, GeneratesValidMatrixFor_Test1_4_4);

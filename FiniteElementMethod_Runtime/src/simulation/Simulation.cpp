@@ -1,6 +1,7 @@
 #include "pch.h"
 
 #include "Simulation.h"
+#include "VTKFileWriter.h"
 #include "Timer.h"
 
 Simulation::Simulation(FileTypeEnum fileType, const std::filesystem::path& path)
@@ -52,6 +53,8 @@ void Simulation::Run()
 {
 	if (!m_Initialized)
 		throw std::logic_error("Grid is not initialized. Cannot run simulation");
+
+	VTKFileWriter::GetInstance().SaveMesh(m_Grid);
 
 	DisplayData();
 	

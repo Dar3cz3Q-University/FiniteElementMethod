@@ -14,6 +14,8 @@ EquationSolver::EquationSolver(const GlobalData& data, const Matrix& H, const Ma
 	m_Vector_T = Matrix(n, 1);
 
 	for (int i = 0; i < n; i++) m_Vector_T.SetElement(i, 0, initialTemp);
+
+	VTKFileWriter::GetInstance().SaveTemperatureInTime(m_Vector_T);
 }
 
 void EquationSolver::Run()
@@ -30,9 +32,8 @@ void EquationSolver::Run()
 		Matrix y = NumericalMethods::ForwardSubstitution(L, b);
 		Matrix x = NumericalMethods::BackwardSubstitution(U, y);
 
-		// TODO: Print temperatures to the VTK file :)
-		std::cout << x << "\n";
-
 		m_Vector_T = x;
+
+		VTKFileWriter::GetInstance().SaveTemperatureInTime(m_Vector_T);
 	}
 }
