@@ -5,7 +5,7 @@
 void Grid::Calculate(const GlobalData& data)
 {
     // TODO: Multithreaded parts of the application are not working well with Google Test :(
-#ifdef RUNNING_TEST
+#ifndef RUNNING_TEST
 
     LOG_TRACE("Calculating elements in parallel mode");
     LOG_WARN("Displayed data can make no sense. Printing is not prepared for parallel yet ;) \n For better data analysing use 1 thread");

@@ -30,6 +30,7 @@ void EquationSolver::Run()
 		Matrix y = NumericalMethods::ForwardSubstitution(L, b);
 		Matrix x = NumericalMethods::BackwardSubstitution(U, y);
 
+		// TODO: Print temperatures to the VTK file :)
 		std::cout << x << "\n";
 
 		m_Vector_T = x;
