@@ -17,11 +17,15 @@ Grid GridGenerator::generate(double x0, double x, double y0, double y, int nodes
 	double xStep = (x - x0) / (nodes_x - 1);
 	double yStep = (y - y0) / (nodes_y - 1);
 
+	LOG_TRACE("Generating nodes");
+
 	int nodeCounter = 0;
 
 	for (double a = x0; a <= x; a += xStep) for (double b = y0; b <= y; b += yStep)
 		tempGrid.AddNode(++nodeCounter, Node(a, b));
-		
+	
+	LOG_TRACE("Connecting nodes into elements");
+
 	int elementCounter = 0;
 
 	for (int i = 1; i <= (nodes_x - 1) * (nodes_y); i++)

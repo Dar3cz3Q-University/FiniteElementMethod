@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GlobalData.h"
+#include "Grid.h"
 
 struct DataSet
 {

@@ -2,19 +2,22 @@
 
 #include "Grid.h"
 
-void Grid::GenerateNecessaryData(double conductivity, double alpha, double ambientTemperature)
+void Grid::Calculate(const GlobalData& data)
 {
-    LOG_TRACE("Generating simulation data (Jacobian, HMatrix)");
-
     // TODO: Multithreaded parts of the application are not working well with Google Test :(
 #ifndef RUNNING_TEST
+
+    LOG_TRACE("Calculating elements in parallel mode");
+    LOG_WARN("Displayed data can make no sense. Printing is not prepared for parallel yet ;) \n For better data analysing use 1 thread");
+
+    std::this_thread::sleep_for(std::chrono::seconds(2));
 
     ThreadPool* threadPool = ThreadPool::GetInstance();
 
     for (auto& element : m_Elements)
     {
         threadPool->QueueJob([&] {
-            element.second.Calculate(m_Nodes, conductivity, alpha, ambientTemperature);
+            element.second.Calculate(m_Nodes, data);
         });
     }
 
@@ -22,61 +25,55 @@ void Grid::GenerateNecessaryData(double conductivity, double alpha, double ambie
 
 #else
 
+    LOG_TRACE("Calculating elements in sequential mode");
+
     for (auto& [key, element] : m_Elements)
-        element.Calculate(m_Nodes, conductivity, alpha, ambientTemperature);
+        element.Calculate(m_Nodes, data);
 
 #endif
 
-    GenerateGlobalData();
+    LOG_TRACE("Calculating global grid data");
+
+    CalculateGlobalData();
 }
 
-void Grid::DisplayAllCalculatedData()
+void Grid::CalculateGlobalData()
 {
-    LOG_TRACE("Displaying debug data");
+    LOG_TRACE("Initializing global H, C matrix and P vector");
 
-    for (auto& [key, element] : m_Elements)
+    size_t numberOfNodes = GetNumberOfNodes();
+
+    m_Matrix_H = Matrix(numberOfNodes);
+    m_Matrix_C = Matrix(numberOfNodes);
+    m_Vector_P = Matrix(numberOfNodes, 1);
+
+    for (size_t i = 0; i < numberOfNodes; i++)
     {
-        std::cout << "Calculated values for " << key << " element:\n";
-        element.DisplayCalculations();
-        std::cout << "\n";
+        m_Vector_P.SetElement(i, 0, 0.0);
+        for (size_t j = 0; j < numberOfNodes; j++)
+        {
+            m_Matrix_H.SetElement(i, j, 0.0);
+            m_Matrix_C.SetElement(i, j, 0.0);
+        }
     }
 
-    std::cout << "Global H matrix\n";
-    std::cout << m_GlobalHMatrix;
-
-    std::cout << "Global P vector\n";
-    std::cout << m_GlobalPVector;
-}
-
-void Grid::GenerateGlobalData()
-{
-    LOG_TRACE("Generating global HMatrix and global PVector");
-
-    size_t numberOfNodes = m_Nodes.size();
-
-    m_GlobalHMatrix = Matrix(numberOfNodes);
-    for (size_t i = 0; i < numberOfNodes; i++) for (size_t j = 0; j < numberOfNodes; j++)
-        m_GlobalHMatrix.SetElement(i, j, 0.0);
-
-    m_GlobalPVector = Matrix(numberOfNodes, 1);
-    for (size_t i = 0; i < numberOfNodes; i++)
-        m_GlobalPVector.SetElement(i, 0, 0.0);
+    LOG_TRACE("Calculating global H, C matrix and P vector");
 
     for (auto& [_, element] : m_Elements)
     {
-        element.AddHMatrixToGlobalMatrix(m_Nodes, m_GlobalHMatrix);
-        element.AddPVectorToGlobalVector(m_Nodes, m_GlobalPVector);
+        element.AddHMatrixToGlobalMatrix(m_Nodes, m_Matrix_H);
+        element.AddCMatrixToGlobalMatrix(m_Nodes, m_Matrix_C);
+        element.AddPVectorToGlobalVector(m_Nodes, m_Vector_P);
     }
 
-    {
-        Matrix L(numberOfNodes), U(numberOfNodes);
+    LOG_TRACE("Displaying global H matrix");
+    std::cout << m_Matrix_H << "\n";
 
-        NumericalMethods::LUDecomposition(m_GlobalHMatrix, L, U);
+    LOG_TRACE("Displaying global C matrix");
+    std::cout << m_Matrix_C << "\n";
 
-        Matrix result = NumericalMethods::GaussElimination(L, U, m_GlobalPVector);
-        std::cout << "Po eliminacji Gaussa:" << "\n";
-        std::cout << result << "\n";
-    }
+    LOG_TRACE("Displaying global P vector");
+    std::cout << m_Vector_P << "\n";
 }
 
 std::ostream& operator<<(std::ostream& os, const Grid& grid)

@@ -67,7 +67,6 @@ std::ostream& operator<<(std::ostream& os, const IntegrationPointDerivatives& de
 {
     const int numberWidth = 12;
     const int headerWidth = 5;
-    const int precision = 4;
     const char separator = ' ';
 
     // Print KSI Derivatives
@@ -82,7 +81,7 @@ std::ostream& operator<<(std::ostream& os, const IntegrationPointDerivatives& de
     {
         os << std::left << std::setw(headerWidth) << std::setfill(separator) << ("pc" + std::to_string(key));
         for (auto& derivative : derivatives)
-            os << std::left << std::setw(numberWidth) << std::setfill(separator) << std::setprecision(precision) << derivative;
+            os << std::left << std::setw(numberWidth) << std::setfill(separator) << std::setprecision(PRINT_PRECISION) << derivative;
         os << "\n";
     }
 
@@ -100,7 +99,7 @@ std::ostream& operator<<(std::ostream& os, const IntegrationPointDerivatives& de
     {
         os << std::left << std::setw(headerWidth) << std::setfill(separator) << ("pc" + std::to_string(key));
         for (auto& derivative : derivatives)
-            os << std::left << std::setw(numberWidth) << std::setfill(separator) << std::setprecision(precision) << derivative;
+            os << std::left << std::setw(numberWidth) << std::setfill(separator) << std::setprecision(PRINT_PRECISION) << derivative;
         os << "\n";
     }
 
