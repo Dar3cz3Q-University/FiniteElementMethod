@@ -4,8 +4,6 @@
 
 namespace NumericalMethods
 {
-	std::pair<Matrix, Matrix> LUDecomposition(const Matrix& A);
-	Matrix ForwardSubstitution(const Matrix& L, const Matrix& b);
-	Matrix BackwardSubstitution(const Matrix& U, const Matrix& y);
-	Matrix SolveGaussianLU(const Matrix& A, const Matrix& b);
+	Matrix GaussElimination(const Matrix& L, const Matrix& U, const Matrix& B);
+	void LUDecomposition(const Matrix& A, Matrix& L, Matrix& U);
 };

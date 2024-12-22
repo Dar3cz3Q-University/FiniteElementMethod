@@ -3,10 +3,9 @@
 #include "Derivatives.h"
 #include "IntegrationPointDerivatives.h"
 #include "GlobalData.h"
-#include "Grid.h"
 
 Derivatives::Derivatives()
-    : m_Derivatives_X(Matrix(1, ELEMENT_NODES_SIZE)), m_Derivatives_Y(Matrix(1, ELEMENT_NODES_SIZE)) {}
+    : m_Derivatives_X(Matrix(ELEMENT_NODES_SIZE, 1)), m_Derivatives_Y(Matrix(ELEMENT_NODES_SIZE, 1)) {}
 
 void Derivatives::Calculate(const Jacobian& jacobian, int integrationPoint)
 {
@@ -18,26 +17,24 @@ void Derivatives::Calculate(const Jacobian& jacobian, int integrationPoint)
 	for (int i = 0; i < 4; i++)
 	{
 		double dN_dx = jacobian.GetInversedMatrixAt(0, 0) * derivativesKSI.at(i) + jacobian.GetInversedMatrixAt(0, 1) * derivativesETA.at(i);
-        m_Derivatives_X.SetElement(0, i, dN_dx);
+        m_Derivatives_X.SetElement(i, 0, dN_dx);
 
 		double dN_dy = jacobian.GetInversedMatrixAt(1, 0) * derivativesKSI.at(i) + jacobian.GetInversedMatrixAt(1, 1) * derivativesETA.at(i);
-        m_Derivatives_Y.SetElement(0, i, dN_dy);
+        m_Derivatives_Y.SetElement(i, 0, dN_dy);
 	}
 }
 
 std::ostream& operator<<(std::ostream& os, const Derivatives& derivatives)
 {
-    os << std::fixed << std::setprecision(PRINT_PRECISION);
+    const int precision = 3;
 
     // Print X Derivatives
-
-    os << "\n";
 
     for (int i = 0; i < 4; i++) 
         os  << "dN" << i + 1 << "/dx" << "\t";
     os << "\n";
 
-    os << derivatives.m_Derivatives_X << "\n";
+    os << std::setprecision(precision) << derivatives.m_Derivatives_X << "\n";
 
     // Print Y Derivatives
 
@@ -45,7 +42,7 @@ std::ostream& operator<<(std::ostream& os, const Derivatives& derivatives)
         os << "dN" << i + 1 << "/dy" << "\t";
     os << "\n";
 
-    os << derivatives.m_Derivatives_Y;
+    os << std::setprecision(precision) << derivatives.m_Derivatives_Y;
 
     return os;
 }

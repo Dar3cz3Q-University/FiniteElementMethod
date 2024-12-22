@@ -54,7 +54,7 @@ TEST(Global_H_MatrixTest, GeneratesValidMatrixFor_Test1_4_4)
 
     // Then
     for (int i = 0; i < 16; i++) for (int j = 0; j < 16; j++)
-        EXPECT_NEAR(globalHVectorFixture_1_4_4[i][j], simulation.m_Grid.m_Matrix_H.GetElement(i, j), EPSILON);
+        EXPECT_NEAR(globalHVectorFixture_1_4_4[i][j], simulation.m_Grid.m_GlobalHMatrix.GetElement(i, j), EPSILON);
 }
 
 TEST(Global_H_MatrixTest, GeneratesValidMatrixFor_Test2_4_4)
@@ -67,5 +67,5 @@ TEST(Global_H_MatrixTest, GeneratesValidMatrixFor_Test2_4_4)
 
     // Then
     for (int i = 0; i < 16; i++) for (int j = 0; j < 16; j++)
-        EXPECT_NEAR(globalHMatrixFixture_2_4_4[i][j], simulation.m_Grid.m_Matrix_H.GetElement(i, j), EPSILON);
+        EXPECT_NEAR(globalHMatrixFixture_2_4_4[i][j], simulation.m_Grid.m_GlobalHMatrix.GetElement(i, j), EPSILON);
 }

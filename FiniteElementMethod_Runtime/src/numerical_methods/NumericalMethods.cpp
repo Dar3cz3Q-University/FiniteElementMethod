@@ -3,14 +3,50 @@
 
 namespace NumericalMethods
 {
-    std::pair<Matrix, Matrix> LUDecomposition(const Matrix& A)
+    Matrix GaussElimination(const Matrix& L, const Matrix& U, const Matrix& B)
+    {
+        size_t n = L.GetHeight();
+
+        if (L.GetWidth() != n || U.GetHeight() != n || U.GetWidth() != n || B.GetHeight() != n || B.GetWidth() != 1)
+            throw std::invalid_argument("Invalid dimensions for Gaussian Elimination");
+
+        Matrix Y(n, 1);
+        Matrix X(n, 1);
+
+        for (size_t i = 0; i < n; i++)
+        {
+            double sum = 0.0;
+            for (size_t j = 0; j < i; j++)
+                sum += L.GetElement(i, j) * Y.GetElement(j, 0);
+
+            Y.SetElement(i, 0, B.GetElement(i, 0) - sum);
+        }
+
+        for (int i = n - 1; i >= 0; i--)
+        {
+            double sum = 0.0;
+            for (int j = i + 1; j < static_cast<int>(n); j++)
+                sum += U.GetElement(i, j) * X.GetElement(j, 0);
+
+            double denominator = U.GetElement(i, i);
+            if (denominator == 0.0)
+                throw std::runtime_error("Division by zero encountered in U matrix (matrix is singular)");
+
+            X.SetElement(i, 0, (Y.GetElement(i, 0) - sum) / denominator);
+        }
+
+        return X;
+    }
+
+    void LUDecomposition(const Matrix& A, Matrix& L, Matrix& U)
     {
         size_t n = A.GetHeight();
 
         if (A.GetWidth() != n)
             throw std::invalid_argument("LU decomposition requires a square matrix.");
 
-        Matrix L(n), U(n);
+        L = Matrix(n);
+        U = Matrix(n);
 
         for (size_t i = 0; i < n; i++)
         {
@@ -42,57 +78,5 @@ namespace NumericalMethods
                 }
             }
         }
-
-        return { L, U };
     }
-
-    Matrix ForwardSubstitution(const Matrix& L, const Matrix& b)
-    {
-        size_t n = L.GetHeight();
-        Matrix y(n, 1);
-
-        for (size_t i = 0; i < n; i++)
-        {
-            double sum = 0.0;
-            for (size_t j = 0; j < i; j++)
-                sum += L.GetElement(i, j) * y.GetElement(j, 0);
-
-            double result = (b.GetElement(i, 0) - sum) / L.GetElement(i, i);
-            y.SetElement(i, 0, result);
-        }
-
-        return y;
-    }
-
-    Matrix BackwardSubstitution(const Matrix& U, const Matrix& y)
-    {
-        size_t n = U.GetHeight();
-        Matrix x(n, 1);
-
-        for (int i = n - 1; i >= 0; i--)
-        {
-            double sum = 0.0;
-            for (int j = i + 1; j < n; j++)
-                sum += U.GetElement(i, j) * x.GetElement(j, 0);
-
-            double result = (y.GetElement(i, 0) - sum) / U.GetElement(i, i);
-            x.SetElement(i, 0, result);
-        }
-
-        return x;
-    }
-
-    Matrix SolveGaussianLU(const Matrix& A, const Matrix& b)
-    {
-        if (A.GetHeight() != b.GetHeight() || b.GetWidth() != 1)
-            throw std::invalid_argument("Invalid dimensions for A or b in Gaussian LU solver");
-
-        auto [L, U] = LUDecomposition(A);
-
-        Matrix y = ForwardSubstitution(L, b);
-        Matrix x = BackwardSubstitution(U, y);
-
-        return x;
-    }
-
 }

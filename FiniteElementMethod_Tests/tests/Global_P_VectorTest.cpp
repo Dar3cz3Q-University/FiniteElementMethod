@@ -54,7 +54,7 @@ TEST(Global_P_VectorTest, GeneratesValidVectorFor_Test1_4_4)
 
     // Then
     for (int i = 0; i < 16; i++)
-        EXPECT_NEAR(globalPVectorFixture_1_4_4[i], simulation.m_Grid.m_Vector_P.GetElement(i, 0), EPSILON);
+        EXPECT_NEAR(globalPVectorFixture_1_4_4[i], simulation.m_Grid.m_GlobalPVector.GetElement(i, 0), EPSILON);
 }
 
 TEST(Global_P_VectorTest, GeneratesValidVectorFor_Test2_4_4)
@@ -67,5 +67,5 @@ TEST(Global_P_VectorTest, GeneratesValidVectorFor_Test2_4_4)
 
     // Then
     for (int i = 0; i < 16; i++)
-        EXPECT_NEAR(globalPVectorFixture_2_4_4[i], simulation.m_Grid.m_Vector_P.GetElement(i, 0), EPSILON);
+        EXPECT_NEAR(globalPVectorFixture_2_4_4[i], simulation.m_Grid.m_GlobalPVector.GetElement(i, 0), EPSILON);
 }

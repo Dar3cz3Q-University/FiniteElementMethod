@@ -4,31 +4,29 @@
 #include "SurfaceEnum.h"
 #include "Matrix.h"
 
-class UniversalElement
+class Surface
 {
     // Singleton Pattern
 public:
-    ~UniversalElement();
-    UniversalElement(UniversalElement&) = delete;
-    void operator=(const UniversalElement&) = delete;
-    static UniversalElement* GetInstance();
+    ~Surface();
+    Surface(Surface&) = delete;
+    void operator=(const Surface&) = delete;
+    static Surface* GetInstance();
 
 private:
-    UniversalElement();
+    Surface();
 
 private:
-    static UniversalElement* m_Instance;
+    static Surface* m_Instance;
 
     // Logic of the class
 public:
     inline Matrix GetSurfaceMatrixForDirection(SurfaceEnum direction) const { return m_SurfaceMatricies.at(direction); }
     inline Matrix GetSurfaceVectorForDirection(SurfaceEnum direction) const { return m_PVectors.at(direction); }
-    inline std::vector<Matrix> GetCMatricies() const { return m_CMatricies; }
 
 private:
     std::map<SurfaceEnum, Matrix> m_SurfaceMatricies;
     std::map<SurfaceEnum, Matrix> m_PVectors;
-    std::vector<Matrix> m_CMatricies;
 };
 
 inline static const std::map<int, std::function<double(double, double)>> SHAPE_FUNCTIONS = {
