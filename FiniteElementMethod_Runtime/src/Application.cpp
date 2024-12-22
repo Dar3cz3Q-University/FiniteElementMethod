@@ -2,6 +2,9 @@
 
 #include "Application.h"
 
+// TODO: All displaying should be dependent on LOG_LEVEL
+// It is not implemented yet, so logs can be confusing if set on other than 'trace'
+
 int main(int argc, char** argv)
 {
 	Init();

@@ -22,6 +22,7 @@ public:
 public:
 	Matrix operator*(const Matrix& matrix) const;
 	Matrix operator+(const Matrix& matrix) const;
+	Matrix operator-(const Matrix& matrix) const;
 	Matrix operator*(double scalar) const;
 
 private:
