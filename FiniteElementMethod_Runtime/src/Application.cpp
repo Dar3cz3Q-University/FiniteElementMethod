@@ -11,6 +11,8 @@ int main(int argc, char** argv)
 
 	try
 	{
+		PROFILE_SCOPE("Application");
+
 		Simulation simulation(FileTypeEnum::TEXT, "../Input/Grids/Test1_4_4.txt");
 		simulation.Run();
 	}

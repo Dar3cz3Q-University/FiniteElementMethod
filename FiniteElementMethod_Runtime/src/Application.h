@@ -1,8 +1,10 @@
 #pragma once
 
-#include "Configuration.h"
 #include "Simulation.h"
 #include "UniversalElement.h"
+
+#include "Timer.h"
+#include "Configuration.h"
 
 #include "multithreading/ThreadPool.h"
 

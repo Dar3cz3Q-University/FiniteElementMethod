@@ -10,8 +10,6 @@ void Grid::Calculate(const GlobalData& data)
     LOG_TRACE("Calculating elements in parallel mode");
     LOG_WARN("Displayed data can make no sense. Printing is not prepared for parallel yet ;) \n For better data analysing use 1 thread");
 
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-
     ThreadPool* threadPool = ThreadPool::GetInstance();
 
     for (auto& element : m_Elements)
