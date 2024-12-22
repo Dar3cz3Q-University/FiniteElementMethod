@@ -18,9 +18,9 @@ TEST(GaussEliminationTest, CalculatesValidXForFirstIntegrationPoint)
     B.SetElement(2, 0, 12);
 
     // When
-    Matrix L(3), U(3);
-    NumericalMethods::LUDecomposition(A, L, U);
-    Matrix X = NumericalMethods::GaussElimination(L, U, B);
+    auto [L, U] = NumericalMethods::LUDecomposition(A);
+    Matrix Y = NumericalMethods::ForwardSubstitution(L, B);
+    Matrix X = NumericalMethods::BackwardSubstitution(U, Y);
 
     // Then
     EXPECT_EQ(X.GetElement(0, 0), 2.25);
