@@ -28,6 +28,7 @@ project "FiniteElementMethod_Tests"
     "../FiniteElementMethod_Runtime/src/global_data",
     "../FiniteElementMethod_Runtime/src/grid",
     "../FiniteElementMethod_Runtime/src/file_reader",
+    "../FiniteElementMethod_Runtime/src/file_writer",
     "../FiniteElementMethod_Runtime/src/model",
     "../FiniteElementMethod_Runtime/src/simulation",
     "../FiniteElementMethod_Runtime/src/utils",

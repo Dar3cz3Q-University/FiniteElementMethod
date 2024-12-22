@@ -2,6 +2,7 @@
 
 #include "Matrix.h"
 #include "GlobalData.h"
+#include "VTKFileWriter.h"
 #include "numerical_methods/NumericalMethods.h"
 
 class EquationSolver

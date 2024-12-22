@@ -24,6 +24,8 @@ public:
 	void AddCMatrixToGlobalMatrix(const std::map<int, Node>& nodes, Matrix& matrix) const;
 	void AddPVectorToGlobalVector(const std::map<int, Node>& nodes, Matrix& matrix) const;
 
+	std::vector<int> GetNodesIDs() const { return m_NodesIDs; }
+
 private:
 	void CalculateJacobians(const std::map<int, Node>& nodes);
 	void CalculateDerivatives();

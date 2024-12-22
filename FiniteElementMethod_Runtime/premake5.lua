@@ -22,6 +22,7 @@ project "FiniteElementMethod_Runtime"
        "src/global_data",
        "src/grid",
        "src/file_reader",
+       "src/file_writer",
        "src/model",
        "src/simulation",
        "src/utils",
