@@ -91,22 +91,6 @@ Matrix Matrix::operator+(const Matrix& matrix) const
     return result;
 }
 
-Matrix Matrix::operator-(const Matrix& matrix) const
-{
-    if (m_Data.size() != matrix.m_Data.size() || m_Data[0].size() != matrix.m_Data[0].size())
-        throw std::invalid_argument("Matrices must have the same dimensions for addition");
-
-    size_t rows = m_Data.size();
-    size_t columns = m_Data[0].size();
-    Matrix result(rows, columns);
-
-    for (size_t row = 0; row < rows; row++)
-        for (size_t col = 0; col < columns; col++)
-            result.SetElement(row, col, GetElement(row, col) - matrix.GetElement(row, col));
-
-    return result;
-}
-
 Matrix Matrix::operator*(double scalar) const
 {
     size_t rows = m_Data.size();

@@ -2,7 +2,7 @@
 
 #include "Configuration.h"
 #include "Simulation.h"
-#include "UniversalElement.h"
+#include "Surface.h"
 
 #include "multithreading/ThreadPool.h"
 
@@ -20,5 +20,5 @@ void ShutDown()
 
 	ThreadPool::GetInstance()->~ThreadPool();
 	IntegrationPointDerivatives::GetInstance()->~IntegrationPointDerivatives();
-	UniversalElement::GetInstance()->~UniversalElement();
+	Surface::GetInstance()->~Surface();
 }

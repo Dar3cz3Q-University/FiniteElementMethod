@@ -3,7 +3,6 @@
 #include "FileReaderFactory.h"
 #include "GlobalData.h"
 #include "GridGenerator.h"
-#include "EquationSolver.h"
 
 #include "gtest/gtest.h"
 
@@ -21,9 +20,6 @@ private:
 	GlobalData m_SimulationData;
 	Grid m_Grid;
 	std::unique_ptr<FileReader> m_FileReader;
-
-private:
-	void DisplayData() const;
 
 public:
 	FRIEND_TEST(Global_H_MatrixTest, GeneratesValidMatrixFor_Test1_4_4);
