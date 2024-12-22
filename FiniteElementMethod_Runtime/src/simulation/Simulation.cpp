@@ -1,6 +1,7 @@
 #include "pch.h"
 
 #include "Simulation.h"
+#include "Timer.h"
 
 Simulation::Simulation(FileTypeEnum fileType, const std::filesystem::path& path)
 {
@@ -56,7 +57,10 @@ void Simulation::Run()
 	
 	LOG_INFO("Calculating necessary data");
 
-	m_Grid.Calculate(m_SimulationData);
+	{
+		PROFILE_SCOPE("Necessary data calculations");
+		m_Grid.Calculate(m_SimulationData);
+	}
 
 	LOG_INFO("Running simulation...");
 
@@ -67,7 +71,10 @@ void Simulation::Run()
 		m_Grid.GetP()
 	);
 
-	solver.Run();
+	{
+		PROFILE_SCOPE("Simulation");
+		solver.Run();
+	}
 
 	LOG_INFO("Simulation ended");
 
