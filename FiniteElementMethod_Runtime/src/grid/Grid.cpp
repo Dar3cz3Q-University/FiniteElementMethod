@@ -64,6 +64,7 @@ void Grid::CalculateGlobalData()
         element.AddPVectorToGlobalVector(m_Nodes, m_Vector_P);
     }
 
+#ifdef ENABLE_DEBUG_PRINT
     LOG_TRACE("Displaying global H matrix");
     std::cout << m_Matrix_H << "\n";
 
@@ -72,6 +73,7 @@ void Grid::CalculateGlobalData()
 
     LOG_TRACE("Displaying global P vector");
     std::cout << m_Vector_P << "\n";
+#endif
 }
 
 std::ostream& operator<<(std::ostream& os, const Grid& grid)

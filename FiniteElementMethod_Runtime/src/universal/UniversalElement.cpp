@@ -49,8 +49,10 @@ UniversalElement::UniversalElement()
 		for (auto& matrix : integrationPointsMatricies)
 			surfaceMatrix = surfaceMatrix + (matrix.Transpose() * matrix * legendreWeights.at(k++));
 
+#ifdef ENABLE_DEBUG_PRINT
 		LOG_TRACE("Displaying universal H matrix for {} surface", i);
 		std::cout << surfaceMatrix << "\n";
+#endif
 
 		m_SurfaceMatricies.insert({ (SurfaceEnum) i, surfaceMatrix });
 
@@ -62,8 +64,10 @@ UniversalElement::UniversalElement()
 		for (auto& matrix : integrationPointsMatricies)
 			pVector = (matrix.Transpose() * legendreWeights.at(k++)) + pVector;
 
+#ifdef ENABLE_DEBUG_PRINT
 		LOG_TRACE("Displaying universal P vector for {} surface", i);
 		std::cout << pVector << "\n";
+#endif
 
 		m_PVectors.insert({ (SurfaceEnum)i, pVector });
 	}
@@ -93,8 +97,10 @@ UniversalElement::UniversalElement()
 		Matrix cMatrix(4);
 		cMatrix = tempMatrix.Transpose() * tempMatrix;
 
+#ifdef ENABLE_DEBUG_PRINT
 		LOG_TRACE("Displaying universal C matricies in {} integration point", i++);
 		std::cout << cMatrix << "\n";
+#endif
 
 		m_CMatricies.push_back(cMatrix);
 	}

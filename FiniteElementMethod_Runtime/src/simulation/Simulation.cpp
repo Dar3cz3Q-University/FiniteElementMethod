@@ -56,8 +56,10 @@ void Simulation::Run()
 
 	VTKFileWriter::GetInstance().SaveMesh(m_Grid);
 
+#ifdef ENABLE_DEBUG_PRINT
 	DisplayData();
-	
+#endif
+
 	LOG_INFO("Calculating necessary data");
 
 	{

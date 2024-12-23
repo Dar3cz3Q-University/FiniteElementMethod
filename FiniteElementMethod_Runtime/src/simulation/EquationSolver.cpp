@@ -26,7 +26,7 @@ void EquationSolver::Run()
 
 	for (double time = dt; time <= m_GlobalData.GetSimulationTime(); time += dt)
 	{
-		LOG_TRACE("Simulation time = {}", time);
+		LOG_INFO("Simulation time = {}", time);
 
 		Matrix b = (m_Matrix_C * m_dT_Coef) * m_Vector_T + m_Vector_P;
 		Matrix y = NumericalMethods::ForwardSubstitution(L, b);

@@ -63,8 +63,11 @@ void Element::CalculateJacobians(const std::map<int, Node>& nodes)
 		LOG_TRACE("Calculating Jacobian in {} integration point for {} element", key, m_ElementID);
 		jacobian.Calculate(nodes, m_NodesIDs, key);
 
+#ifdef ENABLE_DEBUG_PRINT
 		LOG_TRACE("Displaying Jacobian in {} integration point for {} element", key, m_ElementID);
 		std::cout << jacobian << "\n";
+#endif
+
 	}
 }
 
@@ -75,8 +78,11 @@ void Element::CalculateDerivatives()
 		LOG_TRACE("Calculating derivatives in {} integration point for {} element", key, m_ElementID);
 		derivative.Calculate(m_Jacobians.at(key), key);
 
+#ifdef ENABLE_DEBUG_PRINT
 		LOG_TRACE("Displaying derivatives in {} integration point for {} element", key, m_ElementID);
 		std::cout << derivative << "\n";
+#endif
+
 	}
 }
 
@@ -102,8 +108,11 @@ void Element::CalculateHMatricies(double conductivity)
 
 		matrix = matrix * conductivity * dV;
 
+#ifdef ENABLE_DEBUG_PRINT
 		LOG_TRACE("Displaying H matrix in {} integration point for {} element", key, m_ElementID);
 		std::cout << matrix << "\n";
+#endif
+
 	}
 }
 
@@ -118,8 +127,11 @@ void Element::CalculateCMatricies(double density, double specificHeat)
 		double dV = m_Jacobians.at(key).GetMatrixDeterminant();
 		matrix = universalCMatricies.at(key - 1) * density * specificHeat * dV;
 
+#ifdef ENABLE_DEBUG_PRINT
 		LOG_TRACE("Displaying C matrix in {} integration point for {} element", key, m_ElementID);
 		std::cout << matrix << "\n";
+#endif
+
 	}
 }
 
@@ -144,8 +156,11 @@ void Element::AddBoundaryHMatricies(const std::map<int, Node>& nodes, double alp
 		}
 	}
 
+#ifdef ENABLE_DEBUG_PRINT
 	LOG_TRACE("Displaying global H matrix with boundary condition for {} element", m_ElementID);
 	std::cout << m_Matrix_H;
+#endif
+
 }
 
 void Element::CalculateGlobalMatricies()
@@ -163,11 +178,13 @@ void Element::CalculateGlobalMatricies()
 		temp_C = temp_C + m_C_Matricies.at(i) * derivatives->GetIntegrationWeight(i - 1).x * derivatives->GetIntegrationWeight(i - 1).y;
 	}
 
+#ifdef ENABLE_DEBUG_PRINT
 	LOG_TRACE("Displaying global H matrix for {} element", m_ElementID);
 	std::cout << temp_H << "\n";
 
 	LOG_TRACE("Displaying global C matrix for {} element", m_ElementID);
 	std::cout << temp_C << "\n";
+#endif
 
 	m_Matrix_H = temp_H;
 	m_Matrix_C = temp_C;
@@ -194,8 +211,10 @@ void Element::CalculatePVector(const std::map<int, Node>& nodes, double alpha, d
 		}
 	}
 
+#ifdef ENABLE_DEBUG_PRINT
 	LOG_TRACE("Displaying global P vector for {} element", m_ElementID);
 	std::cout << m_Vector_P;
+#endif
 }
 
 std::ostream& operator<<(std::ostream& os, const Element& element)

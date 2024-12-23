@@ -2,8 +2,7 @@
 
 #include "Application.h"
 
-// TODO: All displaying should be dependent on LOG_LEVEL
-// It is not implemented yet, so logs can be confusing if set on other than 'trace'
+// TODO: Debug print should be associated with LOG_LEVEL
 
 int main(int argc, char** argv)
 {
@@ -13,7 +12,7 @@ int main(int argc, char** argv)
 	{
 		PROFILE_SCOPE("Application");
 
-		Simulation simulation(FileTypeEnum::TEXT, "../Input/Grids/Test2_4_4_MixGrid.txt");
+		Simulation simulation(FileTypeEnum::TEXT, "../Input/Grids/Test3_31_31_kwadrat.txt");
 		simulation.Run();
 	}
 	catch (const std::exception& e)
