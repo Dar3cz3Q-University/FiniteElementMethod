@@ -7,7 +7,7 @@ UniversalElement::UniversalElement()
 {
 	LOG_TRACE("Calculating universal elements");
 
-	int integrationSchema = (int)INTEGRATION_SCHEMA + 1;
+	int integrationSchema = (int)INTEGRATION_SCHEMA;
 	std::vector<double> legendreValues = LEGENDRE_POINTS.at(integrationSchema);
 	std::vector<double> legendreWeights = LEGENDRE_WEIGHTS.at(integrationSchema);
 

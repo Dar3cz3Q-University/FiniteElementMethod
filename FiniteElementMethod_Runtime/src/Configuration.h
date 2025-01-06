@@ -16,5 +16,5 @@ constexpr IntegrationSchema INTEGRATION_SCHEMA = IntegrationSchema::TWO_POINTS;
 
 constexpr int PRINT_PRECISION = 3;
 
-
-constexpr int INTEGRATION_POINTS_COUNT = 1 << ((int) INTEGRATION_SCHEMA + 1); // TODO: Move this line to a different file
+// TODO: Move this line to a different file
+constexpr int INTEGRATION_POINTS_COUNT = ((int)INTEGRATION_SCHEMA + 1) * ((int)INTEGRATION_SCHEMA + 1);
