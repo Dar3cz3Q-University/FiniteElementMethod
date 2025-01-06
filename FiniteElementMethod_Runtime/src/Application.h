@@ -14,6 +14,8 @@ void Init()
 
 	Log::Init();
 	ThreadPool::GetInstance()->Start(THREADS_COUNT);
+	IntegrationPointDerivatives::GetInstance();
+	UniversalElement::GetInstance();
 }
 
 void ShutDown()

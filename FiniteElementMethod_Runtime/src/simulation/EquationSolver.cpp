@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "EquationSolver.h"
 
+#include "MathUtils.h"
+
 EquationSolver::EquationSolver(const GlobalData& data, const Matrix& H, const Matrix& C, const Matrix& P)
 	: m_GlobalData(data), m_Matrix_C(C), m_Vector_P(P)
 {
@@ -33,6 +35,10 @@ void EquationSolver::Run()
 		Matrix x = NumericalMethods::BackwardSubstitution(U, y);
 
 		m_Vector_T = x;
+
+		auto [min, max] = GetMinMax(m_Vector_T);
+
+		LOG_INFO("Min: {}, max: {}", min, max);
 
 		VTKFileWriter::GetInstance().SaveTemperatureInTime(m_Vector_T);
 	}
