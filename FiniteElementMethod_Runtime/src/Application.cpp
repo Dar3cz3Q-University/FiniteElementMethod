@@ -12,7 +12,7 @@ int main(int argc, char** argv)
 	{
 		PROFILE_SCOPE("Application");
 
-		Simulation simulation(FileTypeEnum::TEXT, "../Input/Grids/Test2_4_4_MixGrid.txt");
+		Simulation simulation(FileTypeEnum::TEXT, "../Input/Grids/Test1_4_4.txt");
 		simulation.Run();
 	}
 	catch (const std::exception& e)

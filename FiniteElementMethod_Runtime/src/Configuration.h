@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IntegrationShema.h"
+#include "IntegrationSchema.h"
 
 // Set number of integration points
 constexpr IntegrationSchema INTEGRATION_SCHEMA = IntegrationSchema::TWO_POINTS;
