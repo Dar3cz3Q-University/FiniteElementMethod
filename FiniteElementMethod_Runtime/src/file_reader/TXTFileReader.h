@@ -29,7 +29,13 @@ private:
         { GlobalDataEnum::DENSITY, [&](const std::string& value) { m_GlobalData.SetDensity(std::stod(value)); }},
         { GlobalDataEnum::SPECIFIC_HEAT, [&](const std::string& value) { m_GlobalData.SetSpecificHeat(std::stod(value)); }},
         { GlobalDataEnum::ELEMENTS_NUMBER, [&](const std::string& value) { m_GlobalData.SetReadElementsNumber(std::stoi(value)); }},
-        { GlobalDataEnum::NODES_NUMBER, [&](const std::string& value) { m_GlobalData.SetReadNodesNumber(std::stoi(value)); }}
+        { GlobalDataEnum::NODES_NUMBER, [&](const std::string& value) { m_GlobalData.SetReadNodesNumber(std::stoi(value)); }},
+
+        { GlobalDataEnum::CONDUCTIVITY_2, [&](const std::string& value) { m_GlobalData.SetConductivity_2(std::stod(value)); }},
+		{ GlobalDataEnum::ALPHA_2, [&](const std::string& value) { m_GlobalData.SetAlpha_2(std::stod(value)); }},
+		{ GlobalDataEnum::TOT_2, [&](const std::string& value) { m_GlobalData.SetTot_2(std::stod(value)); }},
+		{ GlobalDataEnum::DENSITY_2, [&](const std::string& value) { m_GlobalData.SetDensity_2(std::stod(value)); }},
+		{ GlobalDataEnum::SPECIFIC_HEAT_2, [&](const std::string& value) { m_GlobalData.SetSpecificHeat_2(std::stod(value)); }}
     };
 };
 

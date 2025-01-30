@@ -25,11 +25,11 @@ void Element::Calculate(const std::map<int, Node>& nodes, const GlobalData& data
 	// Order of running this methods is pretty important :)
 	CalculateJacobians(nodes);
 	CalculateDerivatives();
-	CalculateHMatricies(data.GetConductivity());
-	CalculateCMatricies(data.GetDensity(), data.GetSpecificHeat());
+	CalculateHMatricies(m_Parameters.Conductivity);
+	CalculateCMatricies(m_Parameters.Density, m_Parameters.SpecificHeat);
 	CalculateGlobalMatricies();
-	CalculatePVector(nodes, data.GetAlpha(), data.GetTot());
-	AddBoundaryHMatricies(nodes, data.GetAlpha());
+	CalculatePVector(nodes, m_Parameters.Alpha, m_Parameters.Tot);
+	AddBoundaryHMatricies(nodes, m_Parameters.Alpha);
 }
 
 void Element::AddHMatrixToGlobalMatrix(const std::map<int, Node>& nodes, Matrix& matrix) const

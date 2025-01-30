@@ -10,6 +10,15 @@
 
 constexpr auto ELEMENT_NODES_SIZE = 4;
 
+struct Parameters
+{
+	double Alpha;
+	double Density;
+	double SpecificHeat;
+	double Conductivity;
+	double Tot;
+};
+
 class Element 
 {
 public:
@@ -26,6 +35,8 @@ public:
 
 	std::vector<int> GetNodesIDs() const { return m_NodesIDs; }
 
+	void SetParameters(Parameters parameters) { m_Parameters = parameters; };
+
 private:
 	void CalculateJacobians(const std::map<int, Node>& nodes);
 	void CalculateDerivatives();
@@ -38,6 +49,7 @@ private:
 
 private:
 	int m_ElementID;
+	Parameters m_Parameters;
 	std::vector<int> m_NodesIDs;
 	std::map<int, Jacobian> m_Jacobians;
 	std::map<int, Derivatives> m_Derivatives;

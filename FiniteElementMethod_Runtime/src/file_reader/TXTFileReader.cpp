@@ -73,6 +73,40 @@ DataSet TXTFileReader::Read(const std::filesystem::path& path)
             for (auto& value : values)
                 m_Grid.SetNodeAsBoundaryCondition(std::stoi(value));
         }
+		else if (dataType == DataTypeEnum::MATERIAL1)
+		{
+			std::vector<std::string> values = Split(line, ',');
+
+            for (auto& value : values)
+            {
+                Parameters temp = {
+                    m_GlobalData.GetAlpha(),
+                    m_GlobalData.GetDensity(),
+                    m_GlobalData.GetSpecificHeat(),
+                    m_GlobalData.GetConductivity(),
+                    m_GlobalData.GetTot()
+                };
+
+                m_Grid.SetParametersForElement(std::stoi(value), temp);
+            }
+		}
+		else if (dataType == DataTypeEnum::MATERIAL2)
+		{
+			std::vector<std::string> values = Split(line, ',');
+
+			for (auto& value : values)
+			{
+				Parameters temp = {
+					m_GlobalData.GetAlpha_2(),
+					m_GlobalData.GetDensity_2(),
+					m_GlobalData.GetSpecificHeat_2(),
+					m_GlobalData.GetConductivity_2(),
+					m_GlobalData.GetTot_2()
+				};
+
+				m_Grid.SetParametersForElement(std::stoi(value), temp);
+			}
+		}
     }
 
     file.close();
